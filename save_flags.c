@@ -1,9 +1,11 @@
-#include <stdio.h>
 #include <stdarg.h>
-#define ARGS_BUF "csp,diouxX,feg,#0-+ i,ll,hh,lhL,brk,',*,$"
+#include <strings.h>
+#include <stdio.h>
+#define ARGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$"
 #define ARGS_SIZE 32
 
 int		ft_strncmp(char *s1, char *s2, int n);
+int		first_char_nbr(char *s);
 
 void	save_flag(char *flags, char *format, int argw)
 {
@@ -24,9 +26,8 @@ void	save_flag(char *flags, char *format, int argw)
 			else
 				s += argw;
 		}
-		s++;
-		if (*s != ',')
-			pos++;
+		s += first_char_nbr(s);
+		pos++;
 	}
 }
 
@@ -76,10 +77,14 @@ int		main(void)
 {
 	static char	flags[ARGS_SIZE];
 	char		*args;
+	char		*arg;
 	int			i;
 
-	args = "phhlL";
+	args = "cspdiouxXfeg#0-+ llhhlhLbrk'*$";
+	arg = ARGS_BUF;
+	printf("%s", arg);
 	save_all_flags(flags, args);
+	printf("\n");
 	i = 0;
 	while (i < ARGS_SIZE)
 		printf("%d", flags[i++]);
