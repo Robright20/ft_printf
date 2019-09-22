@@ -31,7 +31,7 @@ void	save_flag(char *flags, char *format, int argw)
 	}
 }
 
-int		ft_strncmp(char *s1, char *s2, int n)
+int		ft_strnstr(char *s1, char *s2, int n)
 {
 	int		rep;
 
@@ -56,7 +56,7 @@ int		first_char_nbr(char *s)
 	int		rep;
 
 	(void)((i = 1) && (rep = 1));
-	while(s[i] && (s[0] == s[i++]))
+	while (s[i] && (s[0] == s[i++]))
 		rep++;
 	return (rep);
 }
@@ -80,7 +80,7 @@ int		main(void)
 	char		*arg;
 	int			i;
 
-	args = "cspdiouxXfeg#0-+ llhhlhLbrk'*$";
+	args = "cspddiXfeg#0-+llhhlhLbrk'";
 	arg = ARGS_BUF;
 	printf("%s", arg);
 	save_all_flags(flags, args);
