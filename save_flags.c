@@ -6,13 +6,13 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 20:09:20 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/22 21:47:57 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/09/23 00:50:00 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	save_flag(char *flags, char *format, int argw)
+void	save_flag(int *flags, char *format, int argw)
 {
 	char	*s;
 	int		pos;
@@ -25,7 +25,7 @@ void	save_flag(char *flags, char *format, int argw)
 		{
 			if (s[0] != s[argw])
 			{
-				flags[pos] = 1;
+				set_flag(*flags, pos);
 				break ;
 			}
 			else
@@ -55,7 +55,7 @@ int		ft_strnstr(char *s1, char *s2, int n)
 	return (rep);
 }
 
-void	save_all_flags(char *flags, char *args)
+void	save_all_flags(int *flags, char *args)
 {
 	int		o;
 
