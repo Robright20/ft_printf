@@ -1,11 +1,16 @@
-#include <stdarg.h>
-#include <strings.h>
-#include <stdio.h>
-#define ARGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$"
-#define ARGS_SIZE 32
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   save_flags.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/22 20:09:20 by fokrober          #+#    #+#             */
+/*   Updated: 2019/09/22 21:47:57 by fokrober         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		ft_strncmp(char *s1, char *s2, int n);
-int		first_char_nbr(char *s);
+#include "ft_printf.h"
 
 void	save_flag(char *flags, char *format, int argw)
 {
@@ -16,7 +21,7 @@ void	save_flag(char *flags, char *format, int argw)
 	pos = 0;
 	while (*s)
 	{
-		if (ft_strncmp(s, format, argw) == argw)
+		if (ft_strnstr(s, format, argw) == argw)
 		{
 			if (s[0] != s[argw])
 			{
@@ -50,20 +55,9 @@ int		ft_strnstr(char *s1, char *s2, int n)
 	return (rep);
 }
 
-int		first_char_nbr(char *s)
-{
-	int		i;
-	int		rep;
-
-	(void)((i = 1) && (rep = 1));
-	while (s[i] && (s[0] == s[i++]))
-		rep++;
-	return (rep);
-}
-
 void	save_all_flags(char *flags, char *args)
 {
-	int			o;
+	int		o;
 
 	while (*args)
 	{
@@ -73,21 +67,14 @@ void	save_all_flags(char *flags, char *args)
 	}
 }
 
-int		main(void)
+int		first_char_nbr(char *s)
 {
-	static char	flags[ARGS_SIZE];
-	char		*args;
-	char		*arg;
-	int			i;
+	int		rep;
+	int		i;
 
-	args = "cspddiXfeg#0-+llhhlhLbrk'";
-	arg = ARGS_BUF;
-	printf("%s", arg);
-	save_all_flags(flags, args);
-	printf("\n");
-	i = 0;
-	while (i < ARGS_SIZE)
-		printf("%d", flags[i++]);
-	printf("\n");
-	return (0);
+	rep = 1;
+	i = 1;
+	while (s[i] && (s[0] == s[i++]))
+		rep++;
+	return (rep);
 }
