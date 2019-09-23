@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 20:09:20 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/23 20:38:53 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:00:42 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	save_all_flags(int *flags, char *args)
 {
 	int		o;
 
-	while (*args && !is_conv_spec(*args))
+	while (*args && !is_conv_spec(*args, ARGS_BUF))
 	{
 		o = first_char_nbr(args);
 		save_flag(flags, args, o);
@@ -77,4 +77,18 @@ int		first_char_nbr(char *s)
 	while (s[i] && (s[0] == s[i++]))
 		rep++;
 	return (rep);
+}
+
+int		is_conv_spec(char c, char *args)
+{
+	int		i;
+
+	i = 0;
+	while (i < CONV_BOUND)
+	{
+		if (args[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
