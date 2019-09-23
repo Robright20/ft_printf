@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/23 00:44:41 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/09/23 20:41:02 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ int		ft_strnstr(char *s1, char *s2, int n);
 void	save_flag(int *flags, char *format, int argw);
 int		first_char_nbr(char *s);
 void	save_all_flags(int *flags, char *args);
+int		is_conv_spec(char c);
 #endif
