@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/23 21:38:44 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/09/25 01:51:19 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,17 @@
 # define ARGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$"
 # define ARGS_SIZE 32
 # define CONV_BOUND 12
-# define set_flag(flags, pos) flags = (1 << pos) ^ flags
-# define set_flag_on(flags, pos) flags = (1 << pos) | flags
-# define reset_flags(flags) flags = 0
-# define is_flag_on(flags, pos) (((1 << pos) & flags) != 0)
+# define SET_FLAG(flags, pos) flags = (1 << pos) ^ flags
+# define SET_FLAG_ON(flags, pos) flags = (1 << pos) | flags
+# define RESET_FLAGS(flags) flags = 0
+# define IS_FLAG_ON(flags, pos) (((1 << pos) & flags) != 0)
 
+typedef enum	e_flag
+{
+	CHAR, STRING, POINTER, DEC, IDEC, OCTAL, UINT, HEX, UHEX, FLOAT, EXPO,
+	GEXPO, HASH, ZERO, MINUS, PLUS, SPACE, LLONG, HH, LONG, H, L, BIN, R,
+	K, QUOTE, STAR, DOLLAR
+}				t_flag;
 int		ft_strnstr(char *s1, char *s2, int n);
 void	save_flag(int *flags, char *format, int argw);
 int		first_char_nbr(char *s);

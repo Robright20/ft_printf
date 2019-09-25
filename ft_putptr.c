@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/22 20:06:49 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/25 01:42:53 by fokrober         ###   ########.fr       */
+/*   Created: 2019/09/24 21:17:13 by fokrober          #+#    #+#             */
+/*   Updated: 2019/09/25 01:57:25 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	printb(int a)
+/*
+int		ft_putptr(int *flags, int width, int precision, va_list ap)
 {
-	int		i;
-	int		p;
-
-	i = 0;
-	while (i < 32)
-	{
-		p = is_flag_on(a, i);
-		printf("%d ", p);
-		i++;
-	}
+	set_flag(flags, HASH);
+	set_flag(flags, flagtoi(EL, ARGS_BUF));
+	return (ft_putxnbr(flags, width, precision, ap));
 }
+*/
 
 int		main(void)
 {
-	int		flags;
-	char	*args;
-	char	*arg;
+	char	*s;
 
-	flags = 0;
-	args = "#0-+d llhhlhLbrk'*$";
-	arg = ARGS_BUF;
-	save_all_flags(&flags, args);
-	printb(flags);
+	s = ARGS_BUF;
+	printf("%c\n", s[IDEC]);
 	return (0);
 }
