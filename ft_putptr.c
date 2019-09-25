@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 21:17:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/25 14:41:10 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/09/25 18:41:33 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		ft_putptr(int *flags, int width, int precision, va_list ap)
 {
-	set_flag(flags, HASH);
-	set_flag(flags, EL);
+	SET_FLAG(flags, HASH);
+	SET_FLAG(flags, EL);
 	return (ft_putxnbr(flags, width, precision, ap));
 }
 

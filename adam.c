@@ -6,20 +6,11 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/24 15:36:44 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/09/25 15:10:02 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-#define FLAG "+#- 0wpoxX"
-#define set_flag(flag, index) flag = flag | (1 << (32 - index))
-#define is_on(flag, index) (flag & (1 << (32 - index))) != 0
-
-typedef enum 	e_flag
-{
-	PLUS = 1, HASH = 2, MINS = 3, SPACE = 4, ZERO = 5, WIDTH = 6, PRECISION = 7, OCTAL = 8, x = 9, X = 10
-}				t_flag;
+#include "ft_printf.h"
 
 void            printb(unsigned int c)
 {

@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/25 01:51:19 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/09/25 15:09:29 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include <strings.h>
+# include "libft.h"
 # include <stdio.h>
 # define ARGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$"
 # define ARGS_SIZE 32
