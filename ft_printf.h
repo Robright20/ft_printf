@@ -16,9 +16,10 @@
 # include <strings.h>
 # include "libft.h"
 # include <stdio.h>
-# define FLAG_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$"
+# define ARGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$"
+# define ARGS_SIZE 32
 # define CONV_BOUND 12
-# define SET_FLAG_OFF(flags, pos) flags = (1 << pos) ^ flags
+# define SET_FLAG(flags, pos) flags = (1 << pos) ^ flags
 # define SET_FLAG_ON(flags, pos) flags = (1 << pos) | flags
 # define RESET_FLAGS(flags) flags = 0
 # define IS_FLAG_ON(flags, pos) (((1 << pos) & flags) != 0)
