@@ -6,19 +6,19 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/26 21:21:12 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/09/26 23:38:42 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
-#define FLAG "+#- 0wpoxX"
+#define FLAG "+#- 0wpoxXdi"
 #define set_flag(flag, index) flag = flag | (1 << (32 - index))
 #define is_on(flag, index) (flag & (1 << (32 - index))) != 0
 
 typedef enum 	e_flag
 {
-	PLUS = 1, HASH, MINUS, SPACE, ZERO, WIDTH, PRECISION, OCTAL, x, X
+	PLUS = 1, HASH, MINUS, SPACE, ZERO, WIDTH, PRECISION, OCTAL, x, X, DEC1, DEC2
 }				t_flag;
 
 void            printb(unsigned int c)
@@ -35,11 +35,23 @@ void            printb(unsigned int c)
 	write(1, "\n", 1);
 }
 
+void	nulltoblack(char *s, int until)
+{
+	while (until)
+	{
+		if (!*s)
+			*s = '^';
+		s++;
+		until--;
+	}
+}
+
+
 void	blacktozero(char *s, int until)
 {
 	while (until)
 	{
-		if (*s == ' ')
+		if (*s == '^')
 			*s = '0';
 		s++;
 		until--;
@@ -56,19 +68,27 @@ void	shift(char *s, int shift_value)
 	while (--i >= 0)
 		s[i + shift_value] = s[i];
 	while (--shift_value >= 0)
-		s[shift_value] = ' ';
+		s[shift_value] = '^';
 }
 
 void	fprecision(char **s, int flag, int precision, int shift_value)
 {
 	char	*tmp;
+	int		avoid_prefix;// 0x 0X 0
 	
+	avoid_prefix =  is_on(flag, PLUS);
+	avoid_prefix += ((is_on(flag, HASH) && !(is_on(flag, DEC1))) && ((is_on(flag, X) || is_on(flag, x)) || is_on(flag, OCTAL)));
+	avoid_prefix += (is_on(flag, X) || is_on(flag, x)) && is_on(flag, HASH) && (!(is_on(flag, OCTAL))) && !(is_on(flag, DEC1));
+	
+	printf("hash == %d\n", avoid_prefix);
 	tmp = *s;
-	*s = ft_memalloc(sizeof(char) * (precision + 1));
+	*s = ft_memalloc(sizeof(char) * (precision + avoid_prefix + 1));
 	ft_strcpy(*s, tmp);
 	ft_strdel(&tmp);
+	*s += avoid_prefix;
 	shift(*s, shift_value);
 	blacktozero(*s, shift_value);
+	*s -= avoid_prefix;
 }
 
 void	fwidth(char **s, int flag, int precision, int width)
@@ -76,42 +96,47 @@ void	fwidth(char **s, int flag, int precision, int width)
 	char	*tmp;
 	int		len;
 	int		shift_value;
-
-	len = (int)ft_strlen(*s);
+	int		avoid_prefix;// +0x +0X +0
+	
+	avoid_prefix =  is_on(flag, PLUS);
+	avoid_prefix += ((is_on(flag, HASH) && !(is_on(flag, DEC1))) && ((is_on(flag, X) || is_on(flag, x)) || is_on(flag, OCTAL)));
+	avoid_prefix += (is_on(flag, X) || is_on(flag, x)) && is_on(flag, HASH) && (!(is_on(flag, OCTAL))) && !(is_on(flag, DEC1));
+	len = (int)ft_strlen(*s) - avoid_prefix;
 	tmp = *s;
 	*s = ft_memalloc(sizeof(char) * (width + 1));
 	ft_strcpy(*s, tmp);
-	printf("s = %s\n", *s);
 	ft_strdel(&tmp);
 	shift_value = len > precision ? 0 : precision - len;
+	*s += avoid_prefix;
 	shift(*s, shift_value);
-	printf("s = %s\n", *s);
 	blacktozero(*s, shift_value);
+	*s -= avoid_prefix;
 	printf("s = %s\n", *s);
 	//printf("shift value = %d\n", shift_value);
 	len = (int)ft_strlen(*s);
 	if (!(is_on(flag, MINUS)))
 	{
+		printf("--------------  ------\n");
 		shift(*s, width - len);
 		if (is_on(flag, ZERO))
 			blacktozero(*s, width - len);
 	}
 	else
-	{
-		shift(*s, width - len);
-		//blacktozero(*s, width - len);
-	}
+		nulltoblack(*s, width);
 }
 
 int		ft_print(char *s, int flag, int precision, int width)
 {
 	int		len;
+	int		p;
 
+	p = 0;
+	p = is_on(flag, PLUS) + is_on(flag, HASH) + (is_on(flag, x) || is_on(flag, X));
 	len = (int)ft_strlen(s);
-	if (precision >= len && precision >= width)
+	if (precision >= (len - p) && precision >= width)
 	{
 		printf("-----pppp----------\n");
-		fprecision(&s, flag, precision, precision - len);
+		fprecision(&s, flag, precision, precision - (len - p));
 		ft_putendl(s);
 		return (precision);
 	}
@@ -361,11 +386,11 @@ int 	main()
 	unsigned int	flag = 0;
 
 	set_flag(flag, HASH);
-	set_flag(flag, PLUS);
-	//set_flag(flag, MINUS);
+	//set_flag(flag, PLUS);
+	set_flag(flag, MINUS);
 	set_flag(flag, ZERO);
-	
 	set_flag(flag, x);
 	printb(flag);
-	ft_putxnbr(10, flag, 10, 15);
+	ft_putxnbr(100, flag, 29, 20);
+	//printf("hexa |%#5x|\n", 100);
 }
