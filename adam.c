@@ -6,11 +6,20 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/25 15:10:02 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/09/26 21:17:20 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
+#include <stdio.h>
+#define FLAG "+#- 0wpoxX"
+#define set_flag(flag, index) flag = flag | (1 << (32 - index))
+#define is_on(flag, index) (flag & (1 << (32 - index))) != 0
+
+typedef enum 	e_flag
+{
+	PLUS = 1, HASH, MINUS, SPACE, ZERO, WIDTH, PRECISION, OCTAL, x, X
+}				t_flag;
 
 void            printb(unsigned int c)
 {
@@ -26,56 +35,105 @@ void            printb(unsigned int c)
 	write(1, "\n", 1);
 }
 
-/*int		ft_holder_len(char *s, int flag, int width, int precision)
+void	blacktozero(char *s, int until)
 {
-	int		len;
-	int		i;
-	t_flag	j;
-
-	i = -1;
-	len = ft_strlen(s);
-	len = width > (precision + is_on(0) + is_on(1)) ? width : precision + is_on(0) + is_on(1);
-	while (++i < 5)
+	while (until)
 	{
-		is_on(flag, i);
-
+		if (*s == ' ')
+			*s = '0';
+		s++;
+		until--;
 	}
-	return (len);
+}
+void	shift(char *s, int shift_value)
+{
+	int		i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	//printf("i = %d\n", i);
+	while (--i >= 0)
+		s[i + shift_value] = s[i];
+	while (--shift_value >= 0)
+		s[shift_value] = ' ';
 }
 
-int		ft_print(char *s, int flag, int width, int precision)
+void	fprecision(char **s, int flag, int precision, int shift_value)
 {
-	t_flag	j;
+	char	*tmp;
+	
+	tmp = *s;
+	*s = ft_memalloc(sizeof(char) * (precision + 1));
+	ft_strcpy(*s, tmp);
+	ft_strdel(&tmp);
+	shift(*s, shift_value);
+	blacktozero(*s, shift_value);
+}
+
+void	fwidth(char **s, int flag, int precision, int width)
+{
+	char	*tmp;
+	int		len;
+	int		shift_value;
+
+	len = (int)ft_strlen(*s);
+	tmp = *s;
+	*s = ft_memalloc(sizeof(char) * (width + 1));
+	ft_strcpy(*s, tmp);
+	printf("s = %s\n", *s);
+	ft_strdel(&tmp);
+	shift_value = len > precision ? 0 : precision - len;
+	shift(*s, shift_value);
+	printf("s = %s\n", *s);
+	blacktozero(*s, shift_value);
+	printf("s = %s\n", *s);
+	//printf("shift value = %d\n", shift_value);
+	len = (int)ft_strlen(*s);
+	if (!(is_on(flag, MINUS)))
+	{
+		shift(*s, width - len);
+		if (is_on(flag, ZERO))
+			blacktozero(*s, width - len);
+	}
+	else
+	{
+		shift(*s, width - len);
+		//blacktozero(*s, width - len);
+	}
+}
+
+int		ft_print(char *s, int flag, int precision, int width)
+{
 	int		len;
 
 	len = (int)ft_strlen(s);
-	if (len > width && len > precision)
+	if (precision >= len && precision >= width)
 	{
-		if (is_on(((((flag, (j = PLUS)))))))
-
-			write(1, "+", 1);
-		if (is_on(((flag, (j = HASH)))))
-		{
-			if (is_on((j = OCTAL)))
-				write(1, "", 1);
-			if (is_on((j = HEX)))
-				write(1, "ox", 1);
-		
-		}
-		write(1, s, len);
-		return (len)
+		printf("-----pppp----------\n");
+		fprecision(&s, flag, precision, precision - len);
+		ft_putendl(s);
+		return (precision);
 	}
-}*/
+	if (width >= len && width >= precision)
+	{
+		printf("------www--%d--------\n", len);
+		fwidth(&s, flag, precision, width);
+		//printf("s = %s\n", s);
+		ft_putendl(s);
+		return (width);
+	}
+	ft_putendl(s);
+	return (len);
+}
 
 char	*ft_hash_plus_alloc_o(int *i, int flag)
 {
 	char	*s;
-	t_flag	j;
 
-
-	if (is_on(flag, (j = HASH)))
+	if (is_on(flag, HASH))
 	{
-		if (is_on(flag, (j = PLUS)))
+		if (is_on(flag, PLUS))
 		{
 			*i += 2;
 			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
@@ -104,11 +162,10 @@ char	*ft_hash_plus_alloc_o(int *i, int flag)
 char	*ft_hash_plus_alloc_heX(int *i, int flag)
 {
 	char	*s;
-	t_flag	j;
 
-	if (is_on(flag, (j = HASH)))
+	if (is_on(flag, HASH))
 	{
-		if (is_on(flag, (j = PLUS)))
+		if (is_on(flag, PLUS))
 		{
 			*i += 3;
 			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
@@ -138,11 +195,10 @@ char	*ft_hash_plus_alloc_heX(int *i, int flag)
 char	*ft_hash_plus_alloc_hex(int *i, int flag)
 {
 	char	*s;
-	t_flag	j;
 
-	if (is_on(flag, (j = HASH)))
+	if (is_on(flag, HASH))
 	{
-		if (is_on(flag, (j = PLUS)))
+		if (is_on(flag, PLUS))
 		{
 			*i += 3;
 			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
@@ -172,15 +228,13 @@ char	*ft_hash_plus_alloc_hex(int *i, int flag)
 
 char	*ft_hash_plus_alloc(int *i, int flag)
 {
-	t_flag	j;
-
-	if (!(is_on(flag, (j = HASH))) && !(is_on(flag, (j = PLUS))))
+	if (!(is_on(flag, HASH)) && !(is_on(flag, PLUS)))
 		return (ft_memalloc(sizeof(char) * ((*i) + 1)));
-	if (is_on(flag, (j = OCTAL)))
+	if (is_on(flag, OCTAL))
 		return (ft_hash_plus_alloc_o(i, flag));
-	if (is_on(flag, (j = X)))
+	if (is_on(flag, X))
 		return (ft_hash_plus_alloc_heX(i, flag));
-	if (is_on(flag, (j = x)))
+	if (is_on(flag, x))
 		return (ft_hash_plus_alloc_hex(i, flag));
 	return (ft_memalloc(sizeof(char) * ((*i) + 1)));
 }
@@ -259,7 +313,7 @@ int		ft_putXnbr(unsigned int n, int flag)
 	return (0);
 }
 
-int		ft_putxnbr(unsigned int n, int flag)
+int		ft_putxnbr(unsigned int n, int flag, int precision, int width)
 {
 	char	*s;
 	char	*ret;
@@ -292,19 +346,26 @@ int		ft_putxnbr(unsigned int n, int flag)
 		i--;
 	}
 	ft_putendl(ret);
+	ft_print(ret, flag, precision, width);
 	ft_strdel(&s);
-	ft_strdel(&ret);
+	//ft_strdel(&ret);
 	return (a);
 }
 
 int 	main()
 {
+	/*char s[] = "65           ";
+	printf("%s\n", s);
+	blacktozero(s);
+	printf("%s\n", s);*/
 	unsigned int	flag = 0;
-	t_flag			j;
 
-	set_flag(flag, (j = HASH));
-	set_flag(flag, (j = PLUS));
-	set_flag(flag, (j = X));
+	set_flag(flag, HASH);
+	set_flag(flag, PLUS);
+	//set_flag(flag, MINUS);
+	set_flag(flag, ZERO);
+	
+	set_flag(flag, x);
 	printb(flag);
-	ft_putXnbr(254, flag);
+	ft_putxnbr(10, flag, 10, 15);
 }
