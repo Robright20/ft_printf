@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/26 21:21:12 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/09/26 23:04:45 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,115 +127,51 @@ int		ft_print(char *s, int flag, int precision, int width)
 	return (len);
 }
 
-char	*ft_hash_plus_alloc_o(int *i, int flag)
+char	*ft_alloc(int *i, int flags, char c)
 {
 	char	*s;
+	int		a;
 
-	if (is_on(flag, HASH))
+	a = IS_FLAG_ON(flags, HASH) + IS_FLAG_ON(PLUS) + (c != 'o');
+	*i += a;
+	if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
+		return (NULL);
+	s[0] = '+';
+	if (IS_FLAG_ON(flags, HASH))
 	{
-		if (is_on(flag, PLUS))
-		{
-			*i += 2;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '+';
-			s[1] = '0';
-		}
-		else
-		{
-			*i += 1;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '0';
-		}	
-	}
-	else
-	{
-		*i +=1;
-		if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-			return (NULL);
-		s[0] = '+';
+		s[a - 1 - (c != 'o')] = '0';
+		(void)(c != 'o' && s[a - 1] = c);
 	}
 	return (s);
 }
 
-char	*ft_hash_plus_alloc_heX(int *i, int flag)
+int		ft_strnchr(char c, char *s)
 {
-	char	*s;
+	int		i;
 
-	if (is_on(flag, HASH))
+	i = 0;
+	while (s[i])
 	{
-		if (is_on(flag, PLUS))
-		{
-			*i += 3;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '+';
-			s[1] = '0';
-			s[2] = 'X';
-		}
-		else
-		{
-			*i += 2;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '0';
-			s[1] = 'X';
-		}	
+		if (c == s[i])
+			return (i);
 	}
-	else
-	{
-		*i += 1;
-		if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-			return (NULL);
-		s[0] = '+';
-	}
-	return (s);
-}
-char	*ft_hash_plus_alloc_hex(int *i, int flag)
-{
-	char	*s;
-
-	if (is_on(flag, HASH))
-	{
-		if (is_on(flag, PLUS))
-		{
-			*i += 3;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '+';
-			s[1] = '0';
-			s[2] = 'x';
-		}
-		else
-		{
-			*i += 2;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '0';
-			s[1] = 'x';
-		}	
-	}
-	else
-	{
-		*i += 1;
-		if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-			return (NULL);
-		s[0] = '+';
-	}
-	return (s);
+	return (-1);
 }
 
 char	*ft_hash_plus_alloc(int *i, int flag)
 {
-	if (!(is_on(flag, HASH)) && !(is_on(flag, PLUS)))
-		return (ft_memalloc(sizeof(char) * ((*i) + 1)));
-	if (is_on(flag, OCTAL))
-		return (ft_hash_plus_alloc_o(i, flag));
-	if (is_on(flag, X))
-		return (ft_hash_plus_alloc_heX(i, flag));
-	if (is_on(flag, x))
-		return (ft_hash_plus_alloc_hex(i, flag));
+	char	*s;
+	int		p;
+
+	s = "oXx";
+	p = 0;
+	if ((IS_FLAG_ON(flag, HASH)) || (IS_FLAG_ON(flag, PLUS)))
+	{
+		while (p < 3 && !IS_FLAG_ON(flag, ft_strnchr(s[p], FLAG_BUF)))
+			p++;
+		if (p < 3)
+			return (ft_alloc(i, flag, *s));
+	}
 	return (ft_memalloc(sizeof(char) * ((*i) + 1)));
 }
 

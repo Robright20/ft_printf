@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 20:09:20 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/24 22:39:10 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/09/26 20:21:51 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	save_all_flags(int *flags, char *args)
 {
 	int		o;
 
-	while (*args && !is_conv_spec(*args, ARGS_BUF))
+	while (*args && is_conv_spec(*args, ARGS_BUF) >= 0)
 	{
 		o = first_char_nbr(args);
 		save_flag(flags, args, o);
