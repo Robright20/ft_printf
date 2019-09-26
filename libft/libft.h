@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 23:32:55 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/05/07 14:54:23 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/09/26 15:30:36 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,17 @@ size_t			ft_sqrt(size_t nb);
 size_t			ft_isprime(size_t nb);
 size_t			ft_charinword(char *s, size_t i, char stop);
 void			*ft_memcpynull(void *dst, const void *src, size_t len);
+int				get_next_line(const int fd, char **line);
+
+/*
+** get next line defines 
+** buff_size shoulf always be positive
+** you can change the fd_max to the number the suttes to you needs
+*/
+
+
+# define FD_MAX 4864
+# define BUFF_SIZE 20
+
+
 #endif
