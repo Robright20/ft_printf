@@ -48,7 +48,7 @@ char *printfloat(float d)
 
 	return (NULL);
 }
-
+/*
 int main()
 {
 	char *s;
@@ -56,3 +56,4 @@ int main()
 	s = printfloat(nbr);
 	printf("float  = %.20f;\n", nbr);
 }
+*/

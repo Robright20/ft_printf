@@ -9,9 +9,9 @@
 
 t_bigint	*convert(long long nbr);
 t_bigint	*bigint_add(t_bigint a, t_bigint b);
-void		print_bigint(t_bigint bb);
+void		print_bigint(t_bigint bb, int dec_pos);
 void		edit_carry_on(t_bigint *nbr);
-t_bigint	*bigint_mult(t_bigint a, t_bigint b);
+t_bigint	bigint_mult(t_bigint a, t_bigint b);
 
 
 /*
@@ -65,7 +65,7 @@ t_bigint	*bigint_add(t_bigint a, t_bigint b)
 **/
 
 
-t_bigint	*bigint_mult(t_bigint a, t_bigint b)
+t_bigint	bigint_mult(t_bigint a, t_bigint b)
 {
 	int i = 99;
 	int j = 99;
@@ -74,8 +74,8 @@ t_bigint	*bigint_mult(t_bigint a, t_bigint b)
 	int j_ret;
 	int carry;
 	
-	t_bigint *ret = malloc(sizeof(t_bigint));
-
+	t_bigint ret;
+	ft_memset(&ret, 0, sizeof(ret));
 	while (i >= 0)
 	{
 		carry = 0;
@@ -83,14 +83,14 @@ t_bigint	*bigint_mult(t_bigint a, t_bigint b)
 		j = 99;
 		while (j > 0)
 		{
-			res = a.tab[i] * b.tab[j] + ret->tab[j_ret] + carry;
+			res = a.tab[i] * b.tab[j] + ret.tab[j_ret] + carry;
 			carry = res / 10;
-			ret->tab[j_ret] = res % 10;
+			ret.tab[j_ret] = res % 10;
 			j--;
-			j_ret--;
+			(j_ret > 1) ? j_ret-- : j_ret;
 		}
 		if (carry > 0)
-			ret->tab[j_ret] = carry;
+			ret.tab[j_ret] = carry;
 		i_ret--;
 		i--;
 	}
@@ -102,12 +102,40 @@ t_bigint	*bigint_mult(t_bigint a, t_bigint b)
 ** ----------------------------------------------
 **/
 
-void	print_bigint(t_bigint bb)
+t_bigint	bigint_power(t_bigint a, int n)
+{
+	int i;
+	t_bigint result;
+	
+	i = 0;
+	ft_memset((void*)result.tab, 0, 400);
+	result.tab[99] = 1;		
+	while (i < n)
+	{
+		result = bigint_mult(result, a);
+		i++;
+	}
+	return (result);
+}
+
+
+/*
+** ----------------------------------------------
+**/
+
+
+void	print_bigint(t_bigint bb, int dec_pos)
 {
 	int i = 0;
+
+	while(bb.tab[i] == 0 )
+			i++;
 	while (i < 100)
 	{
-		printf("%d ", bb.tab[i]);
+			
+		printf("%d", bb.tab[i]);
+		if (i == dec_pos)
+			printf(".");
 		i++;
 	}
 	printf("\n");
@@ -127,7 +155,6 @@ t_bigint	*convert(long long  nbr)
 	{
 		ret->tab[i] = nbr % disVitass;
 		nbr /= disVitass;
-	//	disVitas++;
 		i--;
 	}
 	return (ret);
