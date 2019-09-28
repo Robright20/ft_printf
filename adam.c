@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/28 11:24:20 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/09/28 11:51:05 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,53 @@ void            printb(unsigned int c)
 	write(1, "\n", 1);
 }
 
-int		ft_putdnbr(int n, int flag, int precision, int width)
+int		ft_putunbr(unsigned long long n, int flag, int precision, int width)//also handle h, hh, l, ll
 {
-	char			*ret;
-	int				i;
-	unsigned int	a;
+	char				*ret;
+	int					i;
+	unsigned long long	tmp;
 
-	a = n < 0 ? -n : n;
+	tmp = n;
 	i = 0;
-	while (a)
+	while (tmp)
 	{
-		a /= 10;
+		tmp /= 10;
 		i++;
 	}
 	if (!(ret = ft_hash_plus_alloc(&i, flag)))
 		return (0);
-	a = n < 0 ? -n : n;
-	while (a)
+	while (n)
 	{
-		ret[i - 1] = a % 10 + '0';
-		a /= 10;
+		ret[i - 1] = n % 10 + '0';
+		n /= 10;
+		i--;
+	}
+	ft_putendl(ret);
+	ft_print(&ret, flag, precision, width);
+	ft_strdel(&ret);
+	return (0);
+}
+
+int		ft_putdnbr(long long n, int flag, int precision, int width)//also handle h, hh, l, ll
+{
+	char			*ret;
+	int				i;
+	long long		tmp;
+
+	tmp = n < 0 ? -n : n;
+	i = 0;
+	while (tmp)
+	{
+		tmp /= 10;
+		i++;
+	}
+	if (!(ret = ft_hash_plus_alloc(&i, flag)))
+		return (0);
+	tmp = n < 0 ? -n : n;
+	while (tmp)
+	{
+		ret[i - 1] = tmp % 10 + '0';
+		tmp /= 10;
 		i--;
 	}
 	if (n < 0)
@@ -57,17 +84,17 @@ int		ft_putdnbr(int n, int flag, int precision, int width)
 	return (0);
 }
 
-int		ft_putonbr(unsigned int n, int flag, int precision, int width)
+int		ft_putonbr(unsigned long long n, int flag, int precision, int width)//also handle h, hh, l, ll
 {
-	char			*ret;
-	int				i;
-	unsigned int	a;
+	char				*ret;
+	int					i;
+	unsigned long long	tmp;
 
-	a = n;
+	tmp = n;
 	i = 0;
-	while (a)
+	while (tmp)
 	{
-		a /= 8;
+		tmp /= 8;
 		i++;
 	}
 	if (!(ret = ft_hash_plus_alloc(&i, flag)))
@@ -84,26 +111,24 @@ int		ft_putonbr(unsigned int n, int flag, int precision, int width)
 	return (0);
 }
 
-int		ft_putxnbr(unsigned int n, int flag, int precision, int width)
+int		ft_putxnbr(unsigned long long n, int flag, int precision, int width)//also handle h, hh, l, ll
 {
-	char	*s;
-	char	*ret;
-	int		i;
-	int		a;
+	char					*s;
+	char					*ret;
+	int						i;
+	unsigned long long		tmp;
 
 	s = "0123456789abcdef";
-	a = n;
-	i = -1;
+	tmp = n;
 	i = 0;
-	while (a)
+	while (tmp)
 	{
-		a /= 16;
+		tmp /= 16;
 		i++;
 	}
 	if (!(ret = ft_hash_plus_alloc(&i, flag)))
 		return (0);
 	printf("%s\n", ret);
-	a = i;
 	while (n)
 	{
 		ret[i - 1] = s[n % 16];
@@ -112,28 +137,26 @@ int		ft_putxnbr(unsigned int n, int flag, int precision, int width)
 	}
 	ft_print(&ret, flag, precision, width);
 	ft_strdel(&ret);
-	return (a);
+	return (0);
 }
 
-int		ft_putXnbr(unsigned int n, int flag, int precision, int width)
+int		ft_putXnbr(unsigned long long n, int flag, int precision, int width)//also handle h, hh, l, ll
 {
 	char	*s;
 	char	*ret;
 	int		i;
-	int		a;
+	unsigned long long		tmp;
 
 	s = "0123456789ABCDEF";
-	a = n;
-	i = -1;
+	tmp = n;
 	i = 0;
-	while (a)
+	while (tmp)
 	{
-		a /= 16;
+		tmp /= 16;
 		i++;
 	}
 	if (!(ret = ft_hash_plus_alloc(&i, flag)))
 		return (0);
-	a = i;
 	while (n)
 	{
 		ret[i - 1] = s[n % 16];
@@ -142,20 +165,20 @@ int		ft_putXnbr(unsigned int n, int flag, int precision, int width)
 	}
 	ft_print(&ret, flag, precision, width);
 	ft_strdel(&ret);
-	return (a);
+	return (0);
 }
 
 int 	main()
 {
 	unsigned int	flag = 0;
 
-	//set_flag(flag, HASH);
+	set_flag(flag, HASH);
 	set_flag(flag, PLUS);
 	//set_flag(flag, MINUS);
 	//set_flag(flag, SPACE);
-	set_flag(flag, ZERO);
-	set_flag(flag, OCTAL);
+	//set_flag(flag, ZERO);
+	set_flag(flag, u);
 	printb(flag);
-	ft_putonbr(11248, flag, 6, 6);
+	ft_putunbr(11248, flag, 6, 8);
 	//printf("hexa |%#5x|\n", 100);
 }
