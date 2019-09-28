@@ -6,20 +6,11 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/26 23:38:42 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/09/28 11:24:20 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-#define FLAG "+#- 0wpoxXdi"
-#define set_flag(flag, index) flag = flag | (1 << (32 - index))
-#define is_on(flag, index) (flag & (1 << (32 - index))) != 0
-
-typedef enum 	e_flag
-{
-	PLUS = 1, HASH, MINUS, SPACE, ZERO, WIDTH, PRECISION, OCTAL, x, X, DEC1, DEC2
-}				t_flag;
+#include "header.h"
 
 void            printb(unsigned int c)
 {
@@ -35,250 +26,44 @@ void            printb(unsigned int c)
 	write(1, "\n", 1);
 }
 
-void	nulltoblack(char *s, int until)
+int		ft_putdnbr(int n, int flag, int precision, int width)
 {
-	while (until)
-	{
-		if (!*s)
-			*s = '^';
-		s++;
-		until--;
-	}
-}
+	char			*ret;
+	int				i;
+	unsigned int	a;
 
-
-void	blacktozero(char *s, int until)
-{
-	while (until)
-	{
-		if (*s == '^')
-			*s = '0';
-		s++;
-		until--;
-	}
-}
-void	shift(char *s, int shift_value)
-{
-	int		i;
-
+	a = n < 0 ? -n : n;
 	i = 0;
-	while (s[i])
+	while (a)
+	{
+		a /= 10;
 		i++;
-	//printf("i = %d\n", i);
-	while (--i >= 0)
-		s[i + shift_value] = s[i];
-	while (--shift_value >= 0)
-		s[shift_value] = '^';
+	}
+	if (!(ret = ft_hash_plus_alloc(&i, flag)))
+		return (0);
+	a = n < 0 ? -n : n;
+	while (a)
+	{
+		ret[i - 1] = a % 10 + '0';
+		a /= 10;
+		i--;
+	}
+	if (n < 0)
+		ret[0] = '-';
+	printf("s2 = %s\n", ret);
+	ft_putendl(ret);
+	ft_print(&ret, flag, precision, width);
+	ft_strdel(&ret);
+	return (0);
 }
 
-void	fprecision(char **s, int flag, int precision, int shift_value)
+int		ft_putonbr(unsigned int n, int flag, int precision, int width)
 {
-	char	*tmp;
-	int		avoid_prefix;// 0x 0X 0
-	
-	avoid_prefix =  is_on(flag, PLUS);
-	avoid_prefix += ((is_on(flag, HASH) && !(is_on(flag, DEC1))) && ((is_on(flag, X) || is_on(flag, x)) || is_on(flag, OCTAL)));
-	avoid_prefix += (is_on(flag, X) || is_on(flag, x)) && is_on(flag, HASH) && (!(is_on(flag, OCTAL))) && !(is_on(flag, DEC1));
-	
-	printf("hash == %d\n", avoid_prefix);
-	tmp = *s;
-	*s = ft_memalloc(sizeof(char) * (precision + avoid_prefix + 1));
-	ft_strcpy(*s, tmp);
-	ft_strdel(&tmp);
-	*s += avoid_prefix;
-	shift(*s, shift_value);
-	blacktozero(*s, shift_value);
-	*s -= avoid_prefix;
-}
-
-void	fwidth(char **s, int flag, int precision, int width)
-{
-	char	*tmp;
-	int		len;
-	int		shift_value;
-	int		avoid_prefix;// +0x +0X +0
-	
-	avoid_prefix =  is_on(flag, PLUS);
-	avoid_prefix += ((is_on(flag, HASH) && !(is_on(flag, DEC1))) && ((is_on(flag, X) || is_on(flag, x)) || is_on(flag, OCTAL)));
-	avoid_prefix += (is_on(flag, X) || is_on(flag, x)) && is_on(flag, HASH) && (!(is_on(flag, OCTAL))) && !(is_on(flag, DEC1));
-	len = (int)ft_strlen(*s) - avoid_prefix;
-	tmp = *s;
-	*s = ft_memalloc(sizeof(char) * (width + 1));
-	ft_strcpy(*s, tmp);
-	ft_strdel(&tmp);
-	shift_value = len > precision ? 0 : precision - len;
-	*s += avoid_prefix;
-	shift(*s, shift_value);
-	blacktozero(*s, shift_value);
-	*s -= avoid_prefix;
-	printf("s = %s\n", *s);
-	//printf("shift value = %d\n", shift_value);
-	len = (int)ft_strlen(*s);
-	if (!(is_on(flag, MINUS)))
-	{
-		printf("--------------  ------\n");
-		shift(*s, width - len);
-		if (is_on(flag, ZERO))
-			blacktozero(*s, width - len);
-	}
-	else
-		nulltoblack(*s, width);
-}
-
-int		ft_print(char *s, int flag, int precision, int width)
-{
-	int		len;
-	int		p;
-
-	p = 0;
-	p = is_on(flag, PLUS) + is_on(flag, HASH) + (is_on(flag, x) || is_on(flag, X));
-	len = (int)ft_strlen(s);
-	if (precision >= (len - p) && precision >= width)
-	{
-		printf("-----pppp----------\n");
-		fprecision(&s, flag, precision, precision - (len - p));
-		ft_putendl(s);
-		return (precision);
-	}
-	if (width >= len && width >= precision)
-	{
-		printf("------www--%d--------\n", len);
-		fwidth(&s, flag, precision, width);
-		//printf("s = %s\n", s);
-		ft_putendl(s);
-		return (width);
-	}
-	ft_putendl(s);
-	return (len);
-}
-
-char	*ft_hash_plus_alloc_o(int *i, int flag)
-{
-	char	*s;
-
-	if (is_on(flag, HASH))
-	{
-		if (is_on(flag, PLUS))
-		{
-			*i += 2;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '+';
-			s[1] = '0';
-		}
-		else
-		{
-			*i += 1;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '0';
-		}	
-	}
-	else
-	{
-		*i +=1;
-		if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-			return (NULL);
-		s[0] = '+';
-	}
-	return (s);
-}
-
-char	*ft_hash_plus_alloc_heX(int *i, int flag)
-{
-	char	*s;
-
-	if (is_on(flag, HASH))
-	{
-		if (is_on(flag, PLUS))
-		{
-			*i += 3;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '+';
-			s[1] = '0';
-			s[2] = 'X';
-		}
-		else
-		{
-			*i += 2;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '0';
-			s[1] = 'X';
-		}	
-	}
-	else
-	{
-		*i += 1;
-		if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-			return (NULL);
-		s[0] = '+';
-	}
-	return (s);
-}
-char	*ft_hash_plus_alloc_hex(int *i, int flag)
-{
-	char	*s;
-
-	if (is_on(flag, HASH))
-	{
-		if (is_on(flag, PLUS))
-		{
-			*i += 3;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '+';
-			s[1] = '0';
-			s[2] = 'x';
-		}
-		else
-		{
-			*i += 2;
-			if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-				return (NULL);
-			s[0] = '0';
-			s[1] = 'x';
-		}	
-	}
-	else
-	{
-		*i += 1;
-		if (!(s = ft_memalloc(sizeof(char) * ((*i) + 1))))
-			return (NULL);
-		s[0] = '+';
-	}
-	return (s);
-}
-
-char	*ft_hash_plus_alloc(int *i, int flag)
-{
-	if (!(is_on(flag, HASH)) && !(is_on(flag, PLUS)))
-		return (ft_memalloc(sizeof(char) * ((*i) + 1)));
-	if (is_on(flag, OCTAL))
-		return (ft_hash_plus_alloc_o(i, flag));
-	if (is_on(flag, X))
-		return (ft_hash_plus_alloc_heX(i, flag));
-	if (is_on(flag, x))
-		return (ft_hash_plus_alloc_hex(i, flag));
-	return (ft_memalloc(sizeof(char) * ((*i) + 1)));
-}
-
-//int		ft_putonbr(unsigned int n, int flag, int width, int precision)
-int		ft_putonbr(unsigned int n, int flag)
-{
-	char	*s;
-	char	*ret;
-	int		i;
-	int		a;
-	t_flag	j;
+	char			*ret;
+	int				i;
+	unsigned int	a;
 
 	a = n;
-	i = -1;
-	if (!(s = ft_memalloc(sizeof(char) * 8)))
-		return (0);
-	while (++i < 8)
-		s[i] = '0' + i;
 	i = 0;
 	while (a)
 	{
@@ -289,51 +74,12 @@ int		ft_putonbr(unsigned int n, int flag)
 		return (0);
 	while (n)
 	{
-		ret[i - 1] = s[n % 8];
+		ret[i - 1] = n % 8 + '0';
 		n /= 8;
 		i--;
 	}
 	ft_putendl(ret);
-	ft_strdel(&s);
-	ft_strdel(&ret);
-	return (0);
-}
-
-//int		ft_putxnbr(unsigned int n, int flag, int width, int precision)
-int		ft_putXnbr(unsigned int n, int flag)
-{
-	char	*s;
-	char	*ret;
-	int		i;
-	int		a;
-	t_flag	j;
-
-	a = n;
-	i = -1;
-	if (!(s = ft_memalloc(sizeof(char) * 16)))
-		return (0);
-	while (++i < 10)
-		s[i] = '0' + i;
-	i--;
-	while (++i < 16)
-		s[i] = 'a' + i - 10;
-	i = 0;
-	while (a)
-	{
-		a /= 16;
-		i++;
-	}
-	if (!(ret = ft_hash_plus_alloc(&i, flag)))
-		return (0);
-	printf("%s\n", ret);
-	while (n)
-	{
-		ret[i - 1] = s[n % 16];
-		n /= 16;
-		i--;
-	}
-	ft_putendl(ret);
-	ft_strdel(&s);
+	ft_print(&ret, flag, precision, width);
 	ft_strdel(&ret);
 	return (0);
 }
@@ -344,17 +90,41 @@ int		ft_putxnbr(unsigned int n, int flag, int precision, int width)
 	char	*ret;
 	int		i;
 	int		a;
-	t_flag	j;
 
+	s = "0123456789abcdef";
 	a = n;
 	i = -1;
-	if (!(s = ft_memalloc(sizeof(char) * 16)))
+	i = 0;
+	while (a)
+	{
+		a /= 16;
+		i++;
+	}
+	if (!(ret = ft_hash_plus_alloc(&i, flag)))
 		return (0);
-	while (++i < 10)
-		s[i] = '0' + i;
-	i--;
-	while (++i < 16)
-		s[i] = 'A' + i - 10;
+	printf("%s\n", ret);
+	a = i;
+	while (n)
+	{
+		ret[i - 1] = s[n % 16];
+		n /= 16;
+		i--;
+	}
+	ft_print(&ret, flag, precision, width);
+	ft_strdel(&ret);
+	return (a);
+}
+
+int		ft_putXnbr(unsigned int n, int flag, int precision, int width)
+{
+	char	*s;
+	char	*ret;
+	int		i;
+	int		a;
+
+	s = "0123456789ABCDEF";
+	a = n;
+	i = -1;
 	i = 0;
 	while (a)
 	{
@@ -370,27 +140,22 @@ int		ft_putxnbr(unsigned int n, int flag, int precision, int width)
 		n /= 16;
 		i--;
 	}
-	ft_putendl(ret);
-	ft_print(ret, flag, precision, width);
-	ft_strdel(&s);
-	//ft_strdel(&ret);
+	ft_print(&ret, flag, precision, width);
+	ft_strdel(&ret);
 	return (a);
 }
 
 int 	main()
 {
-	/*char s[] = "65           ";
-	printf("%s\n", s);
-	blacktozero(s);
-	printf("%s\n", s);*/
 	unsigned int	flag = 0;
 
-	set_flag(flag, HASH);
-	//set_flag(flag, PLUS);
-	set_flag(flag, MINUS);
+	//set_flag(flag, HASH);
+	set_flag(flag, PLUS);
+	//set_flag(flag, MINUS);
+	//set_flag(flag, SPACE);
 	set_flag(flag, ZERO);
-	set_flag(flag, x);
+	set_flag(flag, OCTAL);
 	printb(flag);
-	ft_putxnbr(100, flag, 29, 20);
+	ft_putonbr(11248, flag, 6, 6);
 	//printf("hexa |%#5x|\n", 100);
 }
