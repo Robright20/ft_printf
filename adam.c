@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/28 18:48:18 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/09/28 23:06:46 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		ft_putdnbr(long long n, int flag, int precision, int width)//also handle h,
 	char			*ret;
 	int				i;
 	long long		tmp;
+	int				size;
 
 	tmp = n < 0 ? -n : n;
 	i = 0;
@@ -66,19 +67,22 @@ int		ft_putdnbr(long long n, int flag, int precision, int width)//also handle h,
 		tmp /= 10;
 		i++;
 	}
-	if (!(ret = ft_hash_plus_alloc(&i, flag)))
+	size = i + (is_on(flag, PLUS)) + ((is_on(flag, SPACE)) && !(is_on(flag, PLUS)) && (n >= 0));
+	printf("size = %d\n", size);
+	//if (!(ret = ft_hash_plus_alloc(&i, flag)))
+	//	return (0);
+	if (!(ret = ft_memalloc(sizeof(char) * (i + 1))))
 		return (0);
+	if (size > i)
+		ret[0] = (is_on(flag, PLUS)) ? '+' : '^';
 	tmp = n < 0 ? -n : n;
 	while (tmp)
 	{
-		ret[i - 1] = tmp % 10 + '0';
+		ret[size - 1] = tmp % 10 + '0';
 		tmp /= 10;
-		i--;
+		size--;
 	}
-	if (n < 0)
-		ret[0] = '-';
 	printf("s2 = %s\n", ret);
-	ft_putendl(ret);
 	ft_print(&ret, flag, precision, width);
 	ft_strdel(&ret);
 	return (0);
@@ -173,12 +177,12 @@ int 	main()
 	unsigned int	flag = 0;
 
 	set_flag(flag, HASH);
-	set_flag(flag, PLUS);
+	//set_flag(flag, PLUS);
 	//set_flag(flag, MINUS);
-	//set_flag(flag, SPACE);
+	set_flag(flag, SPACE);
 	//set_flag(flag, ZERO);
 	set_flag(flag, d);
 	printb(flag);
-	ft_putdnbr(-11248, flag, 18, 10);
+	ft_putdnbr(11248, flag, 6, 1);
 	//printf("hexa |%#5x|\n", 100);
 }
