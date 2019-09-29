@@ -6,13 +6,23 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 14:47:25 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/28 22:38:19 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/09/29 20:27:21 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-//char	*ft_increment_size()
+char	*ft_realloc(char **s, size_t size)
+{
+	char	*tmp;
+
+	tmp = *s;
+	*s = ft_memalloc(sizeof(char) * size);
+	ft_strcpy(*s, tmp);
+	ft_strdel(&tmp);
+	return (*s);
+}
+
 void	nulltoblack(char *s, int until)
 {
 	while (until)
@@ -51,57 +61,53 @@ void	shift(char *s, int shift_value)
 
 void	fprecision(char **s, int flag, int precision, int shift_value)
 {
-	char	*tmp;
-	int		avoid_prefix;// 0x 0X 0
+	int		prefix_len;// 0x 0X 0
 	
-	//avoid_prefix =  is_on(flag, PLUS) + (is_on(flag, HASH) && is_on(flag, OCTAL)) +\
-					(is_on(flag, HASH) && (is_on(flag, X) || is_on(flag, x)) * 2) + (*s[0] == '-')\
-					+ ((is_on(flag, DEC1) || is_on(flag, DEC2)) && (*s[0] != '-'));
-	avoid_prefix =  (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
-					((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
-					((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
-	printf("preci$$$$%d\n", avoid_prefix);
-	tmp = *s;
-	*s = ft_memalloc(sizeof(char) * (precision + avoid_prefix + 1));
-	ft_strcpy(*s, tmp);
-	ft_strdel(&tmp);
-	*s += avoid_prefix;
+	prefix_len =  (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
+				  ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
+				  ((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
+	//printf("preci$$$$%d\n", avoid_prefix);
+	*s = ft_realloc(s, precision + prefix_len + 1);
+	*s += prefix_len;
 	shift(*s, shift_value);
 	blacktozero(*s, shift_value);
-	*s -= avoid_prefix;
+	*s -= prefix_len;
+}
+
+void	ft_get_precision(char **s, int precision, int prefix_len, int len)
+{
+	int	shift_value;
+
+	
+	//printf("***++***%s\n", *s);
+	printf("***++***%d\n", len);
+	shift_value = precision - len;
+	*s += prefix_len;
+	shift(*s, shift_value);
+	blacktozero(*s, shift_value);
+	*s -= prefix_len;
 }
 
 void	fwidth(char **s, int flag, int precision, int width)
 {
-	char	*tmp;
 	int		len;
 	int		shift_value;
-	int		avoid_prefix;// +0x +0X +0
+	int		prefix_len;// +0x +0X +0
 	int		take_space;
 	
-	avoid_prefix =  (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
-					((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
-					((*s[0] == '-') && !(is_on(flag, PLUS)));
-	
-	//printf("5$$$$$$$$%d\n", avoid_prefix);
-	
+	*s = ft_realloc(s, width + 1);
+	prefix_len = (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
+				 ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
+				 ((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
+	printf("prefix_len = %d\n", prefix_len);
 	take_space = !(is_on(flag, PLUS)) && (is_on(flag, SPACE)) && *s[0] == '^';
-	printf("take_space = %d\n", take_space);
-
-	len = (int)ft_strlen(*s) - avoid_prefix;
-	tmp = *s;
-	*s = ft_memalloc(sizeof(char) * (width + 1));
-	ft_strcpy(*s, tmp);
-	ft_strdel(&tmp);
-	shift_value = len > precision ? 0 : precision - len;
-	*s += avoid_prefix;
+	//*s = *s + take_space;
+	len = (int)ft_strlen(*s) - prefix_len;
+	if (precision > len)
+		ft_get_precision(s, precision, prefix_len, len);//complete with 0000 after prefix
+	printf("---------\n");
+	len = (int)ft_strlen(*s);
 	*s = *s + take_space;
-	shift(*s, shift_value);
-	blacktozero(*s, shift_value);
-	*s -= avoid_prefix;
-	//printf("shift value = %d\n", shift_value);
-	len = (int)ft_strlen(*s) + take_space;
-	printf("******%s\n", *s);
 	if (!(is_on(flag, MINUS)))
 	{
 		shift(*s, width - len);
@@ -111,7 +117,7 @@ void	fwidth(char **s, int flag, int precision, int width)
 	else
 		nulltoblack(*s, width);
 	*s = *s - take_space;
-	printf("******%s\n", *s);
+	printf("***++***%s\n", *s);
 }
 
 int		ft_print(char **s, int flag, int precision, int width)
@@ -121,8 +127,7 @@ int		ft_print(char **s, int flag, int precision, int width)
 
 	prefix_len =  (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
 				  ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
-				  (*s[0] == '-' && !(is_on(flag, PLUS)));
-	//printf("5$$$$$$$$%d\n", prefix_len);
+				  ((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
 	len = (int)ft_strlen(*s);
 	if (precision >= (len - prefix_len) && precision >= width)
 	{
