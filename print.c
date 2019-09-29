@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 14:47:25 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/29 20:27:21 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/09/29 20:56:35 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	shift(char *s, int shift_value)
 	i = 0;
 	while (s[i])
 		i++;
-	//printf("i = %d\n", i);
 	while (--i >= 0)
 		s[i + shift_value] = s[i];
 	while (--shift_value >= 0)
@@ -66,7 +65,6 @@ void	fprecision(char **s, int flag, int precision, int shift_value)
 	prefix_len =  (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
 				  ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
 				  ((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
-	//printf("preci$$$$%d\n", avoid_prefix);
 	*s = ft_realloc(s, precision + prefix_len + 1);
 	*s += prefix_len;
 	shift(*s, shift_value);
@@ -77,10 +75,7 @@ void	fprecision(char **s, int flag, int precision, int shift_value)
 void	ft_get_precision(char **s, int precision, int prefix_len, int len)
 {
 	int	shift_value;
-
 	
-	//printf("***++***%s\n", *s);
-	printf("***++***%d\n", len);
 	shift_value = precision - len;
 	*s += prefix_len;
 	shift(*s, shift_value);
@@ -99,13 +94,10 @@ void	fwidth(char **s, int flag, int precision, int width)
 	prefix_len = (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
 				 ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
 				 ((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
-	printf("prefix_len = %d\n", prefix_len);
 	take_space = !(is_on(flag, PLUS)) && (is_on(flag, SPACE)) && *s[0] == '^';
-	//*s = *s + take_space;
 	len = (int)ft_strlen(*s) - prefix_len;
 	if (precision > len)
 		ft_get_precision(s, precision, prefix_len, len);//complete with 0000 after prefix
-	printf("---------\n");
 	len = (int)ft_strlen(*s);
 	*s = *s + take_space;
 	if (!(is_on(flag, MINUS)))
@@ -117,7 +109,6 @@ void	fwidth(char **s, int flag, int precision, int width)
 	else
 		nulltoblack(*s, width);
 	*s = *s - take_space;
-	printf("***++***%s\n", *s);
 }
 
 int		ft_print(char **s, int flag, int precision, int width)

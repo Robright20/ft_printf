@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/29 20:40:56 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/09/29 20:56:17 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ int		ft_putdnbr(long long n, int flag, int precision, int width)//also handle h,
 		i++;
 	}
 	size = i + (is_on(flag, PLUS)) + ((is_on(flag, SPACE)) && !(is_on(flag, PLUS)) && (n >= 0));
-	printf("size = %d\n", size);
-	//if (!(ret = ft_hash_plus_alloc(&i, flag)))
-	//	return (0);
 	if (!(ret = ft_memalloc(sizeof(char) * (i + 1))))
 		return (0);
 	if (size > i)
@@ -82,7 +79,6 @@ int		ft_putdnbr(long long n, int flag, int precision, int width)//also handle h,
 		tmp /= 10;
 		size--;
 	}
-	printf("s2 = %s\n", ret);
 	ft_print(&ret, flag, precision, width);
 	ft_strdel(&ret);
 	return (0);
