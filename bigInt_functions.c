@@ -1,19 +1,5 @@
 #include "header.h"
 
-
-
-
-/*
-** ----------------------------------------------
-**/
-
-t_bigint	*convert(long long nbr);
-t_bigint	*bigint_add(t_bigint a, t_bigint b);
-void		print_bigint(t_bigint bb, int dec_pos);
-void		edit_carry_on(t_bigint *nbr);
-t_bigint	bigint_mult(t_bigint a, t_bigint b);
-
-
 /*
 ** ----------------------------------------------
 **/
@@ -128,7 +114,7 @@ void	print_bigint(t_bigint bb, int dec_pos)
 {
 	int i = 0;
 
-	while(bb.tab[i] == 0 )
+	while(bb.tab[i] == 0 && i < dec_pos)
 			i++;
 	while (i < 100)
 	{
@@ -145,16 +131,16 @@ void	print_bigint(t_bigint bb, int dec_pos)
 ** ----------------------------------------------
 **/
 
-t_bigint	*convert(long long  nbr)
+t_bigint	convert(long long  nbr)
 {
 	int i = 99;
-	t_bigint *ret = malloc(sizeof(t_bigint));
-	int disVitass = 10;
+	t_bigint ret;
 
+	ft_memset(ret.tab, 0, 400);
 	while (nbr > 0)
 	{
-		ret->tab[i] = nbr % disVitass;
-		nbr /= disVitass;
+		ret.tab[i] = nbr % 10;
+		nbr /= 10;
 		i--;
 	}
 	return (ret);

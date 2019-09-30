@@ -27,7 +27,7 @@ void		edit_carry_on(t_bigint *nbr);
 t_bigint	bigint_power(t_bigint a, int n);
 
 void	float_onversion(double nbr);
-void	get_bits(long long nbr, long long *exp, long long *mantissa);
+void	get_bits(long long nbr, long long *exp, long long *mantissa, long long *sign);
 int		power(int n, int i);
 void	intPart_bin_to_deci(int *nbr);
 t_bigint	bigint_mult(t_bigint a, t_bigint b);
