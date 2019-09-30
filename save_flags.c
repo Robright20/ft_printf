@@ -1,18 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   save_flags.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/22 20:09:20 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/23 22:00:42 by fokrober         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <stdarg.h>
+#include <strings.h>
+#include <stdio.h>
+#define ARGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$"
+#define ARGS_SIZE 32
 
-#include "ft_printf.h"
+int		ft_strncmp(char *s1, char *s2, int n);
+int		first_char_nbr(char *s);
 
-void	save_flag(int *flags, char *format, int argw)
+void	save_flag(char *flags, char *format, int argw)
 {
 	char	*s;
 	int		pos;
@@ -21,11 +16,11 @@ void	save_flag(int *flags, char *format, int argw)
 	pos = 0;
 	while (*s)
 	{
-		if (ft_strnstr(s, format, argw) == argw)
+		if (ft_strncmp(s, format, argw) == argw)
 		{
 			if (s[0] != s[argw])
 			{
-				set_flag(*flags, pos);
+				flags[pos] = 1;
 				break ;
 			}
 			else
@@ -55,11 +50,22 @@ int		ft_strnstr(char *s1, char *s2, int n)
 	return (rep);
 }
 
-void	save_all_flags(int *flags, char *args)
+int		first_char_nbr(char *s)
 {
-	int		o;
+	int		i;
+	int		rep;
 
-	while (*args && !is_conv_spec(*args, ARGS_BUF))
+	(void)((i = 1) && (rep = 1));
+	while (s[i] && (s[0] == s[i++]))
+		rep++;
+	return (rep);
+}
+
+void	save_all_flags(char *flags, char *args)
+{
+	int			o;
+
+	while (*args)
 	{
 		o = first_char_nbr(args);
 		save_flag(flags, args, o);
@@ -67,28 +73,21 @@ void	save_all_flags(int *flags, char *args)
 	}
 }
 
-int		first_char_nbr(char *s)
+int		main(void)
 {
-	int		rep;
-	int		i;
+	static char	flags[ARGS_SIZE];
+	char		*args;
+	char		*arg;
+	int			i;
 
-	rep = 1;
-	i = 1;
-	while (s[i] && (s[0] == s[i++]))
-		rep++;
-	return (rep);
-}
-
-int		is_conv_spec(char c, char *args)
-{
-	int		i;
-
+	args = "cspddiXfeg#0-+llhhlhLbrk'";
+	arg = ARGS_BUF;
+	printf("%s", arg);
+	save_all_flags(flags, args);
+	printf("\n");
 	i = 0;
-	while (i < CONV_BOUND)
-	{
-		if (args[i] == c)
-			return (1);
-		i++;
-	}
+	while (i < ARGS_SIZE)
+		printf("%d", flags[i++]);
+	printf("\n");
 	return (0);
 }

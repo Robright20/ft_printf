@@ -14,12 +14,6 @@ typedef struct	s_bigint
 		int tab[310];
 }				t_bigint;
 
-typedef union 		s_Record{ 
-	long long	i;
-	double		f;
-	char		str[8];
-}			t_record;
-
 t_bigint	convert(long long nbr);
 t_bigint	*bigint_add(t_bigint a, t_bigint b);
 void		print_bigint(t_bigint bb, int dec_pos);
