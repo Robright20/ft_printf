@@ -114,6 +114,7 @@ void	print_bigint(t_bigint bb, int dec_pos)
 {
 	int i = 0;
 
+	printf ("dec_pos == %d;\n", dec_pos);
 	while(bb.tab[i] == 0 && i < dec_pos)
 			i++;
 	while (i < 309)
