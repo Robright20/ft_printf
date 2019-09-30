@@ -11,7 +11,7 @@
  
 typedef struct	s_bigint
 {
-		int tab[100];
+		int tab[310];
 }				t_bigint;
 
 typedef union 		s_Record{ 

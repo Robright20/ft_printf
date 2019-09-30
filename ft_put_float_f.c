@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:28 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/09/28 18:11:34 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/09/30 15:47:40 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,16 @@ void	float_conversion(double nbr)
 		e = bigint_power(temp1, exp - 1075);
 		dec_pos = 100;
 	}
-	else
+	else if (exp < 1075)
 	{
 		n = 1075 - exp;
 		e = bigint_power(convert(5), n);
-		dec_pos = 100 - n - 1;
+		dec_pos = 310 - n - 1;
+	}
+	else 
+	{
+		e = bigint_power(convert(2), 1074);
+		dec_pos = 309;
 	}
 	t_bigint *add = bigint_add(a, m);
 	t_bigint result = bigint_mult(*add, e);
@@ -91,17 +96,11 @@ void	float_conversion(double nbr)
 
 /*
 ** ------------------------------------------------
-*/
+*/ 
 int	main(void)
 {
-	double nbr = -654987;
-//	unsigned long long gh = 1236549659879879878;
+	double nbr = -0.0000987654329876543211000000000000065498732154687989878000987;
 
-//	double nbr ;
-//	ft_memcpy(&nbr, &gh, 8);
-
-//	printbits(&gh, 8);
-//	printbits(&nbr, 8);
 
 	printf("%.100f;\n", nbr);
 	float_conversion(nbr);

@@ -7,7 +7,7 @@
 void		edit_carry_on(t_bigint *nbr)
 {
 	int carry;
-	int i = 99;
+	int i = 309;
 
 	carry = 0;
 	while (i >= 0)
@@ -33,7 +33,7 @@ void		edit_carry_on(t_bigint *nbr)
 
 t_bigint	*bigint_add(t_bigint a, t_bigint b)
 {
-	int i = 99;
+	int i = 309;
 	t_bigint *sum;
 
 	sum = malloc(sizeof(t_bigint));
@@ -53,10 +53,10 @@ t_bigint	*bigint_add(t_bigint a, t_bigint b)
 
 t_bigint	bigint_mult(t_bigint a, t_bigint b)
 {
-	int i = 99;
-	int j = 99;
+	int i = 309;
+	int j = 309;
 	int res;
-	int i_ret = 99;
+	int i_ret = 309;
 	int j_ret;
 	int carry;
 	
@@ -66,7 +66,7 @@ t_bigint	bigint_mult(t_bigint a, t_bigint b)
 	{
 		carry = 0;
 		j_ret = i_ret;
-		j = 99;
+		j = 309;
 		while (j > 0)
 		{
 			res = a.tab[i] * b.tab[j] + ret.tab[j_ret] + carry;
@@ -94,8 +94,8 @@ t_bigint	bigint_power(t_bigint a, int n)
 	t_bigint result;
 	
 	i = 0;
-	ft_memset((void*)result.tab, 0, 400);
-	result.tab[99] = 1;		
+	ft_memset((void*)result.tab, 0, 1240);
+	result.tab[309] = 1;		
 	while (i < n)
 	{
 		result = bigint_mult(result, a);
@@ -116,7 +116,7 @@ void	print_bigint(t_bigint bb, int dec_pos)
 
 	while(bb.tab[i] == 0 && i < dec_pos)
 			i++;
-	while (i < 100)
+	while (i < 309)
 	{
 			
 		printf("%d", bb.tab[i]);
@@ -133,10 +133,10 @@ void	print_bigint(t_bigint bb, int dec_pos)
 
 t_bigint	convert(long long  nbr)
 {
-	int i = 99;
+	int i = 309;
 	t_bigint ret;
 
-	ft_memset(ret.tab, 0, 400);
+	ft_memset(ret.tab, 0, 1240);
 	while (nbr > 0)
 	{
 		ret.tab[i] = nbr % 10;
