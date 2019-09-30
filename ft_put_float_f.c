@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:28 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/09/30 15:47:40 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/09/30 16:18:47 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,15 @@ void	float_conversion(double nbr)
 	int n;
 	int dec_pos = 0;
 	t_bigint temp1;	
+	if (exp == 2047)
+	{
+		if (mantissa == 0)
+			(sign == -1) ? write(1, "-inf", 4) : write(1, "inf", 3);
+		else
+			write(1, "nan", 3);
+	}
+	else
+	{
 	if (exp > 1075)
 	{
 		temp1 = convert(2);
@@ -92,6 +101,7 @@ void	float_conversion(double nbr)
 	if (sign == -1)
 		write(1, "-", 1);
 	print_bigint(result, dec_pos);
+	}
 }
 
 /*
@@ -100,10 +110,13 @@ void	float_conversion(double nbr)
 int	main(void)
 {
 	double nbr = -0.0000987654329876543211000000000000065498732154687989878000987;
+	double n = 0./0;
 
 
 	printf("%.100f;\n", nbr);
 	float_conversion(nbr);
+	printf("test :\n%lf;\n", n);
+	float_conversion(n);
 
 	return (0);
 }
