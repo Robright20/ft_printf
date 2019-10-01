@@ -1,53 +1,51 @@
-#include <stdarg.h>
-#include <strings.h>
-#include <stdio.h>
-#define ARGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$"
-#define ARGS_SIZE 32
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   save_flags.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/01 22:23:12 by fokrober          #+#    #+#             */
+/*   Updated: 2019/10/01 22:28:16 by fokrober         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
 
 int		ft_strncmp(char *s1, char *s2, int n);
 int		first_char_nbr(char *s);
+int		find_flag(char *s, char *format);
 
-void	save_flag(char *flags, char *format, int argw)
+void	save_flag(int *flags, char *format)
 {
 	char	*s;
 	int		pos;
 
-	s = ARGS_BUF;
+	if ((pos = find_flag(ARG_BUF, format)) == -1)
+		return ;
+	SET_FLAG_ON(flags, pos);
+}
+
+int		find_flag(char *s, char *format)
+{
+	int		pos;
+	int		argw;
+	
 	pos = 0;
 	while (*s)
 	{
+		argw = first_char_nbr(s);
 		if (ft_strncmp(s, format, argw) == argw)
 		{
 			if (s[0] != s[argw])
-			{
-				flags[pos] = 1;
-				break ;
-			}
+				return (pos);
 			else
 				s += argw;
 		}
-		s += first_char_nbr(s);
+		s += argw;
 		pos++;
 	}
-}
-
-int		ft_strnstr(char *s1, char *s2, int n)
-{
-	int		rep;
-
-	rep = n;
-	while (n)
-	{
-		if ((*s1 && *s2))
-		{
-			if (*s1 != *s2)
-				return (0);
-		}
-		else
-			return (*s1 == *s2);
-		(void)(s1++ && s2++ && n--);
-	}
-	return (rep);
+	return (-1);
 }
 
 int		first_char_nbr(char *s)
@@ -59,35 +57,4 @@ int		first_char_nbr(char *s)
 	while (s[i] && (s[0] == s[i++]))
 		rep++;
 	return (rep);
-}
-
-void	save_all_flags(char *flags, char *args)
-{
-	int			o;
-
-	while (*args)
-	{
-		o = first_char_nbr(args);
-		save_flag(flags, args, o);
-		args += o;
-	}
-}
-
-int		main(void)
-{
-	static char	flags[ARGS_SIZE];
-	char		*args;
-	char		*arg;
-	int			i;
-
-	args = "cspddiXfeg#0-+llhhlhLbrk'";
-	arg = ARGS_BUF;
-	printf("%s", arg);
-	save_all_flags(flags, args);
-	printf("\n");
-	i = 0;
-	while (i < ARGS_SIZE)
-		printf("%d", flags[i++]);
-	printf("\n");
-	return (0);
 }

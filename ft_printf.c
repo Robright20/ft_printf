@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/29 23:52:10 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/01 22:28:19 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,24 @@ void	init(int (*router[12])(int, int, int, va_list))
 	router[11] = ft_putgnbr;
 }
 
+int		va_argnth(va_list ap, char *fmt)
+{
+	int		i;
+	int		nbr;
+
+	i = 0;
+	while ((fmt[i] && ft_isdigit(fmt[i])) && fmt[0] != '0')
+		i++;
+	if (i != 0 && fmt[i] == '$')
+	{
+		nbr = ft_atoi(fmt);
+		while (nbr--)
+			va_arg(ap, void *);
+		return (++i);
+	}
+	return (0);
+}
+
 int		ft_printf(const char restrict *fmt, ...)
 {
 	va_list	ap;
@@ -47,16 +65,16 @@ int		ft_printf(const char restrict *fmt, ...)
 		fmt += set_color(fmt);
 		if ((*fmt == '%' && *(++fmt)) && *fmt == '%')
 		{
-			va_argnth(ap, fmt);
+			nbr += va_argnth(ap, fmt);
 			while (*fmt && !is_conv_spec(*fmt, FLAG_BUF))
 			{
 				fmt += save_width(fmt, &width, ap, ap2);
 				fmt += save_precision(fmt, &precision, ap, ap2);
 				fmt += save_flag(&flags, fmt);
 			}
-			nbr += router[ft_strnchr(FLAG_BUF, *fmt)](flags, width, precision, ap);
+			nbr += router[find_flag(FLAG_BUF, *fmt)](flags, width, precision, ap);
 		}
-		ft_putchar(*format);
+		(void)(!format && (nbr-- && ft_putchar(*format)));
 		nbr++;
 	}
 	return (nbr);

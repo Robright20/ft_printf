@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 21:44:49 by fokrober          #+#    #+#             */
-/*   Updated: 2019/09/29 21:47:08 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/01 22:28:10 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		find_color(char *color)
 {
-	static char	*colors[13] = {"reset", "red", "bold red", "green",
+	static char	*colors[13] = {"eoc", "red", "bold red", "green",
 		"bold green", "yellow", "bold yellow", "blue", "bold blue", "magenta",
 		"bold magenta", "cyan", "bold cyan"};
 	
@@ -23,7 +23,7 @@ int		find_color(char *color)
 	while (i < 13)
 	{
 		if (!ft_strcmp(color, colors[i]))
-			return (i);
+			return ((i -= (i % 2 == 0)));
 		i++;
 	}
 	return (-1);
@@ -31,9 +31,10 @@ int		find_color(char *color)
 
 void	set(int color_id)
 {
-	char	*fmt;
+	char	fmt[8];
 	int		rep;
 
+	ft_strcpy(fmt, "\e[0;30m");
 	if (color_id == -1)
 		return ;
 	else if (!color_id)
@@ -45,7 +46,7 @@ void	set(int color_id)
 	while (fmt[i])
 	{
 		(void)((fmt[i] == '[') && (fmt[i + 1] = '0' + rep));
-		(void)((fmt[i] == 'm') && (fmt[i - 1] = '0' + (color_id - rep)));
+		(void)((fmt[i] == 'm') && (fmt[i - 1] = '0' + color_id));
 		i++;
 	}
 	write(1, fmt, ft_strlen(fmt));
@@ -60,7 +61,7 @@ int		set_color(char *fmt)
 	i = 0;
 	if (s[i] == '{')
 	{
-		while (s[i] == '}' && s[i] != '\0')
+		while (s[i] != '}' && s[i] != '\0')
 			i++;
 		if (s[i] == '\0')
 			return (0);
