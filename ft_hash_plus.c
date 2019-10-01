@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 17:03:07 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/28 18:48:41 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/01 14:52:25 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ char	*ft_hash_plus_alloc(int *i, int flag)
 	char	*s;
 	int		prefix_len = 0;
 
-	//prefix_len =  is_on(flag, PLUS) + (is_on(flag, HASH) && is_on(flag, OCTAL)) +\
-					(is_on(flag, HASH) && (is_on(flag, X) || is_on(flag, x)) * 2) + (s[0] == '-')\
-					+ ((is_on(flag, DEC1) || is_on(flag, DEC2)) && (s[0] != '-'));
 	prefix_len = (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
 				 (((is_on(flag, HASH)) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2);
 	printf("prefix = %d\n", prefix_len);
