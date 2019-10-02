@@ -6,12 +6,12 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/01 22:28:19 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/02 02:18:11 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+/*
 void	init(int (*router[12])(int, int, int, va_list))
 {
 	router[0] = ft_putchar;
@@ -27,14 +27,14 @@ void	init(int (*router[12])(int, int, int, va_list))
 	router[10] = ft_putenbr;
 	router[11] = ft_putgnbr;
 }
-
+*/
 int		va_argnth(va_list ap, char *fmt)
 {
 	int		i;
 	int		nbr;
 
 	i = 0;
-	while ((fmt[i] && ft_isdigit(fmt[i])) && fmt[0] != '0')
+	while ((fmt[i] && ft_isdigit(fmt[i])))
 		i++;
 	if (i != 0 && fmt[i] == '$')
 	{
@@ -45,7 +45,7 @@ int		va_argnth(va_list ap, char *fmt)
 	}
 	return (0);
 }
-
+/*
 int		ft_printf(const char restrict *fmt, ...)
 {
 	va_list	ap;
@@ -79,3 +79,4 @@ int		ft_printf(const char restrict *fmt, ...)
 	}
 	return (nbr);
 }
+*/

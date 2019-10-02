@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_precision.c                                   :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/01 20:29:53 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/02 02:26:40 by fokrober         ###   ########.fr       */
+/*   Created: 2019/10/01 23:00:13 by fokrober          #+#    #+#             */
+/*   Updated: 2019/10/02 02:24:47 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		save_precision(char *fmt, int *precision, va_list ap, va_list ap2)
+int		test(char *fmt, ...)
 {
-	int		i;
+	va_list	ap;
+	va_list ap2;
+	int		precision;
+//	int		width;
 
-	i = 0;
-	if (fmt[0] == '.')
-	{
-		fmt++;
-		while ((fmt[i] && ft_isdigit(fmt[i])))
-			i++;
-		if (i != 0)
-		{
-			*precision = ft_atoi(fmt);
-			return (++i);
-		}
-		if (fmt[0] == '*')
-		{
-			i = va_argnth(ap2, &fmt[1]);
-			(void)((i) && (*precision = va_arg(ap2, int)));
-			(void)((!i) && (*precision = va_arg(ap, int)));
-			i++;
-		}
-		va_end(ap2);
-		return (++i);
-	}
+	precision = 0;
+	va_start(ap, fmt);
+	va_copy(ap2, ap);
+	printf("retour %d\n", save_precision(fmt, &precision, ap, ap2));
+	printf("precision = %d\n", precision);
+	va_end(ap);
+	return (0);
+}
+
+int		main(void)
+{
+	test(".*0", 10);
+	printf("%.2*d", 4, 3);
 	return (0);
 }

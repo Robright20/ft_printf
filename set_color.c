@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 21:44:49 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/01 22:28:10 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/02 00:41:15 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,56 @@ int		find_color(char *color)
 	static char	*colors[13] = {"eoc", "red", "bold red", "green",
 		"bold green", "yellow", "bold yellow", "blue", "bold blue", "magenta",
 		"bold magenta", "cyan", "bold cyan"};
-	
-	color = ft_downcase(color);
+	int			i;
+	char		*color_dup;
+
+	color_dup = ft_strdup(color);
+	ft_downcase(color_dup);
 	i = 0;
 	while (i < 13)
 	{
-		if (!ft_strcmp(color, colors[i]))
-			return ((i -= (i % 2 == 0)));
+		if (!ft_strcmp(color_dup, colors[i]))
+		{
+			free(color_dup);
+			return (i);
+		}
 		i++;
 	}
+	free(color_dup);
 	return (-1);
+}
+
+char	*ft_downcase(char *s)
+{
+	int i;
+
+	i = -1;
+	while (s[++i])
+		if (ft_isupper(s[i]))
+			s[i] = s[i] - 'A' + 'a';
+	return (s);
 }
 
 void	set(int color_id)
 {
 	char	fmt[8];
 	int		rep;
+	int		i;
 
 	ft_strcpy(fmt, "\e[0;30m");
 	if (color_id == -1)
 		return ;
 	else if (!color_id)
 	{
-		write(1, "\e[0m", 4);
+		write(1, "\e[0m", ft_strlen("\e[0m"));
 		return ;
 	}
-	rep = (color_id % 2 == 0);
+	rep = (color_id % 2 != 0);
+	i = 0;
 	while (fmt[i])
 	{
-		(void)((fmt[i] == '[') && (fmt[i + 1] = '0' + rep));
-		(void)((fmt[i] == 'm') && (fmt[i - 1] = '0' + color_id));
+		(void)((fmt[i] == '[') && (fmt[i + 1] = '0' + !rep));
+		(void)((fmt[i] == 'm') && (fmt[i - 1] = '0' + ((color_id + rep) / 2)));
 		i++;
 	}
 	write(1, fmt, ft_strlen(fmt));
@@ -59,16 +79,18 @@ int		set_color(char *fmt)
 	int		i;
 
 	i = 0;
-	if (s[i] == '{')
+	color_id = 0;
+	if (fmt[i] == '{')
 	{
-		while (s[i] != '}' && s[i] != '\0')
+		while (fmt[i] != '}' && fmt[i] != '\0')
 			i++;
-		if (s[i] == '\0')
+		if (fmt[i] == '\0')
 			return (0);
 		if (!(color = ft_strsub(fmt, 0, i)))
 			return (0);
 		color_id = find_color(color);
 		set(color_id);
+		free(color);
 	}
 	if (color_id != -1)
 		return (i);
