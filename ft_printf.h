@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 15:46:04 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/03 21:33:44 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum	e_flag
 
 int		ft_putc(int flags, int width, int precision, va_list ap);
 int		ft_puts(int flags, int width, int precision, va_list ap);
+int		ft_putptr(int flags, int width, int precision, va_list ap);
 int		ft_putdnbr(int flags, int width, int precision, va_list ap);
 int		ft_putonbr(int flags, int width, int precision, va_list ap);
 int		ft_putunbr(int flags, int width, int precision, va_list ap);
@@ -47,8 +48,8 @@ int		va_argnth(va_list ap, char *fmt);
 void	init(int (*router[12])(int, int, int, va_list));
 int		first_char_nbr(char *s);
 int		find_flag(char *flag_lst, char *format, int flagw);
-int		save_width(char *fmt, int *width, va_list ap, va_list ap2);
-int		save_precision(char *fmt, int *precision, va_list ap, va_list ap2);
+int		save_width(char *fmt, int *width, va_list ap);
+int		save_precision(char *fmt, int *precision, va_list ap);
 int		find_color(char *color);
 void	set(int color_id);
 int		set_color(char *fmt);

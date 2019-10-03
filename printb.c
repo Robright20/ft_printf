@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_width.c                                       :+:      :+:    :+:   */
+/*   printb.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/29 21:47:35 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 21:30:39 by fokrober         ###   ########.fr       */
+/*   Created: 2019/10/03 15:10:33 by fokrober          #+#    #+#             */
+/*   Updated: 2019/10/03 15:11:33 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		save_width(char *fmt, int *width, va_list ap)
+void	printbits(void *p, int i)
 {
-	int		i;
-	va_list	ap2;
+	char bb;
+	int  j;
 
-	i = 0;
-	va_copy(ap2, ap);
-	while ((fmt[i] && ft_isdigit(fmt[i])))
-		i++;
-	if (i != 0)
+	j = i;
+	while (j-- > 1)
+		p++;
+	while (i > 0)
 	{
-		*width = ft_atoi(fmt);
-		return (i);
+		j = 7;
+		bb = *(char *)p;
+		while (j >= 0)
+		{
+			printf("%u", ((bb >> j) & 1));
+			j--;
+		}
+		i--;
+		p--;
+		printf(" ");
 	}
-	if (fmt[0] == '*')
-	{
-		i = va_argnth(ap2, fmt + 1);
-		(void)((i) && (*width = va_arg(ap2, int)));
-		(void)((!i) && (*width = va_arg(ap, int)));
-		i++;
-	}
-	va_end(ap2);
-	return (i);
+	printf("\n");
 }

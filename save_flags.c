@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 22:23:12 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 17:56:29 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/03 21:51:08 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int		save_flag(int *flags, char *format)
 {
-	char	*s;
 	int		pos;
 	int		fw;
 
 	fw = first_char_nbr(format);
 	if ((pos = find_flag(FLAGS_BUF, format, fw)) == -1)
 	{
-		printf("pos %d\n", pos);
+		if (find_flag(FLAGS_BUF, format, 1) != -1)
+			return (fw);
 		return (0);
 	}
 	SET_FLAG_ON(*flags, pos);

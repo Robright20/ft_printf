@@ -6,20 +6,21 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 20:29:53 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 17:29:30 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/03 22:07:35 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		save_precision(char *fmt, int *precision, va_list ap, va_list ap2)
+int		save_precision(char *fmt, int *precision, va_list ap)
 {
 	int		i;
+	va_list	ap2;
 
 	i = 0;
-	if (fmt[0] == '.')
+	va_copy(ap2, ap);
+	if ((fmt && fmt[0] == '.') && (++fmt))
 	{
-		fmt++;
 		while ((fmt[i] && ft_isdigit(fmt[i])))
 			i++;
 		if (i != 0)

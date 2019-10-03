@@ -6,25 +6,26 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 17:36:47 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/03 22:08:31 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	init(int (*router[11])(int, int, int, va_list))
+void	init(int (*router[12])(int, int, int, va_list))
 {
 	router[0] = ft_putc;
 	router[1] = ft_puts;
-	router[2] = ft_putdnbr;
+	router[2] = ft_putptr;
 	router[3] = ft_putdnbr;
-	router[4] = ft_putonbr;
-	router[5] = ft_putunbr;
-	router[6] = ft_putxnbr;
+	router[4] = ft_putdnbr;
+	router[5] = ft_putonbr;
+	router[6] = ft_putunbr;
 	router[7] = ft_putxnbr;
-	router[8] = ft_putfnbr;
-	router[9] = ft_putenbr;
-	router[10] = ft_putgnbr;
+	router[8] = ft_putxnbr;
+	router[9] = ft_putfnbr;
+	router[10] = ft_putenbr;
+	router[11] = ft_putgnbr;
 }
 
 int		va_argnth(va_list ap, char *fmt)
@@ -45,43 +46,50 @@ int		va_argnth(va_list ap, char *fmt)
 	return (0);
 }
 
+char	*flag_scope(int *nbr, char *fmt, va_list ap)
+{
+	int		(*router[12])(int, int, int, va_list);
+	int		flags;
+	int		pw[2];
+	int		pos;
+
+	*nbr += va_argnth(ap, fmt);
+	init(router);
+	while (*fmt && is_conv_spec(*fmt, FLAGS_BUF) == -1)
+	{
+		pos = 0;
+		pos += save_width(fmt, &pw[1], ap);
+		pos += save_precision(fmt, &pw[0], ap);
+		pos += save_flag(&flags, fmt);
+		if (!pos)
+			break ;
+		fmt += pos;
+	}
+	if ((pos = find_flag(FLAGS_BUF, fmt, 1)) != -1)
+		(void)((*nbr += router[pos](flags, pw[1], pw[0], ap)) && fmt++);
+	return (fmt);
+}
+
 int		ft_printf(const char *restrict format, ...)
 {
 	va_list	ap;
-	va_list	ap2;
-	int		(*router[11])(int, int, int, va_list);
 	int		nbr;
-	int		flags;
-	int		width;
-	int		precision;
 	char	*fmt;
 	char	*fmt_cpy;
-	int		pos;
 
 	nbr = 0;
-	init(router);
 	va_start(ap, format);
-	va_copy(ap2, ap);
 	fmt = ft_strdup(format);
 	fmt_cpy = fmt;
 	while (*fmt)
 	{
 		fmt += set_color(fmt);
 		if ((*fmt == '%' && *(++fmt)) && *fmt != '%')
-		{
-			nbr += va_argnth(ap, fmt);
-			while (*fmt && is_conv_spec(*fmt, FLAGS_BUF) == -1)
-			{
-				fmt += save_width(fmt, &width, ap, ap2);
-				fmt += save_precision(fmt, &precision, ap, ap2);
-				fmt += save_flag(&flags, fmt);
-			}
-			if ((pos = find_flag(FLAGS_BUF, fmt, 1)) != -1)
-				(void)((nbr += router[pos](flags, width, precision, ap)) && fmt++);
-		}
+			fmt = flag_scope(&nbr, fmt, ap);
 		if (*fmt)
 			nbr += write(1, fmt++, 1);
 	}
-	free(fmt_cpy);
+	ft_strdel(&fmt_cpy);
+	va_end(ap);
 	return (nbr);
 }

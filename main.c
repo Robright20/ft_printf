@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:00:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 17:42:38 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/03 21:45:44 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ int		ft_putc(int flags, int width, int precision, va_list ap)
 	(void)ap;
 	return (0);
 }
+int		ft_putptr(int flags, int width, int precision, va_list ap)
+{
+	ft_putstr("-------------------------\n");
+	ft_putstr("ft_putptr\n");
+	ft_putstr("-------------------------\n");
+	ft_putstr("flags status\n");
+	printbits(&flags, 4);
+	printf("width %d\tprecision %d\n", width, precision);
+	(void)ap;
+	return (0);
+}
+
+
 int		ft_puts(int flags, int width, int precision, va_list ap)
 {
 	ft_putstr("-------------------------\n");
@@ -129,7 +142,7 @@ int		save_precision_test(char *fmt, ...)
 	precision = 0;
 	va_start(ap, fmt);
 	va_copy(ap2, ap);
-	printf("retour %d\n", save_precision(fmt, &precision, ap, ap2));
+	printf("retour %d\n", save_precision(fmt, &precision, ap));
 	printf("precision = %d\n", precision);
 	printf("va apres %d\n", va_arg(ap, int));
 	va_end(ap);
@@ -145,7 +158,7 @@ int		save_width_test(char *fmt, ...)
 	width = 0;
 	va_start(ap, fmt);
 	va_copy(ap2, ap);
-	printf("retour %d\n", save_width(fmt, &width, ap, ap2));
+	printf("retour %d\n", save_width(fmt, &width, ap));
 	printf("width = %d\n", width);
 	printf("va apres %d\n", va_arg(ap, int));
 	va_end(ap);
@@ -198,7 +211,10 @@ int		main(void)
 
 	/*backbone test
 	 * */
+	printf("ret %d\n", ft_printf("bonjour \n%10td\t", 244));
 	printf("ret %d\n", ft_printf("bonjour \n%10hhhd\t", 244));
+	printf("ret %d\n", ft_printf("bonjour \n%10hhd\t", 244));
+	printf("ret %d\n", ft_printf("bonjour \n%10hhu\t", 244));
 	printf("ret %hhhd\n", 2);
 	return (0);
 }

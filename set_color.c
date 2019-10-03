@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 21:44:49 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 16:32:05 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/03 21:50:23 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int		find_color(char *color)
 	{
 		if (!ft_strcmp(color_dup, colors[i]))
 		{
-			free(color_dup);
+			ft_strdel(&color_dup);
 			return (i);
 		}
 		i++;
 	}
-	free(color_dup);
+	ft_strdel(&color_dup);
 	return (-1);
 }
 
@@ -80,6 +80,7 @@ int		set_color(char *fmt)
 
 	i = 0;
 	color_id = -1;
+	color = NULL;
 	if (fmt[i] == '{')
 	{
 		while (fmt[i] != '}' && fmt[i] != '\0')
@@ -88,7 +89,7 @@ int		set_color(char *fmt)
 			return (0);
 		color_id = find_color(color);
 		set(color_id);
-		free(color);
+		ft_strdel(&color);
 	}
 	if (color_id != -1)
 		return (i + 1);
