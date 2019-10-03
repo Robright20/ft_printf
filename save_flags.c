@@ -6,39 +6,40 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 22:23:12 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/01 22:57:02 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/03 17:56:29 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	save_flag(int *flags, char *format)
+int		save_flag(int *flags, char *format)
 {
 	char	*s;
 	int		pos;
+	int		fw;
 
-	if ((pos = find_flag(ARG_BUF, format)) == -1)
-		return ;
-	SET_FLAG_ON(flags, pos);
+	fw = first_char_nbr(format);
+	if ((pos = find_flag(FLAGS_BUF, format, fw)) == -1)
+	{
+		printf("pos %d\n", pos);
+		return (0);
+	}
+	SET_FLAG_ON(*flags, pos);
+	return (fw);
 }
 
-int		find_flag(char *s, char *format)
+int		find_flag(char *flag_lst, char *format, int flagw)
 {
 	int		pos;
-	int		argw;
+	int		flagw_orig;
 
 	pos = 0;
-	while (*s)
+	while (*flag_lst)
 	{
-		argw = first_char_nbr(s);
-		if (ft_strncmp(s, format, argw) == argw)
-		{
-			if (s[0] != s[argw])
-				return (pos);
-			else
-				s += argw;
-		}
-		s += argw;
+		flagw_orig = first_char_nbr(flag_lst);
+		if (flagw == flagw_orig && ft_strncmp(flag_lst, format, flagw) == 0)
+			return (pos);
+		flag_lst += flagw_orig;
 		pos++;
 	}
 	return (-1);
@@ -49,7 +50,8 @@ int		first_char_nbr(char *s)
 	int		i;
 	int		rep;
 
-	(void)((i = 1) && (rep = 1));
+	i = 1;
+	rep = 1;
 	while (s[i] && (s[0] == s[i++]))
 		rep++;
 	return (rep);
