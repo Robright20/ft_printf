@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/01 15:09:51 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/04 18:23:43 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,13 +177,14 @@ int 	main()
 {
 	unsigned int	flag = 0;
 
-	set_flag(flag, HASH);
-	set_flag(flag, PLUS);
+	//set_flag(flag, HASH);
+	//set_flag(flag, PLUS);
 	//set_flag(flag, MINUS);
-	set_flag(flag, SPACE);
-	//set_flag(flag, ZERO);
+	//set_flag(flag, SPACE);
+	set_flag(flag, ZERO);
+	//set_flag(flag, PRECISION);
 	set_flag(flag, d);
 	printb(flag);
-	ft_putdnbr(11248, flag, 7, 6);
+	ft_putdnbr(18, flag, 1, 7);
 	//printf("hexa |%#5x|\n", 100);
 }

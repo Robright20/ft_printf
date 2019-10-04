@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 14:47:25 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/09/29 20:56:35 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/04 18:20:48 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	fwidth(char **s, int flag, int precision, int width)
 	if (!(is_on(flag, MINUS)))
 	{
 		shift(*s, width - len);
-		if (is_on(flag, ZERO))
+		if (is_on(flag, ZERO) && !(is_on(flag, PRECISION)))
 			blacktozero(*s, width - len);
 	}
 	else
@@ -131,7 +131,7 @@ int		ft_print(char **s, int flag, int precision, int width)
 	if (width >= len && width >= precision)
 	{
 		printf("------www--     aa%s--------\n", *s);
-				fwidth(s, flag, precision, width);
+		fwidth(s, flag, precision, width);
 		ft_putendl(*s);
 		ft_strdel(s);
 		return (width);
