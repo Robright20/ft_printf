@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 20:29:53 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 22:07:35 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 14:17:20 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int		save_precision(char *fmt, int *precision, va_list ap)
 			(void)((!i) && (*precision = va_arg(ap, int)));
 			i++;
 		}
-		va_end(ap2);
-		return (++i);
+		i++;
 	}
-	return (0);
+	va_end(ap2);
+	return (i);
 }
