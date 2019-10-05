@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 21:44:49 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 12:37:44 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 14:41:27 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,8 @@ void	set(int color_id)
 	}
 	rep = (color_id % 2 != 0);
 	i = 0;
-	while (fmt[i])
-	{
-		(void)((fmt[i] == '[') && (fmt[i + 1] = '0' + !rep));
-		(void)((fmt[i] == 'm') && (fmt[i - 1] = '0' + ((color_id + rep) / 2)));
-		i++;
-	}
+	fmt[2] = '0' + !rep;
+	fmt[5] = '0' + ((color_id + rep) / 2);
 	write(1, fmt, ft_strlen(fmt));
 }
 
