@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 22:08:31 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 02:42:35 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		va_argnth(va_list ap, char *fmt)
 	if (i != 0 && fmt[i] == '$')
 	{
 		nbr = ft_atoi(fmt);
-		while (--nbr)
+		while (nbr && --nbr)
 			va_arg(ap, void *);
 		return (++i);
 	}

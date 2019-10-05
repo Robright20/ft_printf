@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:00:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 21:45:44 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 02:49:26 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,9 @@ int		main(void)
 	printf("printf %.*2$d\n", 10, 4);*/
 
 	/* width test
+	 *
+	 * printf("ret %d\n", save_width_test("*0$", 4));
+	 * printf("ret %d\n", printf("width expect %*0$ %d\n", 4, 6));
 	 */
 
 	/* find flag test
@@ -204,17 +207,23 @@ int		main(void)
 
 	/*save_flag test
 	 * printf("set color test\nret %d\n", set_color("{red}"));
-	 * printf("set color test\nret %d\n", set_color("{eoc}"));*/
+	 * printf("set color test\nret %d\n", set_color("{eoc}"));
+	 * printf("set color test\nret %d\n", set_color("{eoc"));*/
 
 	/* init test
 	init_test("bonjour", 1, 3);*/
 
 	/*backbone test
-	 * */
+	 * 
 	printf("ret %d\n", ft_printf("bonjour \n%10td\t", 244));
 	printf("ret %d\n", ft_printf("bonjour \n%10hhhd\t", 244));
 	printf("ret %d\n", ft_printf("bonjour \n%10hhd\t", 244));
 	printf("ret %d\n", ft_printf("bonjour \n%10hhu\t", 244));
 	printf("ret %hhhd\n", 2);
+	printf("ret %d\n", ft_printf("salut {red"));
+	printf("ret %d\n", ft_printf("salut {redi"));
+	printf("ret %d\n", ft_printf("salut {redi}"));
+	printf("ret %d\n", ft_printf("width test %*0$ %d\n", 4, 6));
+	printf("ret %d\n", printf("width expect %*0$ %d\n", 4, 6));*/
 	return (0);
 }
