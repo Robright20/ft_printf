@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:00:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 12:46:11 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 13:39:38 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,8 +245,9 @@ int		main(void)
 	printf("ret %d\n", printf("neg prec [%1$%.-10d]\n", 5));
 	printf("ret %d\n", ft_printf("neg prec test %1$%.-10d\n", 5));
 	printf("ret %d\n", printf("neg prec [%1$.-10d]\n", 5));
-	printf("ret %d\n", ft_printf("neg prec test %1$.-10d\n", 5));*/
+	printf("ret %d\n", ft_printf("neg prec test %1$.-10d\n", 5));
 	printf("ret %d\n", printf("after? %d%d\n", 5, 4));
-	printf("ret %d\n", ft_printf("after? test %d%d\n", 5, 4));
+	printf("ret %d\n", ft_printf("after? test %d%d\n", 5, 4));*/
+	printf("ret %d\n", ft_printf("bonjour +\n%+++++++++.------10d+\t", 244));
 	return (0);
 }
