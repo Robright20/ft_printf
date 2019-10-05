@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 21:33:44 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 01:41:27 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define SET_FLAG(flags, pos) flags = (1 << pos) ^ flags
 # define SET_FLAG_ON(flags, pos) flags = (1 << pos) | flags
 # define RESET_FLAGS(flags) flags = 0
-# define IS_FLAG_ON(flags, pos) (((1 << pos) & flags) != 0)
+# define IS_ON(flags, pos) (((1 << pos) & flags) != 0)
 
 typedef enum	e_flag
 {
