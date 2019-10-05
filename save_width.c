@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 21:47:35 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 02:45:07 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 18:02:31 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		save_width(char *fmt, int *width, va_list ap)
 	if (fmt[0] == '*')
 	{
 		i = va_argnth(ap2, fmt + 1);
-		(void)((i) && (*width = va_arg(ap2, int)));
+		(void)((i && ft_atoi(fmt + 1)) && (*width = va_arg(ap2, int)));
 		(void)((!i) && (*width = va_arg(ap, int)));
 		i++;
 	}

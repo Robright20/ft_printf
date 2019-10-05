@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:00:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 16:27:34 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 17:51:21 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,9 @@ int		main(void)
 	/* precision test
 	save_precision_test(".10", 10, 4);
 	printf("printf %.*2$d\n", 10, 4);*/
-
+	save_precision_test(".*0$", 10, 5);
+	printf("printf bihavior : %.*0$f;\n", 2, 9.54321);
+	
 	/* width test
 	 *
 	 * printf("ret %d\n", save_width_test("*0$", 4));
@@ -248,7 +250,7 @@ int		main(void)
 	printf("ret %d\n", ft_printf("neg prec test %1$.-10d\n", 5));
 	printf("ret %d\n", printf("after? %d%d\n", 5, 4));
 	printf("ret %d\n", ft_printf("after? test %d%d\n", 5, 4));
-	printf("ret %d\n", ft_printf("bonjour +\n%+++++++++.------10d+\t", 244));*/
-	printf("ret %d\n", ft_printf("bonjour %.d", 244));
+	printf("ret %d\n", ft_printf("bonjour +\n%+++++++++.------10d+\t", 244));
+	printf("ret %d\n", ft_printf("bonjour %.d", 244));*/
 	return (0);
 }
