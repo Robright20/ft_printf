@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:00:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 02:49:26 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 02:59:00 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,5 +225,7 @@ int		main(void)
 	printf("ret %d\n", ft_printf("salut {redi}"));
 	printf("ret %d\n", ft_printf("width test %*0$ %d\n", 4, 6));
 	printf("ret %d\n", printf("width expect %*0$ %d\n", 4, 6));*/
+	printf("ret %d\n", ft_printf("test %%0$ %0$\n"));
+	printf("ret %d\n", printf("test %%0$ %0$\n"));
 	return (0);
 }
