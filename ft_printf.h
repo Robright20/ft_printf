@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 01:41:27 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 01:57:43 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int		ft_putfnbr(int flags, int width, int precision, va_list ap);
 int		ft_putenbr(int flags, int width, int precision, va_list ap);
 int		ft_putgnbr(int flags, int width, int precision, va_list ap);
 int		save_flag(int *flags, char *format);
-int		first_char_nbr(char *s);
+int		first_char_count(char *s);
 int		is_conv_spec(char c, char *args);
 int		va_argnth(va_list ap, char *fmt);
 void	init(int (*router[12])(int, int, int, va_list));
-int		first_char_nbr(char *s);
+int		first_char_count(char *s);
 int		find_flag(char *flag_lst, char *format, int flagw);
 int		save_width(char *fmt, int *width, va_list ap);
 int		save_precision(char *fmt, int *precision, va_list ap);

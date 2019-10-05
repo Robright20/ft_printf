@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 22:23:12 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 21:51:08 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 01:54:29 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		save_flag(int *flags, char *format)
 	int		pos;
 	int		fw;
 
-	fw = first_char_nbr(format);
+	fw = first_char_count(format);
 	if ((pos = find_flag(FLAGS_BUF, format, fw)) == -1)
 	{
 		if (find_flag(FLAGS_BUF, format, 1) != -1)
@@ -36,7 +36,7 @@ int		find_flag(char *flag_lst, char *format, int flagw)
 	pos = 0;
 	while (*flag_lst)
 	{
-		flagw_orig = first_char_nbr(flag_lst);
+		flagw_orig = first_char_count(flag_lst);
 		if (flagw == flagw_orig && ft_strncmp(flag_lst, format, flagw) == 0)
 			return (pos);
 		flag_lst += flagw_orig;
@@ -45,7 +45,7 @@ int		find_flag(char *flag_lst, char *format, int flagw)
 	return (-1);
 }
 
-int		first_char_nbr(char *s)
+int		first_char_count(char *s)
 {
 	int		i;
 	int		rep;
