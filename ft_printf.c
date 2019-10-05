@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 13:19:18 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 14:13:07 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ char	*flag_scope(int *nbr, char *fmt, va_list ap)
 	int		pw[2];
 	int		pos;
 
-	*nbr += va_argnth(ap, fmt);
 	init(router);
 	flags = 0;
+	fmt += va_argnth(ap, fmt);
 	while (*fmt && is_conv_spec(*fmt, FLAGS_BUF) == -1)
 	{
 		pos = 0;
