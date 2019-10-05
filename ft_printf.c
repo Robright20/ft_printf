@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 17:37:12 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 22:26:33 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int		va_argnth(va_list ap, char *fmt)
 		nbr = ft_atoi(fmt);
 		while (nbr && --nbr)
 			va_arg(ap, void *);
-		return (++i);
 	}
-	return (0);
+	(void)(fmt[i] == '$' && ++i);
+	return (i);
 }
 
 char	*flag_scope(int *nbr, char *fmt, va_list ap)
@@ -56,6 +56,7 @@ char	*flag_scope(int *nbr, char *fmt, va_list ap)
 	init(router);
 	flags = 0;
 	fmt += va_argnth(ap, fmt);
+	ft_bzero(pw, sizeof(pw));
 	while (*fmt && is_conv_spec(*fmt, FLAGS_BUF) == -1)
 	{
 		pos = 0;

@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:00:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 18:08:14 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 22:35:01 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,10 +191,14 @@ int		main(void)
 	save_precision_test(".10", 10, 4);
 	printf("printf %.*2$d\n", 10, 4);
 	save_precision_test(".*0$", 10, 5);
-	printf("printf bihavior : %.*0$f;\n", 2, 9.54321);*/
+	printf("printf bihavior : %.*0$f;\n", 2, 9.54321);
 	save_precision_test(".*3$", 2, 9.54321);
 	printf("printf bihavior : %.*3$f;\n", 2, 9.54321);
 	printf("7 precision should be : 6 (the default value)\n------------\n");
+	save_precision_test(".*$ .*$", 6, 21);
+	printf("ret printf %d\n", printf("[%.*$ .*$d;]\n", 6, 21, 9));
+	printf("9 precision should be : 0\n++++++++++++++++++++++++++++++++++++++++\n");*/
+
 	/* width test
 	 *
 	 * printf("ret %d\n", save_width_test("*0$", 4));
@@ -253,6 +257,16 @@ int		main(void)
 	printf("ret %d\n", printf("after? %d%d\n", 5, 4));
 	printf("ret %d\n", ft_printf("after? test %d%d\n", 5, 4));
 	printf("ret %d\n", ft_printf("bonjour +\n%+++++++++.------10d+\t", 244));
-	printf("ret %d\n", ft_printf("bonjour %.d", 244));*/
+	printf("ret %d\n", ft_printf("bonjour %.d", 244));
+	printf("ret %d\n", ft_printf("bonjour %.*3$f", 244, 9.83475));
+	printf("ret %d\n", printf("bonjour %.*3$f", 244, 9.83475));	
+	printf("ret11 %d\n\n", ft_printf("bonjour11 \n;%.*d;\t;%.d;\t", 244, 123, 45, 33));
+	printf("ret11 %d\n\n", ft_printf("bonjour11 \n;%.*d;\t;%d;\t", 244, 123, 45, 33));
+	printf("ret11 %d\n\n", printf("bonjour11 \n;%.*d;\t;%.d;\t", 244, 123, 45, 33));
+	printf("ret11 %d\n\n", ft_printf("bonjour11 \n;%.*d;\t;%d;\t", 244, 123, 45, 33));*/
+	printf("ret7 %d\n\n", ft_printf("bonjour7 \n%*3$.*2$d\t", 244, 123, 45));
+	printf("ret7 %d\n\n", printf("bonjour7 \n[%*3$.*2$d]\t", 244, 123, 45));
+	printf("ret8 %d\n\n", ft_printf("bonjour8 \n%*1$d\t", 244, 123, 45));
+	printf("ret8 %d\n\n", printf("bonjour8 \n[%*1$d]\t", 244, 123, 45));
 	return (0);
 }
