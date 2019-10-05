@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:00:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 02:59:00 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 12:31:33 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,9 +203,16 @@ int		main(void)
 
 	/*save_flag test
 	 * save_flag_test("hh");
-	 */
+	int		flags = 0;
+	printf("%d\n", find_flag(FLAGS_BUF, "$", 1));
+	SET_FLAG_ON(flags, 27);
+	printbits(&flags, 4);
+	flags = 0;
+	printf("%d\n", find_flag(FLAGS_BUF, "-", 1));
+	SET_FLAG_ON(flags, 14);
+	printbits(&flags, 4);*/
 
-	/*save_flag test
+	/*set_color test
 	 * printf("set color test\nret %d\n", set_color("{red}"));
 	 * printf("set color test\nret %d\n", set_color("{eoc}"));
 	 * printf("set color test\nret %d\n", set_color("{eoc"));*/
@@ -224,8 +231,20 @@ int		main(void)
 	printf("ret %d\n", ft_printf("salut {redi"));
 	printf("ret %d\n", ft_printf("salut {redi}"));
 	printf("ret %d\n", ft_printf("width test %*0$ %d\n", 4, 6));
-	printf("ret %d\n", printf("width expect %*0$ %d\n", 4, 6));*/
-	printf("ret %d\n", ft_printf("test %%0$ %0$\n"));
-	printf("ret %d\n", printf("test %%0$ %0$\n"));
+	printf("ret %d\n", printf("width expect %*0$ %d\n", 4, 6));
+	printf("ret %d\n", ft_printf("prec test %.*0$ %d\n", 4, 6));
+	printf("ret %d\n", printf("prec %.*0$ %d\n", 4, 6));
+	printf("ret %d\n", ft_printf("acc test %0$ %d\n", 4, 6));
+	printf("ret %d\n", printf("acc %0$ %d\n", 4, 6));
+	printf("ret %d\n", ft_printf("neg prec test %-1$.-10d\n", 4, 6));
+	printf("ret %d\n", printf("neg prec %-1$.-10d\n", 4, 6));
+	printf("ret %d\n", printf("neg prec %.-10d\n", 244));
+	printf("ret %d\n", ft_printf("neg prec test %.-10d\n", 244));
+	printf("ret %d\n", printf("neg prec [%.-10d]\n", 244));
+	printf("ret %d\n", ft_printf("neg prec test %.-10d\n", 244));
+	printf("ret %d\n", printf("neg prec [%1$%.-10d]\n", 5));
+	printf("ret %d\n", ft_printf("neg prec test %1$%.-10d\n", 5));*/
+	printf("ret %d\n", printf("neg prec [%1$.-10d]\n", 5));
+	printf("ret %d\n", ft_printf("neg prec test %1$.-10d\n", 5));
 	return (0);
 }

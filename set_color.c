@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 21:44:49 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 02:15:04 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 12:37:44 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		find_color(char *color)
 	int			i;
 	char		*color_dup;
 
-	color_dup = ft_strdup(color);
+	if (!(color_dup = ft_strdup(color)))
+		return (-1);
 	ft_downcase(color_dup);
 	i = 0;
 	while (i < 13)
