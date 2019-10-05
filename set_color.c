@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 21:44:49 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 14:41:27 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 14:43:46 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	set(int color_id)
 	i = 0;
 	fmt[2] = '0' + !rep;
 	fmt[5] = '0' + ((color_id + rep) / 2);
-	write(1, fmt, ft_strlen(fmt));
+	write(1, fmt, 7);
 }
 
 int		set_color(char *fmt)
