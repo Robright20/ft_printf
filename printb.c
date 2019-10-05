@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 15:10:33 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 21:40:13 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 22:40:38 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	printbits(void *p, int i)
 {
-	char bb;
-	int  j;
+	char	bb;
+	int		j;
 
 	j = i;
 	while (j-- > 1)
