@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:00:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 17:51:21 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 18:08:14 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,10 +189,12 @@ int		main(void)
 {
 	/* precision test
 	save_precision_test(".10", 10, 4);
-	printf("printf %.*2$d\n", 10, 4);*/
+	printf("printf %.*2$d\n", 10, 4);
 	save_precision_test(".*0$", 10, 5);
-	printf("printf bihavior : %.*0$f;\n", 2, 9.54321);
-	
+	printf("printf bihavior : %.*0$f;\n", 2, 9.54321);*/
+	save_precision_test(".*3$", 2, 9.54321);
+	printf("printf bihavior : %.*3$f;\n", 2, 9.54321);
+	printf("7 precision should be : 6 (the default value)\n------------\n");
 	/* width test
 	 *
 	 * printf("ret %d\n", save_width_test("*0$", 4));
