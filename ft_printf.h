@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 01:57:43 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 14:56:30 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <strings.h>
 # include "libft.h"
 # include <stdio.h>
-# define FLAGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$"
+# define FLAGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$."
 # define FLAGS_SIZE 32
 # define CONV_BOUND 12
 # define SET_FLAG(flags, pos) flags = (1 << pos) ^ flags
@@ -28,7 +28,7 @@ typedef enum	e_flag
 {
 	CHAR, STRING, POINTER, DEC, IDEC, OCTAL, UINT, HEX, UHEX, FLOAT, EXPO,
 	GEXPO, HASH, ZERO, MINUS, PLUS, SPACE, LLONG, HH, LONG, H, L, BIN, R,
-	K, QUOTE, STAR, DOLLAR
+	K, QUOTE, STAR, DOLLAR, POINT
 }				t_flag;
 
 int		ft_putc(int flags, int width, int precision, va_list ap);

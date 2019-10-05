@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 14:13:07 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 17:37:12 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ char	*flag_scope(int *nbr, char *fmt, va_list ap)
 	{
 		pos = 0;
 		pos += save_width(fmt, &pw[1], ap);
-		pos += save_precision(fmt, &pw[0], ap);
-		pos += save_flag(&flags, fmt);
+		(void)(fmt[pos] == '.' && (SET_FLAG_ON(flags, POINT)));
+		pos += save_precision(fmt + pos, &pw[0], ap);
+		pos += save_flag(&flags, fmt + pos);
 		if (!pos)
 			break ;
 		fmt += pos;

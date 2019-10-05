@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 22:23:12 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 14:24:53 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 17:31:53 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int		save_flag(int *flags, char *format)
 			SET_FLAG_ON(*flags, pos);
 			return (fw);
 		}
-		return (0);
 	}
+	if (pos < 12)
+		return (0);
 	SET_FLAG_ON(*flags, pos);
 	return (fw);
 }
