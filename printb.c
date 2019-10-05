@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/03 15:10:33 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/03 15:11:33 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 01:49:45 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	printbits(void *p, int i)
 		bb = *(char *)p;
 		while (j >= 0)
 		{
-			printf("%u", ((bb >> j) & 1));
+			ft_putnbr(((bb >> j) & 1));
 			j--;
 		}
 		i--;
