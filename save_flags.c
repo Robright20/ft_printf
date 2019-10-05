@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 22:23:12 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 13:38:43 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 14:24:53 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,11 @@ int		find_flag(char *flag_lst, char *format, int flagw)
 int		first_char_count(char *s)
 {
 	int		i;
-	int		rep;
 
 	i = 1;
-	rep = 1;
-	while (s[i] && (s[0] == s[i++]))
-		rep++;
-	return (rep);
+	while (s[i] && (s[0] == s[i + 1]))
+		i++;
+	return (i);
 }
 
 int		is_conv_spec(char c, char *args)
