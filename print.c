@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 14:47:25 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/04 18:20:48 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/05 01:55:10 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,44 +60,44 @@ void	shift(char *s, int shift_value)
 
 void	fprecision(char **s, int flag, int precision, int shift_value)
 {
-	int		prefix_len;// 0x 0X 0
+	int		p_len;// 0x 0X 0
 	
-	prefix_len =  (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
-				  ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
-				  ((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
-	*s = ft_realloc(s, precision + prefix_len + 1);
-	*s += prefix_len;
+	p_len = (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL)))\
+	+ ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
+	((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
+	*s = ft_realloc(s, precision + p_len + 1);
+	*s += p_len;
 	shift(*s, shift_value);
 	blacktozero(*s, shift_value);
-	*s -= prefix_len;
+	*s -= p_len;
 }
 
-void	ft_get_precision(char **s, int precision, int prefix_len, int len)
+void	ft_get_precision(char **s, int precision, int p_len, int len)
 {
 	int	shift_value;
 	
 	shift_value = precision - len;
-	*s += prefix_len;
+	*s += p_len;
 	shift(*s, shift_value);
 	blacktozero(*s, shift_value);
-	*s -= prefix_len;
+	*s -= p_len;
 }
 
 void	fwidth(char **s, int flag, int precision, int width)
 {
 	int		len;
 	int		shift_value;
-	int		prefix_len;// +0x +0X +0
+	int		p_len;// +0x +0X +0
 	int		take_space;
 	
 	*s = ft_realloc(s, width + 1);
-	prefix_len = (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
-				 ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
-				 ((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
+	p_len = (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL)))\
+	+ ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
+	((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
 	take_space = !(is_on(flag, PLUS)) && (is_on(flag, SPACE)) && *s[0] == '^';
-	len = (int)ft_strlen(*s) - prefix_len;
+	len = (int)ft_strlen(*s) - p_len;
 	if (precision > len)
-		ft_get_precision(s, precision, prefix_len, len);//complete with 0000 after prefix
+		ft_get_precision(s, precision, p_len, len);//complete with 0000 after prefix
 	len = (int)ft_strlen(*s);
 	*s = *s + take_space;
 	if (!(is_on(flag, MINUS)))
@@ -114,29 +114,18 @@ void	fwidth(char **s, int flag, int precision, int width)
 int		ft_print(char **s, int flag, int precision, int width)
 {
 	int		len;
-	int		prefix_len;
+	int		p_len;
 
-	prefix_len =  (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL))) +\
-				  ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
-				  ((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
+	p_len = (is_on(flag, PLUS)) + ((is_on(flag, HASH)) && (is_on(flag, OCTAL)))\
+	+ ((is_on(flag, HASH) && ((is_on(flag, X)) || (is_on(flag, x)))) * 2) +\
+	((*s[0] == '-' || *s[0] == '^') && !(is_on(flag, PLUS)));
 	len = (int)ft_strlen(*s);
-	if (precision >= (len - prefix_len) && precision >= width)
-	{
-		printf("-----pppp----    aa%s------\n", *s);
-		fprecision(s, flag, precision, precision - (len - prefix_len));
-		ft_putendl(*s);
-		ft_strdel(s);
-		return (precision);
-	}
-	if (width >= len && width >= precision)
-	{
-		printf("------www--     aa%s--------\n", *s);
+	if (precision >= (len - p_len) && precision >= width)
+		fprecision(s, flag, precision, precision - (len - p_len));
+	else if (width >= len && width >= precision)
 		fwidth(s, flag, precision, width);
-		ft_putendl(*s);
-		ft_strdel(s);
-		return (width);
-	}
 	ft_putendl(*s);
+	len = ft_strlen(*s);
 	ft_strdel(s);
 	return (len);
 }

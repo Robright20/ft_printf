@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 17:05:15 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/04 18:22:50 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/05 01:55:08 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ typedef enum    e_flag
 	    PLUS = 1, HASH, MINUS, SPACE, ZERO, WIDTH, PRECISION, OCTAL, x, X, i, d, u
 }               t_flag;
 
-void    printb(unsigned int c);
-int     ft_putonbr(unsigned long long n, int flag, int precision, int width);
-int     ft_putunbr(unsigned long long n, int flag, int precision, int width);
-int     ft_putxnbr(unsigned long long n, int flag, int precision, int width);
-int     ft_putxnbr(unsigned long long n, int flag, int precision, int width);
-int     ft_putdnbr(long long n, int flag, int precision, int width);
-void    nulltoblack(char *s, int until);
-void    blacktozero(char *s, int until);
-void    shift(char *s, int shift_value);
-void    fprecision(char **s, int flag, int precision, int shift_value);
-void    fwidth(char **s, int flag, int precision, int width);
-int     ft_print(char **s, int flag, int precision, int width);
-char    *ft_hash_plus_alloc_o(int *i, int flag);
-char    *ft_hash_plus_alloc_heX(int *i, int flag);
-char    *ft_hash_plus_alloc_hex(int *i, int flag);
-char    *ft_hash_plus_alloc(int *i, int flag);
+void    		printb(unsigned int c);
+int     		ft_putonbr(unsigned long long n, int flag, int precision, int width);
+int     		ft_putunbr(unsigned long long n, int flag, int precision, int width);
+int     		ft_putxnbr(unsigned long long n, int flag, int precision, int width);
+int     		ft_putxnbr(unsigned long long n, int flag, int precision, int width);
+int     		ft_putdnbr(long long n, int flag, int precision, int width);
+void    		nulltoblack(char *s, int until);
+void   			blacktozero(char *s, int until);
+void    		shift(char *s, int shift_value);
+void    		fprecision(char **s, int flag, int precision, int shift_value);
+void    		fwidth(char **s, int flag, int precision, int width);
+int     		ft_print(char **s, int flag, int precision, int width);
+char    		*ft_hash_plus_alloc_o(int *i, int flag);
+char    		*ft_hash_plus_alloc_heX(int *i, int flag);
+char    		*ft_hash_plus_alloc_hex(int *i, int flag);
+char    		*ft_hash_plus_alloc(int *i, int flag);
