@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/05 01:54:59 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/06 15:47:29 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int		ft_putunbr(unsigned long long n, int flag, int precision, int width)//also 
 	char				*ret;
 	int					i;
 	unsigned long long	tmp;
-	int					size;
 
 	tmp = n;
 	i = 0;
@@ -60,7 +59,7 @@ int		ft_putdnbr(long long n, int flag, int precision, int width)
 		tmp /= 10;
 	size = i + (is_on(flag, PLUS) || (n < 0)) +\
 		   ((is_on(flag, SPACE)) && !(is_on(flag, PLUS)) && (n >= 0));
-	if (!(ret = ft_memalloc(sizeof(char) * (i + 1))))
+	if (!(ret = ft_strnew(sizeof(char) * (i + 1))))
 		return (0);
 	if (size > i)
 	{
@@ -81,7 +80,6 @@ int		ft_putonbr(unsigned long long n, int flag, int precision, int width)
 	char				*ret;
 	int					i;
 	unsigned long long	tmp;
-	int					size;
 
 	tmp = n;
 	i = 0;
@@ -103,7 +101,6 @@ int		ft_putxnbr(unsigned long long n, int flag, int precision, int width)
 	char					*ret;
 	int						i;
 	unsigned long long		tmp;
-	int						size;
 
 	s = "0123456789abcdef";
 	tmp = n;
@@ -112,7 +109,6 @@ int		ft_putxnbr(unsigned long long n, int flag, int precision, int width)
 		tmp /= 16;
 	if (!(ret = ft_hash_plus_alloc(&i, flag)))
 		return (0);
-	size = i;
 	while (n)
 	{
 		ret[i-- - 1] = s[n % 16];
@@ -127,7 +123,6 @@ int		ft_putXnbr(unsigned long long n, int flag, int precision, int width)
 	char					*ret;
 	int						i;
 	unsigned long long		tmp;
-	int						size;
 
 	s = "0123456789ABCDEF";
 	tmp = n;
@@ -152,11 +147,15 @@ int		main(void)
 	set_flag(flag, HASH);
 	set_flag(flag, PLUS);
 	//set_flag(flag, MINUS);
-	//set_flag(flag, SPACE);
+	set_flag(flag, SPACE);
 	//set_flag(flag, ZERO);
 	set_flag(flag, PRECISION);
-	set_flag(flag, d);
+	set_flag(flag, x);
 	printb(flag);
-	printf("size = %d\n", ft_putdnbr(18, flag, 1, 7));
-	//printf("hexa |%#5x|\n", 100);
+	
+	printf("size = %d\n", ft_putxnbr(1866, flag, 8, 10));
+	printf("%+# 10.8x\n", 1866);
+	
+	/*printf("size = %d\n", ft_putonbr(234, flag, 2, 1));
+	printf("%+ 1.2o\n", 234);*/
 }

@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 17:05:15 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/05 01:55:08 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/06 15:12:45 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef enum    e_flag
 	    PLUS = 1, HASH, MINUS, SPACE, ZERO, WIDTH, PRECISION, OCTAL, x, X, i, d, u
 }               t_flag;
 
+int				get_prefix_len(int flag, char *s);
 void    		printb(unsigned int c);
 int     		ft_putonbr(unsigned long long n, int flag, int precision, int width);
 int     		ft_putunbr(unsigned long long n, int flag, int precision, int width);
