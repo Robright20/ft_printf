@@ -6,28 +6,30 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 17:05:15 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/06 15:12:45 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/07 02:24:02 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
+#include <stdarg.h>
 #define FLAG "+#- 0wpoxXdiu"
 #define set_flag(flag, index) flag = flag | (1 << (32 - index))
 #define is_on(flag, index) (flag & (1 << (32 - index))) != 0
 
 typedef enum    e_flag
 {
-	    PLUS = 1, HASH, MINUS, SPACE, ZERO, WIDTH, PRECISION, OCTAL, x, X, i, d, u
+	    PLUS = 1, HASH, MINUS, SPACE, ZERO, WIDTH, PRECISION, OCTAL, x, X, i, d, u,
+		l, ll, h, hh
 }               t_flag;
 
 int				get_prefix_len(int flag, char *s);
 void    		printb(unsigned int c);
-int     		ft_putonbr(unsigned long long n, int flag, int precision, int width);
-int     		ft_putunbr(unsigned long long n, int flag, int precision, int width);
-int     		ft_putxnbr(unsigned long long n, int flag, int precision, int width);
-int     		ft_putxnbr(unsigned long long n, int flag, int precision, int width);
-int     		ft_putdnbr(long long n, int flag, int precision, int width);
+int     		ft_putonbr(va_list n, int flag, int precision, int width);
+int     		ft_putunbr(va_list n, int flag, int precision, int width);
+int     		ft_putxnbr(va_list n, int flag, int precision, int width);
+int     		ft_putxnbr(va_list n, int flag, int precision, int width);
+int     		ft_putdnbr(va_list n, int flag, int precision, int width);
 void    		nulltoblack(char *s, int until);
 void   			blacktozero(char *s, int until);
 void    		shift(char *s, int shift_value);
