@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/07 02:24:05 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/08 19:37:08 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,33 @@ long long	ft_d(va_list ap)
 	return ((long long)va_arg(ap, int));
 }
 
-long long	ft_h(va_list ap)
+long long	ft_hd(va_list ap)
 {
 	return ((long long)(short)va_arg(ap, int));
 }
 
-long long	ft_hh(va_list ap)
+long long	ft_hu(va_list ap)
+{
+	return ((long long)(unsigned short)va_arg(ap, int));
+}
+
+long long	ft_hhd(va_list ap)
 {
 	return ((long long)(char)va_arg(ap, int));
 }
 
-long long	(*dispatcher[5])(va_list ap) = {ft_ll, ft_l, ft_d, ft_h, ft_hh};
+long long	ft_hhu(va_list ap)
+{
+	return ((long long)(unsigned char)va_arg(ap, int));
+}
+
+long long	(*dispatcher[7])(va_list ap) = {ft_ll, ft_l, ft_d, ft_hd, ft_hu,\
+			ft_hhd, ft_hhu};
 
 /*
-** data are stocked in same way(int and unsig int) it deffer only in reading
-** this means that we can store int in uint and recover this uint in int after
+ **
+ **
+ **
 */
 
 int		ft_index(int flag)
@@ -51,9 +63,19 @@ int		ft_index(int flag)
 	if (is_on(flag, l))
 		return (1);
 	if (is_on(flag, h))
-		return (3);
+	{
+		if (is_on(flag, d) || is_on(flag, i))
+			return (3);
+		else
+			return (4);
+	}
 	if (is_on(flag, hh))
-		return (4);
+	{
+		if (is_on(flag, d) || is_on(flag, i))
+			return (5);
+		else
+			return (6);
+	}
 	return (2);
 }
 
@@ -197,15 +219,15 @@ int		ft_putXnbr(va_list ap, int flag, int precision, int width)
 void	display(int flag, int i, ...)
 {
 	va_list ap;
-	long long n = 4123456789;
+	long long n = 15;
 
 	va_start(ap, i);
 	while(i--)
 	{
-		ft_putdnbr(ap, flag, 8, 10);
+		printf("my_size = %d\n", ft_putonbr(ap, flag, 0, 0));
 		printf("\n");
 	}
-	printf("n = %+ #10.8hhd\n", n);
+	printf("size = %d\n", printf("%#.0o", n));
 	va_end(ap);
 }
 
@@ -224,11 +246,11 @@ int		main(void)
 	set_flag(flag, SPACE);
 	//set_flag(flag, ZERO);
 	set_flag(flag, PRECISION);
-	set_flag(flag, d);
+	set_flag(flag, OCTAL);
 	printb(flag);
 	
 
-	display(flag, 6, 15, 4123456789, -47, 69, 255, 256);
+	display(flag, 1, 15);
 	//printf("size = %d\n", ft_putxnbr(1866, flag, 8, 10));
 	//printf("%+# 10.8x\n", 1866);
 	

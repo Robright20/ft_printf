@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 14:47:25 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/06 21:58:38 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/08 14:57:01 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		get_prefix_len(int flag, char *s)
 {
 	return (is_on(flag, PLUS) && (is_on(flag, d) || is_on(flag, i))) +\
-	(is_on(flag, HASH) && is_on(flag, OCTAL)) +\
+	//(is_on(flag, HASH) && is_on(flag, OCTAL)) +
 	((is_on(flag, HASH) && (is_on(flag, X) || is_on(flag, x))) * 2) +\
 	((s[0] == '-' || s[0] == '^') && !(is_on(flag, PLUS)));
 }
@@ -25,7 +25,7 @@ char	*ft_realloc(char **s, size_t size)
 	char	*tmp;
 
 	tmp = *s;
-	*s = ft_memalloc(sizeof(char) * size);
+	*s = ft_strnew(sizeof(char) * size);
 	ft_strcpy(*s, tmp);
 	ft_strdel(&tmp);
 	return (*s);
@@ -71,7 +71,7 @@ void	fprecision(char **s, int flag, int precision, int shift_value)
 	int		p_len;// 0x 0X 0
 	
 	p_len = get_prefix_len(flag, *s);
-	*s = ft_realloc(s, precision + p_len + 1);
+	*s = ft_realloc(s, precision + p_len);
 	*s += p_len;
 	shift(*s, shift_value);
 	blacktozero(*s, shift_value);
@@ -96,7 +96,7 @@ void	fwidth(char **s, int flag, int precision, int width)
 	int		p_len;// +0x +0X +0
 	int		take_space;
 	
-	*s = ft_realloc(s, width + 1);
+	*s = ft_realloc(s, width);
 	p_len = get_prefix_len(flag, *s);
 	take_space = !(is_on(flag, PLUS)) && (is_on(flag, SPACE)) && *s[0] == '^';
 	len = (int)ft_strlen(*s) - p_len;
@@ -121,10 +121,11 @@ int		ft_print(char **s, int flag, int precision, int width)
 	int		p_len;
 
 	p_len = get_prefix_len(flag, *s);
+	printf("p_len = %d\n", p_len);
 	len = (int)ft_strlen(*s);
-	if (precision >= (len - p_len) && precision >= width)
+	if (precision > (len - p_len) && precision > width)
 		fprecision(s, flag, precision, precision - (len - p_len));
-	else if (width >= len && width >= precision)
+	else if (width >= len)
 		fwidth(s, flag, precision, width);
 	ft_putstr(*s);
 	len = ft_strlen(*s);
