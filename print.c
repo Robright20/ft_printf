@@ -6,18 +6,17 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 14:47:25 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/08 14:57:01 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/09 22:13:19 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "ft_printf.h"
 
 int		get_prefix_len(int flag, char *s)
 {
-	return (is_on(flag, PLUS) && (is_on(flag, d) || is_on(flag, i))) +\
-	//(is_on(flag, HASH) && is_on(flag, OCTAL)) +
-	((is_on(flag, HASH) && (is_on(flag, X) || is_on(flag, x))) * 2) +\
-	((s[0] == '-' || s[0] == '^') && !(is_on(flag, PLUS)));
+	return (IS_ON(flag, PLUS) && (IS_ON(flag, DEC) || IS_ON(flag, IDEC))) +\
+	((IS_ON(flag, HASH) && (IS_ON(flag, HEX) || IS_ON(flag, BHEX))) * 2) +\
+	((s[0] == '-' || s[0] == '^') && !(IS_ON(flag, PLUS)));
 }
 
 char	*ft_realloc(char **s, size_t size)
@@ -98,16 +97,16 @@ void	fwidth(char **s, int flag, int precision, int width)
 	
 	*s = ft_realloc(s, width);
 	p_len = get_prefix_len(flag, *s);
-	take_space = !(is_on(flag, PLUS)) && (is_on(flag, SPACE)) && *s[0] == '^';
+	take_space = !(IS_ON(flag, PLUS)) && (IS_ON(flag, SPACE)) && *s[0] == '^';
 	len = (int)ft_strlen(*s) - p_len;
 	if (precision > len)
 		ft_get_precision(s, precision, p_len, len);//complete with 0000 after prefix
 	len = (int)ft_strlen(*s);
 	*s = *s + take_space;
-	if (!(is_on(flag, MINUS)))
+	if (!(IS_ON(flag, MINUS)))
 	{
 		shift(*s, width - len);
-		if (is_on(flag, ZERO) && !(is_on(flag, PRECISION)))
+		if (IS_ON(flag, ZERO) && !(IS_ON(flag, PRECISION)))
 			blacktozero(*s, width - len);
 	}
 	else
@@ -121,7 +120,6 @@ int		ft_print(char **s, int flag, int precision, int width)
 	int		p_len;
 
 	p_len = get_prefix_len(flag, *s);
-	printf("p_len = %d\n", p_len);
 	len = (int)ft_strlen(*s);
 	if (precision > (len - p_len) && precision > width)
 		fprecision(s, flag, precision, precision - (len - p_len));

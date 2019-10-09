@@ -6,11 +6,11 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/08 19:37:08 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/09 22:14:48 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "ft_printf.h"
 
 long long	ft_ll(va_list ap)
 {
@@ -58,20 +58,20 @@ long long	(*dispatcher[7])(va_list ap) = {ft_ll, ft_l, ft_d, ft_hd, ft_hu,\
 
 int		ft_index(int flag)
 {
-	if (is_on(flag, ll))
+	if (IS_ON(flag, LLONG))
 		return (0);
-	if (is_on(flag, l))
+	if (IS_ON(flag, LONG))
 		return (1);
-	if (is_on(flag, h))
+	if (IS_ON(flag, HALF))
 	{
-		if (is_on(flag, d) || is_on(flag, i))
+		if (IS_ON(flag, DEC) || IS_ON(flag, IDEC))
 			return (3);
 		else
 			return (4);
 	}
-	if (is_on(flag, hh))
+	if (IS_ON(flag, HHALF))
 	{
-		if (is_on(flag, d) || is_on(flag, i))
+		if (IS_ON(flag, DEC) || IS_ON(flag, IDEC))
 			return (5);
 		else
 			return (6);
@@ -128,13 +128,13 @@ int		ft_putdnbr(va_list ap, int flag, int precision, int width)
 	i = 0;
 	while (tmp && ++i)
 		tmp /= 10;
-	size = i + (is_on(flag, PLUS) || (n < 0)) +\
-		   ((is_on(flag, SPACE)) && !(is_on(flag, PLUS)) && (n >= 0));
+	size = i + (IS_ON(flag, PLUS) || (n < 0)) +\
+		   ((IS_ON(flag, SPACE)) && !(IS_ON(flag, PLUS)) && (n >= 0));
 	if (!(ret = ft_strnew(sizeof(char) * (i + 1))))
 		return (0);
 	if (size > i)
 	{
-		ret[0] = (is_on(flag, PLUS)) ? '+' : '^';
+		ret[0] = (IS_ON(flag, PLUS)) ? '+' : '^';
 		ret[0] = (n < 0) ? '-' : ret[0];
 	}
 	tmp = n < 0 ? -n : n;
@@ -216,6 +216,7 @@ int		ft_putXnbr(va_list ap, int flag, int precision, int width)
 	return (ft_print(&ret, flag, precision, width));
 }
 
+//------------------test-function------------------------------
 void	display(int flag, int i, ...)
 {
 	va_list ap;
@@ -224,7 +225,7 @@ void	display(int flag, int i, ...)
 	va_start(ap, i);
 	while(i--)
 	{
-		printf("my_size = %d\n", ft_putonbr(ap, flag, 0, 0));
+		printf("my_size = %d", ft_putonbr(ap, flag, 0, 0));
 		printf("\n");
 	}
 	printf("size = %d\n", printf("%#.0o", n));
@@ -236,17 +237,17 @@ int		main(void)
 	unsigned int	flag;
 
 	flag = 0;
-	set_flag(flag, HASH);
-	set_flag(flag, PLUS);
-	//set_flag(flag, ll);
-	//set_flag(flag, l);
-	//set_flag(flag, h);
-	set_flag(flag, hh);
-	//set_flag(flag, MINUS);
-	set_flag(flag, SPACE);
-	//set_flag(flag, ZERO);
-	set_flag(flag, PRECISION);
-	set_flag(flag, OCTAL);
+	SET_FLAG(flag, HASH);
+	SET_FLAG(flag, PLUS);
+	//SET_FLAG(flag, LLONG);
+	//SET_FLAG(flag, LONG);
+	//SET_FLAG(flag, HALF);
+	SET_FLAG(flag, HHALF);
+	//SET_FLAG(flag, MINUS);
+	SET_FLAG(flag, SPACE);
+	//SET_FLAG(flag, ZERO);
+	SET_FLAG(flag, PRECISION);
+	SET_FLAG(flag, OCTAL);
 	printb(flag);
 	
 

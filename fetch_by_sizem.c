@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hash_plus.c                                     :+:      :+:    :+:   */
+/*   fetch_by_sizem.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/27 17:03:07 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/09 22:08:05 by nkhribec         ###   ########.fr       */
+/*   Created: 2019/10/09 15:34:54 by nkhribec          #+#    #+#             */
+/*   Updated: 2019/10/09 15:57:03 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_hash_plus_alloc(int *i, int flag)
+long long	fetch_by_sizem_h(va_list ap, int bsigned)
 {
-	char	*s;
-	int		p_len;
-
-	p_len = (IS_ON(flag, HASH) && IS_ON(flag, OCTAL)) +\
-	(((IS_ON(flag, HASH) && IS_ON(flag, BHEX)) || IS_ON(flag, HEX)) * 2);
-	*i += p_len;
-	if (!(s = ft_strnew(sizeof(char) * (*i))))
-		return (NULL);
-	if (p_len == 2)
-		IS_ON(flag, HEX) ? ft_strcpy(s, "0x") : ft_strcpy(s, "0X");
-	else if (p_len == 1)
-			s[0] = '0';
-	return (s);
+	long long	result;
+	
+	result = bsigned ? (long long)(short)va_arg(ap, int) ||\
+			(!bsigned && ()));
+	return (result);
 }
+long long	fetch_by_sizem_ll(va_list ap);
+long long	fetch_by_sizem_l(va_list ap);
+long long	fetch_by_sizem_hh(va_list ap);
