@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/09 22:14:45 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/10 16:22:20 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@
 # define FLAGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$."
 # define FLAGS_SIZE 32
 # define CONV_BOUND 12
-//# define SET_FLAG(flags, pos) flags = (1 << pos) ^ flags
 # define SET_FLAG(flags, pos) flags = (1 << pos) | flags
 # define RESET_FLAGS(flags) flags = 0
 # define IS_ON(flags, pos) (((1 << pos) & flags) != 0)
-
-//utiliser un seul flag au lieu de dec and idec
 
 typedef enum	e_flag
 {
@@ -57,26 +54,20 @@ int			set_color(char *fmt);
 char		*ft_downcase(char *fmt);
 void		printbits(void *p, int i);
 int			ft_printf(const char *restrict fmt, ...);
-long long	fetch_by_sizem_h(va_list ap);
-long long	fetch_by_sizem_ll(va_list ap);
-long long	fetch_by_sizem_l(va_list ap);
-long long	fetch_by_sizem_hh(va_list ap);
+long long	fetch_by_sizem_h(va_list ap, int bsigned);
+long long	fetch_by_sizem_ll(va_list ap, int bsigned);
+long long	fetch_by_sizem_l(va_list ap, int bsigned);
+long long	fetch_by_sizem_hh(va_list ap, int bsigned);
 
 int			get_prefix_len(int flag, char *s);
-void		printb(unsigned int c);
-int			ft_putonbr(va_list n, int flag, int precision, int width);
-int			ft_putunbr(va_list n, int flag, int precision, int width);
-int			ft_putxnbr(va_list n, int flag, int precision, int width);
-int			ft_putxnbr(va_list n, int flag, int precision, int width);
-int			ft_putdnbr(va_list n, int flag, int precision, int width);
 void		nulltoblack(char *s, int until);
 void		blacktozero(char *s, int until);
 void		shift(char *s, int shift_value);
 void		fprecision(char **s, int flag, int precision, int shift_value);
 void		fwidth(char **s, int flag, int precision, int width);
 int 		ft_print(char **s, int flag, int precision, int width);
-char		*ft_hash_plus_alloc_o(int *i, int flag);
-char		*ft_hash_plus_alloc_heX(int *i, int flag);
-char		*ft_hash_plus_alloc_hex(int *i, int flag);
-char		*ft_hash_plus_alloc(int *i, int flag);
+char		*ft_hash_alloc_o(int *i, int flag);
+char		*ft_hash_alloc_heX(int *i, int flag);
+char		*ft_hash_alloc_hex(int *i, int flag);
+char		*ft_hash_alloc(int *i, int flag);
 #endif
