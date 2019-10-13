@@ -53,8 +53,8 @@ int		first_char_count(char *s)
 {
 	int		i;
 
-	i = 1;
-	while (s[i] && (s[0] == s[i + 1]))
+	i = 0;
+	while (s[i] && (s[0] == s[i]))
 		i++;
 	return (i);
 }

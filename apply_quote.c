@@ -75,8 +75,8 @@ char	*apply_quote(int *flags, char *result, int conv, int width)
 
 	i = 0;
 	start = -1;
-	(void)(end = ft_strlen(result) - 1 && !width);
-	if (!IS_ON(*flags, QUOTE) || (conv != DEC || conv != IDEC) || end < 0)
+	(void)((end = ft_strlen(result) - 1) && !width);
+	if (!IS_ON(*flags, QUOTE) || (conv != DEC && conv != IDEC) || end < 0)
 		return (result);
 	if (!(special = ft_strdup("0 +-")))
 		return (NULL);
