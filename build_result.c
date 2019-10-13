@@ -21,13 +21,16 @@ char		*build_result(int flags, char *ret, int precision, int width)
 	char	*result;
 	int		conv;
 
-	conv = DEC;
 	if (width < 0)
 	{
 		width = -width;
 		SET_FLAG_ON(flags, MINUS);
 	}
+	conv = flag_lookup(flags, 0, 12);
+	if (conv < 0)
+		return("error");
 	result = apply_precision(&flags, ret, conv, precision);
+	printf("%s\t%d\n", "test", conv);
 	result = apply_width(&flags, result, conv, width);
 	result = apply_hash(&flags, result, conv, width - precision);
 	result = apply_signs(&flags, result, conv, width - precision);

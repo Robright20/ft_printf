@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/13 04:54:05 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/05 21:40:30 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,28 @@
 
 typedef enum	e_flag
 {
-	CHAR, STRING, POINTER, DEC, IDEC, OCTAL, UINT, HEX, BHEX, FLOAT, EXPO,
-	GEXPO, HASH, ZERO, MINUS, PLUS, SPACE, LLONG, HHALF, LONG, HALF, BLONG,
-	BIN, RSTRING, KDATE, QUOTE, STAR, DOLLAR, PRECISION
+	XCHAR, STRING, POINTER, DEC, IDEC, OCTAL, XUINT, HEX, BHEX, XFLOAT, EXPO,
+	GEXPO, HASH, ZERO, MINUS, PLUS, SPACE, LLONG, HHALF, XLONG, HALF, BLONG,
+	BIN, RSTRING, KDATE, QUOTE, STAR, DOLLAR, POINT
 }				t_flag;
-typedef struct lconv t_lconv;
+typedef struct lconv	t_lconv;
 long long	(*g_fetch_by_sizem[4])(va_list ap, int bsigned);
-int			ft_putc(va_list ap, int flags, int width, int precision);
-int			ft_puts(va_list ap, int flags, int width, int precision);
-int			ft_putptr(va_list ap, int flags, int width, int precision);
-int			ft_putdnbr(va_list ap, int flags, int width, int precision);
-int			ft_putonbr(va_list ap, int flags, int width, int precision);
-int			ft_putunbr(va_list ap, int flags, int width, int precision);
-int			ft_putxnbr(va_list ap, int flags, int width, int precision);
-int			ft_putfnbr(va_list ap, int flags, int width, int precision);
-int			ft_putenbr(va_list ap, int flags, int width, int precision);
-int			ft_putgnbr(va_list ap, int flags, int width, int precision);
+int 		(*g_router[12])(va_list, int, int, int);
+int			ft_putc(va_list ap, int flags, int precision, int width);
+int			ft_puts(va_list ap, int flags, int precision, int width);
+int			ft_putptr(va_list ap, int flags, int precision, int width);
+int			ft_putdnbr(va_list ap, int flags, int precision, int width);
+int			ft_putonbr(va_list ap, int flags, int precision, int width);
+int			ft_putunbr(va_list ap, int flags, int precision, int width);
+int			ft_putxnbr(va_list ap, int flags, int precision, int width);
+int			ft_putbxnbr(va_list ap, int flags, int precision, int width);
+int			ft_putfnbr(va_list ap, int flags, int precision, int width);
+int			ft_putenbr(va_list ap, int flags, int precision, int width);
+int			ft_putgnbr(va_list ap, int flags, int precision, int width);
 int			save_flag(int *flags, char *format);
 int			first_char_count(char *s);
 int			is_conv_spec(char c, char *args);
 int			va_argnth(va_list ap, char *fmt);
-void		init(int (*router[12])(int, int, int, va_list));
 int			first_char_count(char *s);
 int			find_flag(char *flag_lst, char *format, int flagw);
 int			save_width(char *fmt, int *width, va_list ap);

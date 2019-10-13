@@ -42,7 +42,9 @@ char	*apply_hash(int *flags, char *result, int conv, int width)
 {
 	char	prefix[3];
 
-	(void)flags;
+	if (!IS_ON(*flags, HASH))
+		return (result);
+	printf("%s\n", "test");
 	if (conv == HEX || conv == BHEX)
 	{
 		conv == HEX ? ft_strcpy(prefix, "0x") : ft_strcpy(prefix, "0X");

@@ -75,8 +75,9 @@ char	*apply_signs(int *flags, char *result, int conv, int width)
 	char	*new_result;
 
 	new_result = result;
-	if (!(conv == DEC || conv == IDEC) && !(conv >= FLOAT || conv <= GEXPO))
+	if (!(conv == DEC || conv == IDEC) && !(conv >= XFLOAT && conv <= GEXPO))
 		return (result);
+	//printf("%d\n", conv);
 	if (IS_ON(*flags, SPACE))
 		new_result = apply_space(result, width);
 	if (IS_ON(*flags, PLUS))

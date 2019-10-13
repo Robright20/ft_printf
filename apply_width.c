@@ -34,7 +34,7 @@ char	*apply_width(int *flags, char *result, int conv, int width)
 	int		pholder;
 	int		sign;
 
-	new_result = NULL;
+	new_result = result;
 	if (width < 0)
 	{
 		width = -width;
