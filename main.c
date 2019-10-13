@@ -59,10 +59,22 @@ int		main(void)
 
 	ret1 = ft_printf("{red}bonjour{eoc} [%0'10.3o]\n", 10000);
 	ret2 = printf("bonjour [%0'10.3o]\n", 10000);
-	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);*/
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
 
 	ret1 = ft_printf("{red}bonjour{eoc} [%010d]\n", 10000);
 	ret2 = printf("bonjour [%010d]\n", 10000);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+
+	ret1 = ft_printf("{red}bonjour{eoc} [%010hd]\n", 10000);
+	ret2 = printf("bonjour [%010hd]\n", 10000);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+
+	ret1 = ft_printf("{red}bonjour{eoc} [%010hd]\n", 10);
+	ret2 = printf("bonjour [%010hd]\n", 10);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);*/
+
+	ret1 = ft_printf("{red}bonjour{eoc} [%0-'10.3o]\n", 10000);
+	ret2 = printf("bonjour [%0-'10.3o]\n", 10000);
 	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
 	return (0);
 }
