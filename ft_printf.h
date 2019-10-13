@@ -22,7 +22,7 @@
 # define CONV_BOUND 12
 # define SET_FLAG(flags, pos) flags = (1 << pos) | flags
 # define SET_FLAG_ON(flags, pos) flags = (1 << pos) | flags
-# define SET_FLAG_OFF(flags, pos) flags = (1 << pos) ^ flags
+# define SET_FLAG_OFF(flags, pos) flags = (~(1 << pos)) & flags
 # define RESET_FLAGS(flags) flags = 0
 # define IS_ON(flags, pos) (((1 << pos) & flags) != 0)
 

@@ -20,8 +20,7 @@ char	*apply_precision(int *flags, char *result, int conv, int precision)
 	int		index;
 
 	new_result = result;
-	if (IS_ON(*flags, POINT) && IS_ON(*flags, ZERO))
-		SET_FLAG_OFF(*flags, ZERO);
+	SET_FLAG_OFF(*flags, ZERO);
 	if (!result || (len = ft_strlen(result)) >= precision)
 		return (result);
 	if (DEC <= conv && conv <= BHEX)
