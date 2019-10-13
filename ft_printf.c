@@ -25,9 +25,9 @@ int		va_argnth(va_list ap, char *fmt)
 		nbr = ft_atoi(fmt);
 		while (nbr && --nbr)
 			va_arg(ap, void *);
+		return (++i);
 	}
-	(void)(fmt[i] == '$' && ++i);
-	return (i);
+	return (0);
 }
 
 char	*flag_scope(int *nbr, char *fmt, va_list ap)

@@ -38,6 +38,21 @@ char	*apply_hash_hex(char *result, int width, char *prefix)
 	return (place_before(result, prefix));
 }
 
+char	*apply_hash_oct(char *result, int width)
+{
+	if (result[0] == '0' && width > 0)
+	{
+		result[0] = '0';
+		return (result);
+	}
+	else if (result[0] == ' ')
+	{
+		place_at_lastsp(result, '0');
+		return (result);
+	}
+	return (place_before(result, "0"));
+}
+
 char	*apply_hash(int *flags, char *result, int conv, int width)
 {
 	char	prefix[3];
@@ -49,6 +64,8 @@ char	*apply_hash(int *flags, char *result, int conv, int width)
 		conv == HEX ? ft_strcpy(prefix, "0x") : ft_strcpy(prefix, "0X");
 		result = apply_hash_hex(result, width, prefix);
 	}
+	else if (conv == OCTAL)
+		result = apply_hash_oct(result, width);
 	return (result);
 }
 

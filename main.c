@@ -37,9 +37,28 @@ int		main(void)
 	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
 	ret1 = ft_printf("{red}bonjour{eoc} [%0+.3X]\n", 10);
 	ret2 = printf("bonjour [%0+.3X]\n", 10);
-	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);*/
-	ret1 = ft_printf("{red}bonjour{eoc} [%0'.3d]\n", 10000);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+	ret1 = ft_printf("{red}bonjour{eoc} [%0'.3u]\n", 10);
 	ret2 = printf("bonjour [%0+'.3u]\n", 10);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+	ret1 = ft_printf("{red}bonjour{eoc} [%0'.3o]\n", 10000);
+	ret2 = printf("bonjour [%0+'.3o]\n", 10000);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+
+	ret1 = ft_printf("{red}bonjour{eoc} [%#0'.3o]\n", 10000);
+	ret2 = printf("bonjour [%#0+'.3o]\n", 10000);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+
+	ret1 = ft_printf("{red}bonjour{eoc} [%#010.3o]\n", 10000);
+	ret2 = printf("bonjour [%#010.3o]\n", 10000);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+
+	ret1 = ft_printf("{red}bonjour{eoc} [%010.3o]\n", 10000);
+	ret2 = printf("bonjour [%010.3o]\n", 10000);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);*/
+
+	ret1 = ft_printf("{red}bonjour{eoc} [%0.3o]\n", 10000);
+	ret2 = printf("bonjour [%0.3o]\n", 10000);
 	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
 	return (0);
 }
