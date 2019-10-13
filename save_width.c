@@ -19,7 +19,7 @@ int		save_width(char *fmt, int *width, va_list ap)
 
 	i = 0;
 	va_copy(ap2, ap);
-	while (fmt[i] && ft_isdigit(fmt[i]))
+	while (fmt[0] != '0' && fmt[i] && ft_isdigit(fmt[i]))
 		i++;
 	if (i != 0)
 	{
