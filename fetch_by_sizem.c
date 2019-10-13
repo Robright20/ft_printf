@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:34:54 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/10 20:19:20 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/13 03:49:22 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,11 @@ long long	fetch_by_sizem_ll(va_list ap, int bsigned)
 	(void)bsigned;
 	return (va_arg(ap, long long));
 }
+
+long long	(*g_fetch_by_sizem[4])(va_list ap, int bsigned) =
+{
+	fetch_by_sizem_ll, \
+	fetch_by_sizem_hh, \
+	fetch_by_sizem_l, \
+	fetch_by_sizem_h, \
+};
