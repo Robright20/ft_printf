@@ -12,6 +12,29 @@
 
 #include "ft_printf.h"
 
+int		main(void)
+{
+	int		ret1;
+	int		ret2;
+/*
+	ret1 = ft_printf("{red}bonjour{eoc} [%+05.3d]\n", 10);
+	ret2 = printf("bonjour [%+05.3d]\n", 10);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+
+	ret1 = ft_printf("{red}bonjour{eoc} [%+0.3d]\n", 10);
+	ret2 = printf("bonjour [%+0.3d]\n", 10);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+*/
+	ret1 = ft_printf("{red}bonjour{eoc} [%0+.3d]\n", 10);
+	ret2 = printf("bonjour [%0+.3d]\n", 10);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+
+	ret1 = ft_printf("{red}bonjour{eoc} [%0+.3x]\n", 10);
+	ret2 = printf("bonjour [%0+.3x]\n", 10);
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
+	return (0);
+}
+
 int		ft_putc(va_list ap, int flags, int precision, int width)
 {
 	ft_putstr("-------------------------\n");
@@ -81,28 +104,5 @@ int		ft_putgnbr(va_list ap, int flags, int precision, int width)
 	printbits(&flags, 4);
 	printf("width %d\tprecision %d\n", width, precision);
 	(void)ap;
-	return (0);
-}
-
-int		main(void)
-{
-	int		ret1;
-	int		ret2;
-/*
-	ret1 = ft_printf("{red}bonjour{eoc} [%+05.3d]\n", 10);
-	ret2 = printf("bonjour [%+05.3d]\n", 10);
-	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
-
-	ret1 = ft_printf("{red}bonjour{eoc} [%+0.3d]\n", 10);
-	ret2 = printf("bonjour [%+0.3d]\n", 10);
-	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
-
-	ret1 = ft_printf("{red}bonjour{eoc} [%0+.3d]\n", 10);
-	ret2 = printf("bonjour [%0+.3d]\n", 10);
-	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);*/
-
-	ret1 = ft_printf("{red}bonjour{eoc} [%0+.3x]\n", 10);
-	ret2 = printf("bonjour [%0+.3x]\n", 10);
-	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
 	return (0);
 }

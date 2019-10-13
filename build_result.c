@@ -12,14 +12,13 @@
 
 #include "ft_printf.h"
 
-/*
-** conv = flag_lookup(flag, 0, 12);
-*/
-
 char		*build_result(int flags, char *ret, int precision, int width)
 {
-	char	*result;
-	int		conv;
+	static char	*(*build[5])(int*, char*, int, int) = {apply_precision, \
+		apply_width, apply_hash, apply_signs, apply_quote};
+	char		*result;
+	int			conv;
+	int			i;
 
 	if (width < 0)
 	{
@@ -28,13 +27,14 @@ char		*build_result(int flags, char *ret, int precision, int width)
 	}
 	conv = flag_lookup(flags, 0, 12);
 	if (conv < 0)
-		return("error");
-	result = apply_precision(&flags, ret, conv, precision);
-	printf("%s\t%d\n", "test", conv);
-	result = apply_width(&flags, result, conv, width);
-	result = apply_hash(&flags, result, conv, width - precision);
-	result = apply_signs(&flags, result, conv, width - precision);
-	result = apply_quote(&flags, result, conv, width);
+		return (ret);
+	i = 0;
+	result = build[i++](&flags, ret, conv, precision);
+	if (!(result = build[i++](&flags, result, conv, width)))
+		return ("Error");
+	while (i < 5)
+		if (!(result = build[i++](&flags, result, conv, width - precision)))
+			return ("Error");
 	return (result);
 }
 
@@ -43,7 +43,7 @@ ssize_t		ft_putxstr(char *s)
 	ssize_t		len;
 
 	len = 0;
-	while (*s)
+	while (s && *s)
 		len += write(1, s++, 1);
 	return (len);
 }
@@ -61,3 +61,11 @@ int			flag_lookup(int flags, int pos, int bound)
 	}
 	return (-1);
 }
+
+/*
+**	result = apply_precision(&flags, ret, conv, precision);
+**	result = apply_width(&flags, result, conv, width);
+**	result = apply_hash(&flags, result, conv, width - precision);
+**	result = apply_signs(&flags, result, conv, width - precision);
+**	result = apply_quote(&flags, result, conv, width);
+*/

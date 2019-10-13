@@ -40,7 +40,7 @@ char	*apply_width(int *flags, char *result, int conv, int width)
 		width = -width;
 		SET_FLAG_ON(*flags, MINUS);
 	}
-	if ((len = ft_strlen(result)) >= width)
+	if (!result || (len = ft_strlen(result)) >= width)
 		return (result);
 	if (!(new_result = ft_strnew(width)))
 		return (NULL);
@@ -52,5 +52,6 @@ char	*apply_width(int *flags, char *result, int conv, int width)
 		apply_minus(new_result, result, len, width);
 	else if (IS_ON(*flags, ZERO))
 		apply_zero(new_result, result, width - len, sign);
+	free(result);
 	return (new_result);
 }

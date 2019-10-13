@@ -34,7 +34,7 @@ typedef enum	e_flag
 }				t_flag;
 typedef struct lconv	t_lconv;
 long long	(*g_fetch_by_sizem[4])(va_list ap, int bsigned);
-int 		(*g_router[12])(va_list, int, int, int);
+int			(*g_router[12])(va_list, int, int, int);
 int			ft_putc(va_list ap, int flags, int precision, int width);
 int			ft_puts(va_list ap, int flags, int precision, int width);
 int			ft_putptr(va_list ap, int flags, int precision, int width);

@@ -20,10 +20,10 @@ char	*apply_precision(int *flags, char *result, int conv, int precision)
 	int		index;
 
 	(void)(flags);
-	new_result = NULL;
-	if ((len = ft_strlen(result)) >= precision)
+	new_result = result;
+	if (!result || (len = ft_strlen(result)) >= precision)
 		return (result);
-	if (DEC >= conv && conv <= BHEX)
+	if (DEC <= conv && conv <= BHEX)
 	{
 		sign = (result[0] == '-');
 		if (!(new_result = ft_strnew(precision + sign)))
@@ -32,6 +32,7 @@ char	*apply_precision(int *flags, char *result, int conv, int precision)
 		ft_memset(&new_result[sign], '0', precision);
 		index = precision - (len - sign);
 		ft_strcpy(&new_result[sign] + index, &result[sign]);
+		free(result);
 	}
 	return (new_result);
 }
