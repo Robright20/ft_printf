@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 17:03:07 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/10 16:45:54 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/13 21:44:01 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_hash_alloc(int *i, int flag)
 	(((IS_ON(flag, HASH) && (IS_ON(flag, BHEX) || IS_ON(flag, HEX))) * 2));
 	*i += p_len;
 	printf("p_len = %d\n", p_len);
-	if (!(s = ft_strnew(sizeof(char) * (*i))))
+	if (!(s = (char*)ft_strnew(sizeof(char) * (*i))))
 		return (NULL);
 	if (p_len == 2)
 		IS_ON(flag, HEX) ? ft_strcpy(s, "0x") : ft_strcpy(s, "0X");

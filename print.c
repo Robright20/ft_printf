@@ -6,11 +6,16 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 14:47:25 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/09 22:13:19 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/13 23:14:02 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+/*
+**le 0 de l'octal n'est pas compter comme prefix quand on veut traiter la
+**precision
+*/
 
 int		get_prefix_len(int flag, char *s)
 {
@@ -24,7 +29,7 @@ char	*ft_realloc(char **s, size_t size)
 	char	*tmp;
 
 	tmp = *s;
-	*s = ft_strnew(sizeof(char) * size);
+	*s = (char*)ft_strnew(sizeof(char) * size);
 	ft_strcpy(*s, tmp);
 	ft_strdel(&tmp);
 	return (*s);
@@ -106,7 +111,7 @@ void	fwidth(char **s, int flag, int precision, int width)
 	if (!(IS_ON(flag, MINUS)))
 	{
 		shift(*s, width - len);
-		if (IS_ON(flag, ZERO) && !(IS_ON(flag, PRECISION)))
+		if (IS_ON(flag, ZERO) && !(IS_ON(flag, PRECISION)))// precision override 0 flag
 			blacktozero(*s, width - len);
 	}
 	else
@@ -114,11 +119,50 @@ void	fwidth(char **s, int flag, int precision, int width)
 	*s = *s - take_space;
 }
 
+int		is_nbr(char c)
+{
+	return(c >= '0' && c <= '9');
+}
+
+void	addquote(char **s, int flag, int size)
+{
+	int		here;
+	int		i;
+	int		j;
+	int		quotnbr;
+	char	*tmp;
+
+	quotnbr = (size - 1) / 3;
+	if (!quotnbr)
+		return ;
+	tmp = *s;
+	*s = (char*)ft_strnew(sizeof(char) * (ft_strlen(tmp) + quotnbr));
+	i = ft_strlen(tmp) - 1;
+	j = i + quotnbr;
+	here = 0;
+	while (i >= 0)
+	{
+		if (here && !(here % 3) && is_nbr(tmp[i]))
+			(*s)[j--] = ',';
+		(*s)[j--] = tmp[i--];
+		here++;
+	}
+	printf("apres s = %s\n", *s);
+	ft_strdel(&tmp);
+
+}
+
 int		ft_print(char **s, int flag, int precision, int width)
 {
 	int		len;
 	int		p_len;
 
+	if (IS_ON(flag, QUOTE) && (IS_ON(flag, DEC) || IS_ON(flag, IDEC) || IS_ON(flag, UINT)))
+	{
+		p_len = get_prefix_len(flag, *s);
+		len = (int)ft_strlen(*s);
+		addquote(s, flag, (len - p_len));
+	}
 	p_len = get_prefix_len(flag, *s);
 	len = (int)ft_strlen(*s);
 	if (precision > (len - p_len) && precision > width)

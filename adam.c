@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:32:50 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/10/10 16:41:58 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/10/13 23:14:08 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		ft_putdnbr(va_list ap, int flag, int precision, int width)
 		tmp /= 10;
 	size = i + (IS_ON(flag, PLUS) || (n < 0)) +\
 		   ((IS_ON(flag, SPACE)) && !(IS_ON(flag, PLUS)) && (n >= 0));
-	if (!(ret = ft_strnew(sizeof(char) * i)))
+	if (!(ret = (char*)ft_strnew(sizeof(char) * size)))
 		return (0);
 	if (size > i)
 	{
@@ -87,9 +87,10 @@ int		ft_putdnbr(va_list ap, int flag, int precision, int width)
 	tmp = n < 0 ? -n : n;
 	while (tmp)
 	{
-		ret[size-- - 1] = tmp % 10 + '0';
+		ret[--size] = tmp % 10 + '0';
 		tmp /= 10;
 	}
+	printf("after = %s\n", ret);
 	return (ft_print(&ret, flag, precision, width));
 }
 
@@ -175,11 +176,11 @@ void	display(int flag, int i, ...)
 	va_start(ap, i);
 	while(i--)
 	{
-		printf("my_size = %d", ft_putxnbr(ap, flag, 5, 9));
+		printf("my_size = %d", ft_putdnbr(ap, flag, 0, 11));
 		//printf("my_size = %d", ft_putxnbr(ap, flag, 0, 0));
 		printf("\n");
 	}
-	printf("size = %d\n", printf("%#9.5x", n));
+	printf("size = %d\n", printf("%#+9.5d", n));
 	va_end(ap);
 }
 
@@ -190,19 +191,20 @@ int		main(void)
 	flag = 0;
 	SET_FLAG(flag, HASH);
 	SET_FLAG(flag, PLUS);
+	SET_FLAG(flag, QUOTE);
 	//SET_FLAG(flag, LLONG);
 	//SET_FLAG(flag, LONG);
 	//SET_FLAG(flag, HALF);
-	SET_FLAG(flag, HHALF);
+	//SET_FLAG(flag, HHALF);
 	//SET_FLAG(flag, MINUS);
 	SET_FLAG(flag, SPACE);
-	//SET_FLAG(flag, ZERO);
-	SET_FLAG(flag, PRECISION);
-	SET_FLAG(flag, HEX);
+	SET_FLAG(flag, ZERO);
+	//SET_FLAG(flag, PRECISION);
+	SET_FLAG(flag, DEC);
 //	printbits(flag, 4);
 	
 
-	display(flag, 1, 15);
+	display(flag, 1, 1000000);
 	//printf("size = %d\n", ft_putxnbr(1866, flag, 8, 10));
 	//printf("%+# 10.8x\n", 1866);
 	
