@@ -6,17 +6,20 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 05:38:31 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/13 06:19:03 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/14 18:23:00 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <limits.h>
+#include <locale.h>
 
+/*
 int		main(void)
 {
 	int		ret1;
 	int		ret2;
-/*
+
 	ret1 = ft_printf("{red}bonjour{eoc} [%+05.3d]\n", 10);
 	ret2 = printf("bonjour [%+05.3d]\n", 10);
 	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
@@ -75,7 +78,7 @@ int		main(void)
 
 	ret1 = ft_printf("{red}bonjour{eoc} [%0-'10.3o]\n", 10000);
 	ret2 = printf("bonjour [%0-'10.3o]\n", 10000);
-	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);*/
+	printf("ret1 [%d]\nret2 [%d]\n", ret1, ret2);
 	ret2 = 0;
 	printbits(&ret2, 4);
 	SET_FLAG_ON(ret2, 10);
@@ -84,10 +87,14 @@ int		main(void)
 	SET_FLAG_OFF(ret2, 5);
 	SET_FLAG_OFF(ret2, 5);
 	printbits(&ret2, 4);
-	ret1 = ft_printf("{red}bonjour{eoc} [%d]\n", 10000);
+	setlocale(LC_NUMERIC, "");
+	ret1 = ft_printf("{red}bonjour{eoc} [%1$*2$'0d]\n", 12345678, 10);
+	printf("/-----------------/\n");
+	printf("bonjour [%1$0'*2$d]\n", 12345678, 10);
+	printf("/-----------------/\n");
 	return (0);
 }
-
+*/
 int		ft_putc(va_list ap, int flags, int precision, int width)
 {
 	ft_putstr("-------------------------\n");

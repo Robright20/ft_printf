@@ -28,49 +28,82 @@ char	*place_before(char *result, char *prefix)
 	return (new_result);
 }
 
-char	*place_at_lastsp(char *new_result, int sign)
+char	*place_at_lastsp(char *new_result, int sign, int flags)
 {
 	char	*tmp;
 
-	if (!(tmp = ft_strrchr(new_result, ' ')) || tmp[1] == '-')
-		return (new_result);
-	tmp[0] = sign;
+	int	i = 0;
+
+	while (new_result[i] == ' ')
+		i++;
+	if (!new_result[i] && IS_ON(flags, MINUS))
+		new_result[0] = sign;
+	else if (i > 0 && new_result[i] != '-')
+		new_result[i - 1] = sign;
 	return (new_result);
 }
 
-char	*apply_space(char *new_result, int width)
+char	*apply_space(char *result, int diff, int flags)
 {
-	if (new_result[0] == '0')
+	if (result[0] == '0')
 	{
-		if (width > 0)
-			new_result[0] = ' ';
+		if (diff > 0 && !IS_ON(flags, MINUS))
+			result[0] = ' ';
+		else if (diff > 0 && IS_ON(flags, MINUS))
+		{
+			// place before
+			ft_memmove(result + 1, result, ft_strlen(result) - 1);
+			result[0] = ' ';
+		}
 		else
-			return (place_before(new_result, " "));
+			return (place_before(result, " "));
 	}
-	else if (new_result[0] == ' ')
-		return (place_at_lastsp(new_result, ' '));
-	else if (new_result[0] != '-')
-		return (place_before(new_result, " "));
-	return (new_result);
+	else if (result[0] != '-' && result[0] != ' ')
+	{
+		if (diff > 0 && IS_ON(flags, MINUS))
+		{
+			// place before
+			ft_memmove(result + 1, result, ft_strlen(result) - 1);
+			result[0] = ' ';
+		}
+		else
+			return (place_before(result, " "));
+	}
+	return (result);
 }
 
-char	*apply_plus(char *new_result, int width)
+char	*apply_plus(char *result, int diff, int flags)
 {
-	if (new_result[0] == '0')
+	if (result[0] == '0')
 	{
-		if (width > 0)
-			new_result[0] = '+';
+		if (diff > 0 && !IS_ON(flags, MINUS))
+			result[0] = '+';
+		else if (diff > 0 && IS_ON(flags, MINUS))
+		{
+			//place_before
+			ft_memmove(result + 1, result, ft_strlen(result) - 1);
+			result[0] = '+';
+		}
 		else
-			return (place_before(new_result, "+"));
+			return (place_before(result, "+"));
 	}
-	else if (new_result[0] == ' ')
-		return (place_at_lastsp(new_result, '+'));
-	else if (new_result[0] != '-')
-		return (place_before(new_result, "+"));
-	return (new_result);
+	else if (result[0] == ' ')
+		return (place_at_lastsp(result, '+', flags));
+	else if (result[0] != '-')
+	{
+		if (diff > 0 && IS_ON(flags, MINUS))
+		{
+			// place before
+			ft_memmove(result + 1, result, ft_strlen(result) - 1);
+			result[0] = '+';
+		}
+		else
+			return (place_before(result, "+"));
+	}
+	return (result);
 }
 
-char	*apply_signs(int *flags, char *result, int conv, int width)
+char	*apply_signs(int *flags, char *result, int conv, int diff)
 {
 	char	*new_result;
 
@@ -78,9 +111,9 @@ char	*apply_signs(int *flags, char *result, int conv, int width)
 	if (!(conv == DEC || conv == IDEC) && !(conv >= XFLOAT && conv <= GEXPO))
 		return (result);
 	if (IS_ON(*flags, SPACE))
-		new_result = apply_space(result, width);
+		new_result = apply_space(result, diff, *flags);
 	if (IS_ON(*flags, PLUS))
-		new_result = apply_plus(new_result, width);
+		new_result = apply_plus(new_result, diff, *flags);
 	return (new_result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 23:26:37 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/13 00:32:14 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/14 16:54:17 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*thousandsep_alloc(int size, int thousandsep)
 	char	*s;
 	int		i;
 
-	size += ((size / 3) ? (size / 3) : 0);
+	size += ((size - 1) / 3);
 	if (!(s = ft_strnew(size)))
 		return (NULL);
 	ft_memset(s, 'a', size);

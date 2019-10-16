@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/05 21:40:30 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/14 17:38:33 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include <strings.h>
-# include "libft.h"
+# include "libft/libft.h"
 # include <stdio.h>
 # include <locale.h>
 # define FLAGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$."
@@ -65,7 +65,7 @@ long long	fetch_by_sizem_ll(va_list ap, int bsigned);
 long long	fetch_by_sizem_l(va_list ap, int bsigned);
 long long	fetch_by_sizem_hh(va_list ap, int bsigned);
 char		*place_before(char *result, char *prefix);
-char		*place_at_lastsp(char *new_result, int sign);
+char		*place_at_lastsp(char *new_result, int sign, int flags);
 int			flag_lookup(int flags, int pos, int bound);
 ssize_t		ft_putxstr(char *s);
 char		*build_result(int flags, char *ret, int precision, int width);

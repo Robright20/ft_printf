@@ -6,19 +6,25 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 03:30:18 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/13 04:48:48 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/14 17:14:27 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*build_result(int flags, char *ret, int precision, int width)
+int			max(int a, int b)
+{
+	//printf("[[diff == %d]]", a > b ? a : b);
+	return (a > b ? a : b);
+}
+
+char		*build_result(int flags, char *result, int precision, int width)
 {
 	static char	*(*build[5])(int*, char*, int, int) = {apply_precision, \
-		apply_width, apply_hash, apply_signs, apply_quote};
-	char		*result;
+		apply_quote, apply_width, apply_hash, apply_signs};
 	int			conv;
 	int			i;
+	int			len;
 
 	if (width < 0)
 	{
@@ -27,13 +33,16 @@ char		*build_result(int flags, char *ret, int precision, int width)
 	}
 	conv = flag_lookup(flags, 0, 12);
 	if (conv < 0)
-		return (ret);
+		return (result);
 	i = 0;
-	result = build[i++](&flags, ret, conv, precision);
+	len = ft_strlen(result);
+	result = build[i++](&flags, result, conv, precision);
+	if (!(result = build[i++](&flags, result, conv, width)))
+		return ("Error");
 	if (!(result = build[i++](&flags, result, conv, width)))
 		return ("Error");
 	while (i < 5)
-		if (!(result = build[i++](&flags, result, conv, width - precision)))
+		if (!(result = build[i++](&flags, result, conv, width - max(precision, len))))
 			return ("Error");
 	return (result);
 }

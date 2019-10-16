@@ -50,8 +50,8 @@ char	*flag_scope(int *nbr, char *fmt, va_list ap)
 			break ;
 		fmt += pos;
 	}
-	if ((pos = find_flag(FLAGS_BUF, fmt, 1)) != -1)
-		(void)((*nbr += g_router[pos](ap, flags, pw[0], pw[1])) && fmt++);
+	if (((pos = find_flag(FLAGS_BUF, fmt, 1)) != -1) && fmt++)
+		*nbr += g_router[pos](ap, flags, pw[0], pw[1]);
 	if (*fmt == '%' || *fmt == '{')
 		return (flag_scope(nbr, fmt + 1, ap));
 	return (fmt);

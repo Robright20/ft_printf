@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 20:39:33 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/13 04:49:28 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/10/14 18:44:36 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,18 @@ int		ft_putdnbr(va_list ap, int flags, int precision, int width)
 	int			sign;
 
 	i = flag_lookup(flags, LLONG, 4);
-	n = (i != -1) ? (g_fetch_by_sizem[i](ap, 0)) : va_arg(ap, int);
+	n = (i != -1) ? (g_fetch_by_sizem[i](ap, 1)) : va_arg(ap, int);
 	tmp = n;
 	sign = n < 0;
 	i = sign;
 	while (tmp && ++i)
 		tmp /= 10;
+	if (i == 0)
+		i++;
 	if (!(ret = ft_strnew(i)))
 		return (0);
+	if (n == 0)
+		ret[0] = '0';
 	n = sign ? -n : n;
 	while (n)
 	{
