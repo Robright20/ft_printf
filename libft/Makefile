@@ -6,7 +6,7 @@
 #    By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/01 06:06:14 by mzaboub           #+#    #+#              #
-#    Updated: 2019/07/15 16:28:01 by mzaboub          ###   ########.fr        #
+#    Updated: 2019/09/30 21:26:31 by mzaboub          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC_NAME= ft_atoi.c  	ft_bzero.c		ft_charinword.c	ft_isalnum.c	\
 		  ft_strdel.c	ft_strdup.c		ft_strequ.c		ft_striter.c	\
 		  ft_striteri.c	ft_strjoin.c	ft_strlcat.c	ft_strlen.c		\
 		  ft_strmap.c	ft_strmapi.c	ft_strncat.c	ft_strncmp.c 	\
-		  ft_strncpy.c	ft_strnequ.c	ft_strnew.c		ft_strnstr.c 	\
+		  ft_strncpy.c	ft_strnequ.c	ft_strnew.c		ft_strnstr_origin.c 	\
 		  ft_strrchr.c	ft_strrev.c		ft_strsplit.c	ft_strstr.c 	\
 		  ft_strsub.c	ft_strtrim.c	ft_tolower.c	ft_toupper.c 	\
 		  get_next_line.c	ft_lstdelone.c 

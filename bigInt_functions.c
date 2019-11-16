@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bigInt_functions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/01 15:09:44 by mzaboub           #+#    #+#             */
+/*   Updated: 2019/10/02 14:59:22 by mzaboub          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
+#include "ft_printf.h"
 
 /*
 ** ----------------------------------------------
@@ -17,7 +30,7 @@ void		edit_carry_on(t_bigint *nbr)
 			nbr->tab[i] += carry;
 			carry = 0;
 		}
-		if (nbr->tab[i] >= 10)
+		if (nbr->tab[i] > 9)
 		{
 			carry = nbr->tab[i] / 10;
 			nbr->tab[i] = nbr->tab[i] % 10;
@@ -102,30 +115,6 @@ t_bigint	bigint_power(t_bigint a, int n)
 		i++;
 	}
 	return (result);
-}
-
-
-/*
-** ----------------------------------------------
-**/
-
-
-void	print_bigint(t_bigint bb, int dec_pos)
-{
-	int i = 0;
-
-	printf ("dec_pos == %d;\n", dec_pos);
-	while(bb.tab[i] == 0 && i < dec_pos)
-			i++;
-	while (i < 309)
-	{
-			
-		printf("%d", bb.tab[i]);
-		if (i == dec_pos)
-			printf(".");
-		i++;
-	}
-	printf("\n");
 }
 
 /*

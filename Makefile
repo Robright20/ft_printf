@@ -3,7 +3,9 @@ NAME= printf
 SRC_PATH= .
 SRC_NAME= bigInt_functions.c\
 			ft_put_float_f.c\
-			help_functions.c 
+			help_functions.c\
+			save_flags.c\
+			print_bigint.c
 
 SRC= $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

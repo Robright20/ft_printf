@@ -6,13 +6,13 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 23:23:54 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/04/12 20:19:06 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/09/30 21:27:35 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *stack, const char *needle, size_t len)
+char	*ft_strnstr_origin(const char *stack, const char *needle, size_t len)
 {
 	size_t	i;
 	size_t	j;

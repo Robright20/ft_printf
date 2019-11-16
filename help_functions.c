@@ -9,7 +9,8 @@ void	printbits(void *p, int i)
 	j = i;
 	while (j-- > 1)
 		p++;
-	while (i > 0)
+	//p += i;
+	while (i-- > 0)
 	{
 		j = 7;
 		bb = *(char *)p;
@@ -18,7 +19,6 @@ void	printbits(void *p, int i)
 			printf("%u", ((bb >> j) & 1));
 			j--;
 		}
-		i--;
 		p--;
 		printf(" ");
 	}
