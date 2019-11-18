@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 00:29:50 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/18 20:11:30 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/18 23:33:11 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,31 @@ void		ft_bigint_add(t_bigint *result, t_bigint lhs, t_bigint rhs)
 
 void		ft_bigint_mult(t_bigint *result, t_bigint lhs, t_bigint rhs)
 {
-	
+	t_uint32	i;
+	t_uint32	j;
+	t_uint32	cary;
+	t_bigint	small;
+	t_bigint	large;
 
+	(lhs.length >= rhs.length) ? (small = rhs && large = lhs) : \
+				   (small = lhs && large = rhs);
+	i = 0;
+	// if result is allocated with memalloc you don't need this
+	ft_bzero((void*)result->tab, (lhs.length + rhs.length) * sizeof(t_uint32));
+	while (i < small.length)
+	{
+		j = 0;
+		while (small[i] && j < large.length)
+		{
+			res = (t_uint64)result->tab[i + j] + \
+				  (t_uint64)small[i]*(t_uint64)large[j] + (t_uint64)cary;
+			cary = (t_uint32)(res >> 32);
+			result->tab[i + j] = (t_uint32)(res & 0xffffffff);
+			j++;
+		}
+		(cary != 0) ? (result->tab[i + j] = cary && i++) : i++;
+	}
+	((i + j > 0) && result->tab[i + j] == 0) ? (result->length = i + j - 1) :\
+									   	(result->length = i + j);
 }
 
