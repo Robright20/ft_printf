@@ -1,16 +1,15 @@
 #include "header.h"
 
-
-void	printbits(void *p, int i)
+void	printbits(void *p, int bytes)
 {
 	char bb;
 	int  j;
 
-	j = i;
+	j = bytes;
 	while (j-- > 1)
 		p++;
 	//p += i;
-	while (i-- > 0)
+	while (bytes-- > 0)
 	{
 		j = 7;
 		bb = *(char *)p;
