@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 23:30:29 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/18 16:54:50 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/19 00:18:32 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <limits.h>
 //#include "header.h"
+#include "libft/libft.h"
 
 # define BLOCS_NBR 514
 

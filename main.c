@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 00:57:56 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/18 16:54:31 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/20 09:33:38 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,24 @@ int	main(void)
 ** 	printbits(&nb1.tab[1], 4);
 ** 	printbits(&nb1.tab[0], 4);
 ** 
+** 	return (0);
+** }
+*/
+
+/*
+**  main to test ft_bigint_shiftleft 
+**
+** int				main(void)
+** {
+** 	t_uint64	nbr1 = 0XFFFFFF;
+** 	t_bigint	nb;
+** 
+** 	ft_uint64_to_bigint(nbr1, &nb);
+** 	printf("before shift;\tnb->length == |%d|\n", nb.length);
+** 	printbits(nb.tab, 8);
+** 	ft_bigint_shiftleft(&nb, 2);
+** 	printf("after shift;\tnb->length == |%d|\n", nb.length);
+** 	printbits(nb.tab, 8);
 ** 	return (0);
 ** }
 */
