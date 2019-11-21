@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 00:57:56 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/20 09:33:38 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/21 16:45:00 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,60 @@ int	main(void)
 ** 	ft_bigint_shiftleft(&nb, 2);
 ** 	printf("after shift;\tnb->length == |%d|\n", nb.length);
 ** 	printbits(nb.tab, 8);
+** 	return (0);
+** }
+*/
+
+
+/*
+** main to test bigint divid ;
+** 32900120560 / 10000000000
+** 0x5E6A375 / 0X989680
+** 
+** 
+** int						main(void)
+** {
+** 	t_uint64	bast = 0x5E6A375;
+** 	t_uint64	maqam = 0x989680;
+** 	t_uint64	newbast;
+** 	t_bigint	nb1;
+** 	t_bigint	nb2;
+** 	t_bigint	dividend;
+** 	t_bigint	divisor;
+** 
+** 	dividend.tab[1] = 0;
+** 	dividend.tab[0] = 0;
+** 	ft_uint64_to_bigint(bast, &nb1);
+** 	ft_uint64_to_bigint(bast, &dividend);
+** 	ft_uint64_to_bigint(maqam, &nb2);
+** 	ft_uint64_to_bigint(maqam, &divisor);
+** 
+** 	
+** 	t_uint32	q = ft_bigint_divid(&dividend, &divisor);
+** 	t_uint32	qq = BigInt_DivideWithRemainder_MaxQuotient9(&nb1, &nb2);
+** 
+** 
+** 	printf ("--------------------------------------------------------------------------\n");
+** 	printf("main q == |%d|\tqq == |%d|\tbast/maqam == |%llu|\n", q, qq, bast/maqam); 
+** 	printf("dividend->len == |%u|\tnb1->len == |%u|\n", dividend.length, nb1.length);
+** 	printf ("--------------------------------------------------------------------------\n");
+** 
+** 	printf("old bast     == |%llu|\t", bast);
+** 	printbits(&bast, 8);
+** 
+** 	printf("old maqam    == |%llu|\t", maqam);
+** 	printbits(&maqam, 8);
+** 
+** 	newbast = bast - (maqam * q);
+** 	printf("new bast     == |%llu|\t", newbast);
+** 	printbits(&newbast, 8);
+** 
+** 	printf("new nb1      == |%llu|\t", ((t_uint64)nb1.tab[1] << 32) | (t_uint64)nb1.tab[0]); 
+** 	printbits(&nb1, 8);
+** 
+** 	printf("new dividend == |%llu|\t", ((t_uint64)dividend.tab[1] << 32) | (t_uint64)dividend.tab[0]);
+** 	printbits(&dividend, 8);
+** 	printf ("--------------------------------------------------------------------------\n");
 ** 	return (0);
 ** }
 */

@@ -9,10 +9,6 @@
  ** big int 
  */
 
-typedef struct	s_bigint
-{
-	int tab[310];
-}				t_bigint;
 
 typedef struct  s_fwp
 {

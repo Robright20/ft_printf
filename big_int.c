@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bigInt.c                                           :+:      :+:    :+:   */
+/*   big_int.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/17 00:29:50 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/20 12:25:25 by mzaboub          ###   ########.fr       */
+/*   Created: 2019/11/21 15:14:26 by mzaboub           #+#    #+#             */
+/*   Updated: 2019/11/21 18:49:03 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigInt.h"
+
+/*
+** ---------------------------------------------------------------------------
+*/
 
 void				ft_uint32_to_bigint(t_uint32 src, t_bigint *dst)
 {
@@ -22,6 +26,10 @@ void				ft_uint32_to_bigint(t_uint32 src, t_bigint *dst)
 	else
 		dst->length = 0;
 }
+
+/*
+** ---------------------------------------------------------------------------
+*/
 
 void				ft_uint64_to_bigint(t_uint64 src, t_bigint *dst)
 {
@@ -39,6 +47,10 @@ void				ft_uint64_to_bigint(t_uint64 src, t_bigint *dst)
 	else
 		dst->length = 0;
 }
+
+/*
+** ---------------------------------------------------------------------------
+*/
 
 t_int32				ft_bigint_compare(t_bigint lhs, t_bigint rhs)
 {
@@ -63,6 +75,10 @@ t_int32				ft_bigint_compare(t_bigint lhs, t_bigint rhs)
 	}
 }
 
+/*
+** ---------------------------------------------------------------------------
+*/
+
 static t_uint64		ft_add_ints(t_uint32 *res, t_uint64 par1, \
 		t_uint64 par2, t_uint64 par3)
 {
@@ -72,6 +88,10 @@ static t_uint64		ft_add_ints(t_uint32 *res, t_uint64 par1, \
 	*res = (temp & 0xffffffff);
 	return (temp >> 32);
 }
+
+/*
+** ---------------------------------------------------------------------------
+*/
 
 static	t_uint32	ft_assigne_left_and_right(t_bigint lhs, t_bigint rhs, \
 		t_bigint *small, t_bigint *larg)
@@ -89,6 +109,10 @@ static	t_uint32	ft_assigne_left_and_right(t_bigint lhs, t_bigint rhs, \
 		return (lhs.length);
 	}
 }
+
+/*
+** ---------------------------------------------------------------------------
+*/
 
 void				ft_bigint_add(t_bigint *result, t_bigint lhs, t_bigint rhs)
 {
@@ -118,6 +142,7 @@ void				ft_bigint_add(t_bigint *result, t_bigint lhs, t_bigint rhs)
 }
 
 /*
+** ---------------------------------------------------------------------------
 **	you can remove ft_bzero if result is allocated with memalloc.
 **	result = lhs * rhs; (bouth of them are bigints);
 */
@@ -151,6 +176,7 @@ void				ft_bigint_mult(t_bigint *result, t_bigint lhs, t_bigint rhs)
 }
 
 /*
+** ---------------------------------------------------------------------------
 **	result = (bigint) * (uint32);
 */
 
@@ -175,6 +201,7 @@ void				ft_bigint_mult_int(t_bigint *result, t_bigint lhs, \
 }
 
 /*
+** ---------------------------------------------------------------------------
 **	result = result << 32;
 */
 
@@ -194,6 +221,10 @@ static	void		ft_shift_bloc(t_uint32 *dstbloc, \
 		dstbloc--;
 	}
 }
+
+/*
+** ---------------------------------------------------------------------------
+*/
 
 static	void		ft_shift_bits(t_uint32 *dstbloc, \
 									t_uint32 *srcbloc, \
@@ -222,6 +253,7 @@ static	void		ft_shift_bits(t_uint32 *dstbloc, \
 }
 
 /*
+** ---------------------------------------------------------------------------
 ** shift bigints to the left, "shiftbits" time
 ** if the shift is exactly n bloc -> ft_shift_bloc
 ** else it's not an exact n bloc -> ft_shift_bits
@@ -251,4 +283,78 @@ void				ft_bigint_shiftleft(t_bigint *result, t_uint32 shiftbits)
 	}
 }
 
+/*
+** ---------------------------------------------------------------------------
+** lhs = lhs - rhs;
+*/
 
+void				ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs)
+{
+	t_uint32 index;
+	t_uint64 borrow;
+	t_uint64 diff;
+
+	index = 0;
+	borrow = 0;
+	while (index < lhs->length)
+	{
+		diff = (t_uint64)lhs->tab[index] - (t_uint64)rhs->tab[index] \
+											- (t_uint64)borrow;
+		borrow = (diff >> 32) & 1;
+		lhs->tab[index] = (t_uint32)(diff & 0xffffffff);
+		index++;
+	}
+}
+
+/*
+** ---------------------------------------------------------------------------
+**
+** 				lhs = lhs / rhs and quotient is returnd;
+**
+** 	if (lhs->length > rhs->length)
+**		printf("length error\n");
+**	if (rhs->tab[rhs->length - 1] == 0xffffffff)
+**		printf("there is an error here;");
+**
+** var [0] <=> product result
+** var [1] <=> borrow 
+** var [2] <=> difference
+*/
+
+t_uint32			ft_bigint_divid(t_bigint *lhs, t_bigint *rhs)
+{
+	t_uint32	q;
+	t_uint32	index;
+	t_uint32	carry;
+	t_uint64	var[3];
+
+	q = lhs->tab[lhs->length - 1] / (rhs->tab[rhs->length - 1] + 1);
+	index = 0;
+	carry = 0;
+	var[1] = 0;
+	while (index < lhs->length)
+	{
+		var[0] = (t_uint64)rhs->tab[index] * (t_uint64)q + (t_uint64)carry;
+		carry = var[0] >> 32;
+		var[2] = (t_uint64)lhs->tab[index] - (var[0] & 0xffffffff) - var[1];
+		var[1] = (var[0] >> 32) & 1;
+		lhs->tab[index++] = (t_uint32)(var[2] & 0xffffffff);
+	}
+	if (ft_bigint_compare(*lhs, *rhs) >= 0)
+	{
+		ft_bigint_subtraction(lhs, rhs);
+		q++;
+	}
+	while (lhs->tab[lhs->length - 1] == 0)
+		lhs->length--;
+	return (q);
+}
+
+/*
+** ---------------------------------------------------------------------------
+*/
+
+void		ft_bigint_to_ascii(t_bigint src, char *dst)
+{
+
+}
