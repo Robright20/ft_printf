@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 23:30:29 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/21 17:48:03 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/23 05:51:47 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void                ft_bigint_mult_int(t_bigint *result, t_bigint lhs, t_uint32 
 void                ft_bigint_shiftleft(t_bigint *result, t_uint32 shiftbits);
 void                ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs);
 t_uint32            ft_bigint_divid(t_bigint *lhs, t_bigint *rhs);
+void				ft_bigint_copy(t_bigint *dst, t_bigint *src);
 
 #endif

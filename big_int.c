@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:14:26 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/21 18:49:03 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/23 05:51:49 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,9 +352,26 @@ t_uint32			ft_bigint_divid(t_bigint *lhs, t_bigint *rhs)
 
 /*
 ** ---------------------------------------------------------------------------
+** vn <=> value numerator
+** vd <=> value dinomirator;
 */
 
-void		ft_bigint_to_ascii(t_bigint src, char *dst)
-{
 
+/*
+** ---------------------------------------------------------------------------
+** bigint copy;
+*/
+
+
+void		ft_bigint_copy(t_bigint *dst, t_bigint *src)
+{
+	t_uint32	index;
+
+	index = 0;
+	dst->length = src->length;
+	while (index < src->length)
+	{
+		dst->tab[index] = src->tab[index];
+		index++;
+	}
 }
