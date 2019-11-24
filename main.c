@@ -6,17 +6,18 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 00:57:56 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/21 16:45:00 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/24 02:57:09 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigInt.h"
-
+#include <float.h>
+/*
 int	main(void)
 {
 	return (0);
 }
-
+*/
 
 /*
 ** to test the compare function ;
@@ -136,3 +137,20 @@ int	main(void)
 ** 	return (0);
 ** }
 */
+
+int main(void)
+{
+	double nbr = 123456789123456789.123456;
+	char    str[500];
+//  printf("/--------------------------/\n");
+//  printf("nbr == |%lf|\n\n", nbr);
+//  printf("/--------------------------/\n");
+
+	//  printf("/==========================/\n");
+//	str[0] = ' ';
+    print_double(nbr, str);
+	printf("nbr  == |%0.100lf|\n", nbr);
+	printf("str  == |%s|\n", str);
+//  printf("/==========================/\n");
+    return (0);
+}

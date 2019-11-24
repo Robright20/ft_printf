@@ -6,36 +6,37 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:28 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/23 05:51:46 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/24 02:57:06 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bigInt.h"
 #include "header.h"
 #include "ft_printf.h"
+#include <float.h>
 
 /*
- ** ------------------------------------------------
- */
-/*
-void	get_bits(long long nbr, long long *exp, long long *mantissa, long long *sign)
-{
-	long long exp_flag;
-	long long m_flag;
-	long long sign_flag;
-
-	exp_flag = 9218868437227405312;  // 01111111 11110000 00000000 00000000 00000000 00000000 00000000 00000000
-	m_flag   = 4503599627370495; 	 // 00000000 00001111 11111111 11111111 11111111 11111111 11111111 11111111
-	sign_flag = -11111111;		// nbr aleatoir negatif
-	(*exp) = (t_uint32)((nbr) & exp_flag ) >> 52;
-	(*mantissa) = (nbr & m_flag);
-	(*sign) = ((nbr & sign_flag) >> 63);
-}
+** ------------------------------------------------
 */
 
+typedef union s_floatunion
+{
+	double		fltnbr;
+	t_uint64	nbr;
+}				t_floatunion;
+
+typedef struct s_bigints_compound
+{
+	t_bigint	v_num;
+	t_bigint	v_dom;
+	t_bigint	temp2;
+	t_bigint	temp1;
+	t_int32		bigbit;
+}				t_bigint_compound;
 /*
- ** ------------------------------------------------
- */
+** ------------------------------------------------
+*/
+
 
 /*
  ** 		** les tach a fire pour le bigint **
@@ -50,116 +51,140 @@ void	get_bits(long long nbr, long long *exp, long long *mantissa, long long *sig
  ** 	calcule this in big int  (a + m) * e
  */
 
-int mini_dragon4(t_bigint mantissa, t_int32 exponent, t_uint32 bigbit, char *buff)
+/*
+** ---------------------------------------------------------------------------
+**	buff << functions << v_num and v_dom
+**
+**	 struct compound {
+**		bigint	v_num
+**		bigint	v_dom
+**		bigint 	temp1
+**		bigint	temp2
+**		t_int32	bigbit
+**		}
+*/	
+
+int mini_dragon4(t_bigint_compound *compound, t_int32 exponent, char *buff)
 {
-	t_bigint	v_num;
-	t_bigint	v_dom;
 	t_bigint	temp1;
 	t_bigint	temp2;
 	t_int32		digit;
 	char		*buff_cur;
 	double 		log10_2 = 0.30102999566398119521373889472449;
 
-	ft_bigint_copy(&v_num, &mantissa);
+	ft_bigint_copy(&compound->v_num, &compound->temp1);
 	if (exponent > 0)
 	{
 		// e = 2^(exp - 1075)
-		ft_bigint_shiftleft(&v_num, exponent);
-		ft_uint32_to_bigint(&v_dom, 1);
+		ft_bigint_shiftleft(&compound->v_num, exponent);
+		ft_uint32_to_bigint(1, &compound->v_dom);
 		//dec_pos = 100;
 	}
 	else if (exponent < 0)
 	{
 		//n = 1075 - exp;
-		ft_bigint_shift_left(&v_dom, -exponent);
+		ft_uint32_to_bigint(1, &compound->v_dom);
+		ft_bigint_shiftleft(&compound->v_dom, -exponent);
 		//dec_pos = 310 - n;
 	}
 
-	digit = (t_int32)((double)(bigbit + exponent) * log10_2 - 0.69) + 2;
+	digit = (t_int32)((double)(compound->bigbit + exponent) * log10_2 - 0.69) + 2;
+	printf("digit == %d\n", digit);
+
 	if (digit > 0)
 	{
 		// v_dom = v_dom * 10^digit
-		ft_uint32_to_bigint(10, &temp1);
-		ft_shiftleft(&temp1, digit);
-		ft_bigint_copy(&temp2, v_dom);
-		ft_bigint_mult(&v_dom, temp1, temp2);
+		ft_bigint_power10(&compound->v_dom, digit);
 	}
 	else if (digit < 0)
 	{
-		//vn = vn * 10^-digit
-		ft_uint32_to_bigint(10, &temp1);
-		ft_shiftleft(&temp1, -digit);
-		ft_bigint_copy(&temp2, v_num);
-		ft_bigint_mult(&v_dom, temp1, temp2);
+		//vn = vn * 1^-digit
+		ft_uint32_to_bigint(1, &temp1);
+		ft_bigint_shiftleft(&temp1, -digit);
+		ft_bigint_copy(&temp2, &compound->v_num);
+		ft_bigint_mult(&compound->v_dom, temp1, temp2);
 	}
 
-	t_uint32	hibloc = v_dom.tab[v_dom.length];
+
+	t_uint32	hibloc = compound->v_dom.tab[compound->v_dom.length - 1];
 	if (hibloc < 8 || hibloc > 429496729)
 	{
-		t__uint32 hibloc_log2, shift;
+		t_uint32 hibloc_log2, shift;
 
 		hibloc_log2 = logbase2_32(hibloc);
 		shift = (32 + 27 - hibloc_log2) % 32;
-		ft_bigint_shiftleft(v_num, shift);
-		ft_bigint_shiftleft(v_dom, shift);
+		ft_bigint_shiftleft(&compound->v_num, shift);
+		ft_bigint_shiftleft(&compound->v_dom, shift);
 	}
 
-	buff_cur++;
+	buff_cur = buff;
+	t_bigint	temp;
 
-	while (true)
+	t_uint32	out_number;
+
+	while (1)
 	{
 		digit = digit - 1;
-		out_number = ft_bigint_divide(v_num, v_dom);
-		if (v_num.length == 0)
-			break;
+		out_number = ft_bigint_divid(&compound->v_num, &compound->v_dom);
 		*buff_cur = out_number + '0';
 		buff_cur++;
-		ft_bigint_copy(&temp, &v_num);
-		ft_bigint_mult_int(&v_num, temp, 10);
+		if (compound->v_num.length == 0)
+			break;
+		ft_bigint_copy(&temp, &compound->v_num);
+		ft_bigint_mult_int(&compound->v_num, temp, 10);
 	}
 
 	*buff_cur = '\0';
+	printf("buff == |%s|\n", buff);
 	return (buff_cur - buff);
-	
+
 	return (0);
+
+}
+
+
+/*
+**----------------------------------------------------------------------------
+** help functions of bellow code;
+*/
+
+void	ft_get_values(double nbr, t_bigint_compound *head, t_int32 *exponent, t_int32 *sign)
+{
+	t_floatunion	cast;
+	t_uint64		mantissa;
+
+	cast.fltnbr = nbr;
+	mantissa = (1ull << 52) | (cast.nbr & 0XFFFFFFFFFFFFF);
+	ft_uint64_to_bigint(mantissa, &head->temp1);
+	*exponent = ((cast.nbr >> 52) & 0X7FF) - 1075;
+	*sign = (cast.nbr >> 63);
+	head->bigbit = 52;
 }
 
 /*
- ** ------------------------------------------------
- */ 
-int	main(void)
-{
-	//	long double nbr = 0.0000125;
-	//	printf("nbr == %.5Lf;\n", nbr);
-	//	double nb = 0.12346034;
-	//	printf("nb  == %.5lf;\n", nb);
-	//	t_fwp	flg;
-	//	char *args;
-
-	//	flg.width = 6;
-	//	flg.precision = 30;
-
-	//	args = "";
-	//	save_all_flags(&flg.flags, args);
-
-	printf("/--------------------------/\n");
-	//	ft_putfnbr(flg, nbr);
-	//	printf("printf      :\t%020.3lf;\n", nbr)
-	printf("LLDB == |%llf|\nLLDB == |%lle|\n", LDBL_MAX, LDBL_MAX);
-	printf("/--------------------------/\n");
-	//ft_putfnbr(flg, nb);
-	//	printf("printf      :\t%0#10.40000f;\n", nb);	
-
-	return (0);
-}
-
-typedef struct s_floatunion
-{
-	double fltnbr;
-	t_uint nbr;
-}				t_floatunion;
+**----------------------------------------------------------------------------
+** here is the start;
+*/
 
 void		print_double(double nbr, char *buff)
+{
+	t_int32				exponent;
+	t_int32				sign;
+	t_bigint_compound	compound;
+	
+	ft_get_values(nbr, &compound, &exponent, &sign);
+	mini_dragon4(&compound, exponent, buff);
+
+//	ft_calcule_bigint(bigmantissa, exponent, bigbit, sign, char *buff);	
+}
+
+typedef union	s_longdobleunion
+{
+	long double dbl;
+	t_uint64	nbr[2];
+}				t_longdouble_union;
+/*
+void		print_long_double(double nbr, char *buff)
 {
 	t_uint64	demi_mantissa;
 	t_uint64	mantissa;
@@ -179,30 +204,7 @@ void		print_double(double nbr, char *buff)
 	bigbit = 52;
 
 	t_bigint big_mantissa;
-	ft_uint64_to_bigint(big_mantissa, &mantissa);
-	ft_calcule_bigint(bigmantissa, exponent, bigbit, sign, char *buff);	
+	ft_uint64_to_bigint(mantissa, &big_mantissa);
+	mini_dragon4(big_mantissa, exponent, bigbit, buff);
 }
-
-void	ft_calcule_bigint(t_bigint mantissa, t_int32 exponent, t_int32 bigbit, t_int32 sign, char *buff)
-{
-	t_uint32 buff_len;
-
-	buff_len = mini_dragon4(mantissa, exponent, bigmantissabit, buff);	
-	printf("|%s|\n", buff);
-}
-
-
-void		ft_get_bigint(t_bigint vn, t_int32 exp, t_bigint vd)
-{
-	if (exp > 0)
-	{
-		ft_bigint_mult_int(vn, exp);
-		ft_uint32_to_bigint(1, vd);
-	}
-	else
-	{
-		ft_uint32_to_bigint(1, vd);
-		ft_bigint_mult_int(vn, -exp);
-	}
-}
-
+*/

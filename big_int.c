@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:14:26 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/23 05:51:49 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/24 02:57:04 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,25 +328,32 @@ t_uint32			ft_bigint_divid(t_bigint *lhs, t_bigint *rhs)
 	t_uint32	carry;
 	t_uint64	var[3];
 
-	q = lhs->tab[lhs->length - 1] / (rhs->tab[rhs->length - 1] + 1);
+	if (lhs->length < rhs->length)
+		return (0);
+	q = lhs->tab[rhs->length - 1] / (rhs->tab[rhs->length - 1] + 1);
+	if (q > 9)
+		printf("q error\n");
 	index = 0;
 	carry = 0;
 	var[1] = 0;
-	while (index < lhs->length)
+	while (index < rhs->length)
 	{
 		var[0] = (t_uint64)rhs->tab[index] * (t_uint64)q + (t_uint64)carry;
 		carry = var[0] >> 32;
 		var[2] = (t_uint64)lhs->tab[index] - (var[0] & 0xffffffff) - var[1];
-		var[1] = (var[0] >> 32) & 1;
+		var[1] = (var[2] >> 32) & 1;
 		lhs->tab[index++] = (t_uint32)(var[2] & 0xffffffff);
 	}
+	while (lhs->length > 0 && lhs->tab[lhs->length - 1] == 0)
+		lhs->length = (lhs->length - 1);
+
 	if (ft_bigint_compare(*lhs, *rhs) >= 0)
 	{
 		ft_bigint_subtraction(lhs, rhs);
 		q++;
 	}
-	while (lhs->tab[lhs->length - 1] == 0)
-		lhs->length--;
+	while (lhs->length > 0 && lhs->tab[lhs->length - 1] == 0)
+		lhs->length = (lhs->length - 1);
 	return (q);
 }
 
@@ -374,4 +381,69 @@ void		ft_bigint_copy(t_bigint *dst, t_bigint *src)
 		dst->tab[index] = src->tab[index];
 		index++;
 	}
+}
+
+/*
+** ---------------------------------------------------------------------------
+** result = result * 10^power
+*/
+
+void		ft_bigint_power10(t_bigint *result, t_int32 power)
+{
+	t_int32	index;
+	t_bigint	swap;
+	index = 0;
+
+	while (index < power)
+	{
+		ft_bigint_copy(&swap, result);
+		ft_bigint_mult_int(result, swap, 10);
+		index++;
+	}
+}
+
+/*
+** ---------------------------------------------------------------------------
+*/
+
+t_uint32			logbase2_32(t_uint32 val)
+{
+    static const t_uint32 logTable[256] =
+    {
+        0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
+        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+        5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+        6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+        6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+        6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+        6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+        7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+        7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7
+    };
+
+    t_uint32 temp;
+
+    temp = val >> 24;
+    if (temp) {
+        return 24 + logTable[temp];
+    }
+
+    temp = val >> 16;
+    if (temp) {
+        return 16 + logTable[temp];
+    }
+
+    temp = val >> 8;
+    if (temp) {
+        return 8 + logTable[temp];
+    }
+
+    return logTable[val];
 }
