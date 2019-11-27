@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 00:57:56 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/24 02:57:09 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/27 02:29:46 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,17 +140,39 @@ int	main(void)
 
 int main(void)
 {
-	double nbr = 123456789123456789.123456;
-	char    str[500];
+//	double nbr = 17976931.3486231570814527423731704356798078632766878171540458953514382464234321326889464;
+	double nbr1 = DBL_MAX;
+	double nbr2 = 0.4234321326889464;
+	double nbr3 = 0.000000004234321326889464;
+	double nbr4 = 0.000000000000000000000004234321326889464;
+//	int		w = 67;
+	char    str1[500];
+	char    str2[500];
+	char    str3[500];
+	char    str4[500];
 //  printf("/--------------------------/\n");
 //  printf("nbr == |%lf|\n\n", nbr);
 //  printf("/--------------------------/\n");
 
 	//  printf("/==========================/\n");
 //	str[0] = ' ';
-    print_double(nbr, str);
-	printf("nbr  == |%0.100lf|\n", nbr);
-	printf("str  == |%s|\n", str);
-//  printf("/==========================/\n");
+	printf("/==========================/\n");
+    print_double(nbr1, str1, 500);
+    print_double(nbr2, str2, 500);
+    print_double(nbr3, str3, 500);
+    print_double(nbr4, str4, 500);
+	printf("/==========================/\n");
+	printf("nbr1  == |%+.11lf|\n",	nbr1);
+	printf("str1  == |%s|\n",  		str1);
+	printf("/==========================/\n");
+	printf("nbr2  == |%+.11lf|\n",	nbr2);
+	printf("str2  == |%s|\n",  		str2);
+	printf("/==========================/\n");
+	printf("nbr3  == |%+.11lf|\n",	nbr3);
+	printf("str3  == |%s|\n",  		str3);
+	printf("/==========================/\n");
+	printf("nbr4  == |%+.11lf|\n",	nbr4);
+	printf("str4  == |%s|\n",  		str4);
+	printf("/==========================/\n");
     return (0);
 }

@@ -19,7 +19,7 @@ void	printbits(void *p, int bytes)
 			j--;
 		}
 		p--;
-		printf(" ");
+	//	printf(" ");
 	}
 	printf("\n");
 }

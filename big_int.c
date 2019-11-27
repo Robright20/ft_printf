@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:14:26 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/24 02:57:04 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/27 02:13:18 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 void				ft_uint32_to_bigint(t_uint32 src, t_bigint *dst)
 {
+	ft_bzero(dst->tab, BLOCS_NBR*4);
 	if (src != 0)
 	{
 		dst->tab[0] = src;
@@ -33,6 +34,7 @@ void				ft_uint32_to_bigint(t_uint32 src, t_bigint *dst)
 
 void				ft_uint64_to_bigint(t_uint64 src, t_bigint *dst)
 {
+	ft_bzero(dst->tab, BLOCS_NBR*4);
 	if (src > 0XFFFFFFFF)
 	{
 		dst->tab[0] = (t_uint32)(src & 0XFFFFFFFF);
@@ -154,14 +156,14 @@ void				ft_bigint_mult(t_bigint *result, t_bigint lhs, t_bigint rhs)
 	t_uint64	cary;
 	t_bigint	small;
 	t_bigint	larg;
-
+	
 	ft_assigne_left_and_right(lhs, rhs, &small, &larg);
 	i = 0;
 	ft_bzero((void*)result->tab, (lhs.length + rhs.length) * sizeof(t_uint32));
 	while (i < small.length)
 	{
 		j = 0;
-		while (small.tab[i] && j < larg.length)
+		while (small.tab[i] != 0 && j < larg.length)
 		{
 			cary = (t_uint64)result->tab[i + j] + \
 					(t_uint64)small.tab[i] * (t_uint64)larg.tab[j] + cary;
@@ -169,9 +171,10 @@ void				ft_bigint_mult(t_bigint *result, t_bigint lhs, t_bigint rhs)
 			cary = (cary >> 32);
 			j++;
 		}
-		(cary != 0) ? (result->tab[i + j] = cary && i++) : i++;
+		(cary != 0) ? ((result->tab[i + j] = (cary & 0xffffffff))) : 1;
+		i++;
 	}
-	((i + j > 0) && result->tab[i + j] == 0) ? (result->length = i + j - 1) :\
+	((i + j > 0) && result->tab[i + j - 1] == 0) ? (result->length = i + j - 1) :\
 										(result->length = i + j);
 }
 
@@ -446,4 +449,17 @@ t_uint32			logbase2_32(t_uint32 val)
     }
 
     return logTable[val];
+}
+
+
+t_uint32	logbase2_64(t_uint64 val)
+{
+	t_uint64 temp;
+
+	temp = val >> 32;
+	if (temp)
+	{
+		return 32 + logbase2_32((t_uint32)temp);
+	}
+	return logbase2_32((t_uint32)val);
 }

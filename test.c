@@ -1,123 +1,76 @@
-#include "bigInt.h"
-#include <assert.h>
 
-#define c_BigInt_Maxtab  1023
+/* Options struct for easy passing of Dragon4 options.
+ *
+ *   scientific - boolean controlling whether scientific notation is used
+ *   digit_mode - whether to use unique or fixed fracional output
+ *   cutoff_mode - whether 'precision' refers to toal digits, or digits past
+ *                 the decimal point.
+ *   precision - When negative, prints as many digits as needed for a unique
+ *               number. When positive specifies the maximum number of
+ *               significant digits to print.
+ *   sign - whether to always show sign
+ *   trim_mode - how to treat trailing 0s and '.'. See TrimMode comments.
+ *   digits_left - pad characters to left of decimal point. -1 for no padding
+ *   digits_right - pad characters to right of decimal point. -1 for no padding.
+ *                  Padding adds whitespace until there are the specified
+ *                  number characters to sides of decimal point. Applies after
+ *                  trim_mode characters were removed. If digits_right is
+ *                  positive and the decimal point was trimmed, decimal point
+ *                  will be replaced by a whitespace character.
+ *   exp_digits - Only affects scientific output. If positive, pads the
+ *                exponent with 0s until there are this many digits. If
+ *                negative, only use sufficient digits.
+ */
+typedef struct Dragon4_Options {
+    npy_bool scientific;
+    DigitMode digit_mode;
+    CutoffMode cutoff_mode;
+    npy_int32 precision;
+    npy_bool sign;
+    TrimMode trim_mode;
+    npy_int32 digits_left;
+    npy_int32 digits_right;
+    npy_int32 exp_digits;
+} Dragon4_Options;
 
-#if 0
-#define DEBUG_ASSERT(stmnt) assert(stmnt)
-#else
-#define DEBUG_ASSERT(stmnt) do {} while(0)
-#endif
-static inline t_uint64
-bitmask_u64(t_uint32 n)
-{
-	    return ~(~((t_uint64)0) << n);
-}
 
-// static inline t_uint32
-// bitmask_u32(t_uint32 n)
-// {
-// 	    return ~(~((t_uint32)0) << n);
-// }
+#define BIGINT_DRAGON4_GROUPSIZE 7
+typedef struct {
+    BigInt bigints[BIGINT_DRAGON4_GROUPSIZE];
+    char repr[16384];
+} Dragon4_Scratch;
 
 
-t_uint32	BigInt_DivideWithRemainder_MaxQuotient9(t_bigint *dividend, const t_bigint *divisor)
-{
-	t_uint32 length, quotient;
-	const t_uint32 *finalDivisorBlock;
-	t_uint32 *finalDividendBlock;
+/*
+ * Arguments:
+ *   * bigints - memory to store all bigints needed (7) for dragon4 computation.
+ *               The first BigInt should be filled in with the mantissa.
+ *   * exponent - value exponent in base 2
+ *   * mantissaBit - index of the highest set mantissa bit
+ *   * hasUnequalMargins - is the high margin twice as large as the low margin
+ *   * cutoffMode - how to interpret cutoffNumber: fractional or total digits?
+ *   * cutoffNumber - cut off printing after this many digits. -1 for no cutoff
+ *   * pOutBuffer - buffer to output into
+ *   * bufferSize - maximum characters that can be printed to pOutBuffer
+ *   * pOutExponent - the base 10 exponent of the first digit
+ *
+ * Returns the number of digits written to the output buffer.
+ */
+static npy_uint32	Dragon4(BigInt *bigints, const npy_int32 exponent,
+        const npy_uint32 mantissaBit, const npy_bool hasUnequalMargins,
+        const DigitMode digitMode, const CutoffMode cutoffMode,
+        npy_int32 cutoffNumber, char *pOutBuffer,
+        npy_uint32 bufferSize, npy_int32 *pOutExponent);
 
-	/*
-	 * Check that the divisor has been correctly shifted into range and that it
-	 * is not smaller than the dividend in length.
-	 */
-	DEBUG_ASSERT(!divisor->length == 0 &&
-			divisor->tab[divisor->length-1] >= 8 &&
-			divisor->tab[divisor->length-1] < bitmask_u64(32) &&
-			dividend->length <= divisor->length);
 
-	/*
-	 * If the dividend is smaller than the divisor, the quotient is zero and the
-	 * divisor is already the remainder.
-	 */
-	length = divisor->length;
-	if (dividend->length < divisor->length) {
-		return 0;
-	}
+before doing the digit padding
+000000000000000000000000000000000000000000010100001110100010011100101101111011000011111001010001 == 5693439482805841
+000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000 == 4611686018427387904
 
-	finalDivisorBlock = divisor->tab + length - 1;
-	finalDividendBlock = dividend->tab + length - 1;
+before high bloc calcul
+000000000000000000000000000000000100111100000011001010010000110101100010110100110110110001101001 == 5693439491395775593
+000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000 == 4611686018427387904
 
-	/*
-	 * Compute an estimated quotient based on the high block value. This will
-	 * either match the actual quotient or undershoot by one.
-	 */
-	quotient = *finalDividendBlock / (*finalDivisorBlock + 1);
-	DEBUG_ASSERT(quotient <= 9);
-
-	/* Divide out the estimated quotient */
-	if (quotient != 0) {
-		/* dividend = dividend - divisor*quotient */
-		const t_uint32 *divisorCur = divisor->tab;
-		t_uint32 *dividendCur = dividend->tab;
-
-		t_uint64 borrow = 0;
-		t_uint64 carry = 0;
-		do {
-			t_uint64 difference, product;
-
-			product = (t_uint64)*divisorCur * (t_uint64)quotient + carry;
-			carry = product >> 32;
-
-			difference = (t_uint64)*dividendCur
-				- (product & bitmask_u64(32)) - borrow;
-			borrow = (difference >> 32) & 1;
-
-			*dividendCur = difference & bitmask_u64(32);
-
-			++divisorCur;
-			++dividendCur;
-		} while(divisorCur <= finalDivisorBlock);
-
-		/* remove all leading zero tab from dividend */
-		while (length > 0 && dividend->tab[length - 1] == 0) {
-			--length;
-		}
-
-		dividend->length = length;
-	}
-
-	/*
-	 * If the dividend is still larger than the divisor, we overshot our
-	 * estimate quotient. To correct, we increment the quotient and subtract one
-	 * more divisor from the dividend.
-	 */
-	if (ft_bigint_compare(*dividend, *divisor) >= 0) {
-		/* dividend = dividend - divisor */
-		const t_uint32 *divisorCur = divisor->tab;
-		t_uint32 *dividendCur = dividend->tab;
-		t_uint64 borrow = 0;
-
-		++quotient;
-
-		do {
-			t_uint64 difference = (t_uint64)*dividendCur
-				- (t_uint64)*divisorCur - borrow;
-			borrow = (difference >> 32) & 1;
-
-			*dividendCur = difference & bitmask_u64(32);
-
-			++divisorCur;
-			++dividendCur;
-		} while(divisorCur <= finalDivisorBlock);
-
-		/* remove all leading zero tab from dividend */
-		while (length > 0 && dividend->tab[length - 1] == 0) {
-			--length;
-		}
-
-		dividend->length = length;
-	}
-
-	return quotient;
-}
+after high bloc calcul
+00001001 11100000 01100101 00100001 10101100 01011010 01101101 10001101 00100000 00000000 00000000 00000000
+00001000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000

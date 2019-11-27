@@ -2390,7 +2390,7 @@ Dragon4_PrintFloat_IEEE_binary64(
     npy_uint32 bufferSize = sizeof(scratch->repr);
     BigInt *bigints = scratch->bigints;
 
-    unio
+    union
     {
         npy_float64 floatingPoint;
         npy_uint64 integer;
