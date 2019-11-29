@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 00:57:56 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/27 02:29:46 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/29 09:58:09 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,19 +137,37 @@ int	main(void)
 ** 	return (0);
 ** }
 */
+void	ft_print(char *str, int n)
+{
+	int i = 0;
+	write(1, "{", 1);
+	while (i < n)
+		write(1, str + i++, 1);
+	write(1, "}", 1);
+	write(1, "\n", 1);
+}
 
 int main(void)
 {
 //	double nbr = 17976931.3486231570814527423731704356798078632766878171540458953514382464234321326889464;
-	double nbr1 = DBL_MAX;
-	double nbr2 = 0.4234321326889464;
-	double nbr3 = 0.000000004234321326889464;
-	double nbr4 = 0.000000000000000000000004234321326889464;
+	double nbr1 = -123456;
+	double nbr2 = -123.456;
+	double nbr3 = -122.5;
+	double nbr4 = -4234321326889464.123456789;
+
+	double nbr5 = 0.123;
+	double nbr6 = 0.00123;
+	double nbr7 = 0.0000000000123;
+	double nbr8 = -DBL_MAX;
 //	int		w = 67;
 	char    str1[500];
 	char    str2[500];
 	char    str3[500];
 	char    str4[500];
+	char    str5[500];
+	char    str6[500];
+	char    str7[500];
+	char    str8[500];
 //  printf("/--------------------------/\n");
 //  printf("nbr == |%lf|\n\n", nbr);
 //  printf("/--------------------------/\n");
@@ -157,22 +175,30 @@ int main(void)
 	//  printf("/==========================/\n");
 //	str[0] = ' ';
 	printf("/==========================/\n");
+	printf("/==========================/\n");
     print_double(nbr1, str1, 500);
+	printf("nbr1  == |%.100lf|\n",	nbr1);	printf("str1  == |%s|\n",  		str1);
+	printf("/==========================/\n");
     print_double(nbr2, str2, 500);
+	printf("nbr2  == |%.100lf|\n",	nbr2);	printf("str2  == |%s|\n",  		str2);
+	printf("/==========================/\n");
     print_double(nbr3, str3, 500);
+	printf("nbr3  == |%.100lf|\n",	nbr3);	printf("str3  == |%s|\n",  		str3);
+	printf("/==========================/\n");
     print_double(nbr4, str4, 500);
+	printf("nbr4  == |%.100lf|\n",	nbr4);	printf("str4  == |%s|\n",  		str4);
 	printf("/==========================/\n");
-	printf("nbr1  == |%+.11lf|\n",	nbr1);
-	printf("str1  == |%s|\n",  		str1);
 	printf("/==========================/\n");
-	printf("nbr2  == |%+.11lf|\n",	nbr2);
-	printf("str2  == |%s|\n",  		str2);
+    print_double(nbr5, str5, 500);
+	printf("nbr5  == |%.100lf|\n",	nbr5);	printf("str5  == |%s|\n",  		str5);
 	printf("/==========================/\n");
-	printf("nbr3  == |%+.11lf|\n",	nbr3);
-	printf("str3  == |%s|\n",  		str3);
+    print_double(nbr6, str6, 500);
+	printf("nbr6  == |%.100lf|\n",	nbr6);	printf("str6  == |%s|\n",  		str6);
 	printf("/==========================/\n");
-	printf("nbr4  == |%+.11lf|\n",	nbr4);
-	printf("str4  == |%s|\n",  		str4);
+    print_double(nbr7, str7, 500);
+	printf("nbr7  == |%.100lf|\n",	nbr7);	printf("str7  == |%s|\n",  		str7);
 	printf("/==========================/\n");
+    print_double(nbr8, str8, 500);
+	printf("nbr8  == |%.100lf|\n",	nbr8);	printf("str8  == |%s|\n",  		str8);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:28 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/27 02:28:04 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/29 10:00:25 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_bigints_compound
 	t_bigint	temp2;
 	t_bigint	temp1;
 	t_int32		bigbit;
+	t_uint32	precision;
 }				t_bigint_compound;
 /*
 ** ------------------------------------------------
@@ -51,12 +52,14 @@ typedef struct s_bigints_compound
  ** 	calcule this in big int  (a + m) * e
  */
 
-t_int32		ft_round_thatshit(t_bigint_compound *compound, char *buff, char *buff_cur, t_uint32 out_number)
+t_int32		ft_round_thatshit(t_bigint_compound *compound, char *buff, char **cur, t_uint32 out_number)
 {
 	t_int32	value;
+	char	*buff_cur;
 
 	ft_bigint_shiftleft(&compound->v_num, 1);
 	value = ft_bigint_compare(compound->v_num, compound->v_dom);
+	buff_cur = *cur;
 	if (value == 0)
 		value = ((out_number & 1) == 1);
 	if (value > 0)
@@ -71,12 +74,18 @@ t_int32		ft_round_thatshit(t_bigint_compound *compound, char *buff, char *buff_c
 				}
 				buff_cur--;
 				if (*buff_cur != '9')
-					break;
+				{
+					*buff_cur = (*buff_cur + 1);	
+					//buff_cur++;
+					break;	
+				}
 			}
-		*buff_cur = (out_number + 1 + '0');
+		//while (*(++buff_cur) != '\0')
+		//	*buff_cur = '0';
 	}
 	else
 		*buff_cur = (out_number + '0');
+	*cur = buff_cur;
 	return (0);
 }
 
@@ -113,7 +122,7 @@ int mini_dragon4(t_bigint_compound *compound, t_int32 exponent, char *buff, t_ui
 	if (ft_is_zero(compound->temp1) == TRUE)
 	{
 		buff[0] = '0';
-		return (0);
+		return (1);
 	}
 	/*-------------------------------------------------*/
 	// initialize v_num and v_dom
@@ -150,7 +159,6 @@ int mini_dragon4(t_bigint_compound *compound, t_int32 exponent, char *buff, t_ui
 	cuttoff_expo = digit - max_len;
 	if ((cuttoff_num >= 0) && (-cuttoff_num > cuttoff_expo))
 			cuttoff_expo = -cuttoff_num;
-	//exit(0);
 	*print_expo = digit - 1;
 	/*-------------------------------------------------*/
 	t_uint32	hibloc = compound->v_dom.tab[compound->v_dom.length - 1];
@@ -176,33 +184,81 @@ int mini_dragon4(t_bigint_compound *compound, t_int32 exponent, char *buff, t_ui
 		if (compound->v_num.length == 0 || digit == cuttoff_expo)
 			break;
 		*buff_cur = (char)(out_number + '0');
-			buff_cur++;
+		buff_cur++;
 		ft_bigint_copy(&temp, &compound->v_num);
 		ft_bigint_mult_int(&compound->v_num, temp, 10);
 	}
-//	*buff_cur = (char)(out_number + '0');
-
-//	printf("{{%s}}\n", buff_cur);
-	*print_expo += ft_round_thatshit(compound, buff, buff_cur, out_number);
+	*print_expo += ft_round_thatshit(compound, buff, &buff_cur, out_number);
 	buff_cur++;
 	*buff_cur = '\0';
-	printf("buff_cur - buff = %ld\n", buff_cur - buff);
 	return (buff_cur - buff);
 }
 
+void		ft_add_trailing_zeros(char *buff, t_int32 print_expo, t_uint32 *numdigits, t_int32 precision)
+{
+	t_uint32	pos;
+
+	pos =*numdigits;
+	while (pos <= precision + print_expo + 1)
+		buff[pos++] = '0';
+	*numdigits += (pos - *numdigits);
+}
+
+void	ft_add_leading_zeros(char *buff, t_int32 *print_expo, t_uint32 *numdigits, t_int32 precision)
+{
+	t_int32	pos;
+
+	pos = -(*print_expo);
+	if (pos >= 0)
+	{
+		ft_memmove(buff + pos, buff, *numdigits);
+		*numdigits += pos;
+		pos--;
+		while (pos >= 0)
+			buff[pos--] = '0';
+		*print_expo = 0;
+	}
+}
+
+void	ft_add_decimal_point(char *buff, t_int32 print_expo, t_uint32 buff_size, t_uint32 numdigits)
+{
+	t_uint32	len;
+
+	len = numdigits - print_expo - 1;
+	if (numdigits + 2 > buff_size)
+		len = buff_size - print_expo - 1;
+	ft_memmove(buff + print_expo + 2, buff + print_expo + 1, len);
+	buff[print_expo + 1] = '.';
+}
 
 void	ft_format_float(t_bigint_compound *compound, t_int32 exponent, char *buff, t_uint32 buff_size)
 {
 	t_uint32	numdigits;
 	t_int32		print_expo;
-	t_int32		precision = 11;
+	t_int32		precision = compound->precision;
+	t_uint32	pos;
+	t_uint32	nbrWholedigits;
+
+	if (*buff == '+' || *buff == '-')
+		pos = 1;
+	else
+		pos = 0;
 	
-	numdigits = mini_dragon4(compound, exponent, buff + 1, buff_size - 1, &print_expo, precision);
-//	printf("print expo = %d;\n", print_expo);
+	numdigits = mini_dragon4(compound, exponent, buff + pos, buff_size - pos, &print_expo, precision);
 
-//	ft_memmove(buff + print_expo + 2, buff + print_expo + 1, numdigits - print_expo);
-//	buff[print_expo + 2] = '.';
-
+	// add leading and trailing zeros;
+	if (print_expo > 0)
+	{
+		ft_add_trailing_zeros(buff + pos, print_expo, &numdigits, precision);
+		buff[numdigits] = '\0';
+	}
+	else
+	{
+		ft_add_leading_zeros(buff + pos, &print_expo, &numdigits, precision);
+		ft_add_trailing_zeros(buff + pos, print_expo, &numdigits, precision);
+		buff[numdigits - 1] = '\0';
+	}
+	ft_add_decimal_point(buff + pos, print_expo, buff_size, numdigits);
 }
 /*
 **----------------------------------------------------------------------------
@@ -232,8 +288,6 @@ void	ft_get_values(double nbr, t_bigint_compound *head, t_int32 *exponent, t_int
 		head->bigbit = logbase2_64(mantissa);
 	}
 	*sign = (cast.nbr >> 63);
-	printf("mantissa == {%llu}\t", mantissa);
-	printf("exponent == {%d}\n", *exponent);
 	ft_uint64_to_bigint(mantissa, &head->temp1);
 
 }
@@ -254,6 +308,7 @@ void		print_double(double nbr, char *buff, t_uint32 buff_size)
 	t_int32				exponent;
 	t_int32				sign;
 	t_bigint_compound	*compound;
+	t_uint32		flag_sign = 0;
 	/* extract the floating point value */
 
 	compound = malloc(sizeof(t_bigint_compound));
@@ -264,11 +319,13 @@ void		print_double(double nbr, char *buff, t_uint32 buff_size)
 	ft_get_values(nbr, compound, &exponent, &sign);
 	if (sign & 1)
 		*buff = '-';
-	else
+	else if (flag_sign)
 		*buff = '+';
+	else
+		*buff = '\0';
 
 	// manage the inf and nan here, check if mantissa is equale to zero ! 
-	
+	compound->precision = 100;	
 	ft_format_float(compound, exponent, buff, buff_size);
 /*	t_uint32	numdigits;
 	t_int32		print_expo;
