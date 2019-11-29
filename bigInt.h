@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 23:30:29 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/27 02:13:17 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/29 15:28:04 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void                ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs);
 t_uint32            ft_bigint_divid(t_bigint *lhs, t_bigint *rhs);
 void				ft_bigint_copy(t_bigint *dst, t_bigint *src);
 void		print_double(double nbr, char *buff, t_uint32 buff_size);
+void		print_long_double(long double nbr, char *buff, t_uint32 buff_size);
 void		ft_bigint_power10(t_bigint *result, t_int32 power);
 t_uint32			logbase2_32(t_uint32 val);
 t_uint32			logbase2_64(t_uint64 val);
