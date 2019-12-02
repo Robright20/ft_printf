@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/02 22:28:27 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/02 22:33:44 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ int		is_conv_spec(char c, char *args);
 void	printbits(void *p, int i);
 int		ft_putfnbr(t_fwp flags, double nbr);
 void	last_flags(char **str, t_fwp flg);
+void    ft_format_float(t_bigint_compound *compound, t_int32 exponent, char *buff, t_uint32 buff_size);
 
 #endif
