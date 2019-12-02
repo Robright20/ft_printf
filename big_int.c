@@ -6,11 +6,11 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:14:26 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/27 02:13:18 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/02 22:28:12 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bigInt.h"
+#include "bigint.h"
 
 /*
 ** ---------------------------------------------------------------------------
@@ -462,4 +462,11 @@ t_uint32	logbase2_64(t_uint64 val)
 		return 32 + logbase2_32((t_uint32)temp);
 	}
 	return logbase2_32((t_uint32)val);
+}
+
+t_int32	ft_is_zero(t_bigint nbr)
+{
+	if (nbr.length != 0)	
+		return (FALSE);
+	return (TRUE);
 }

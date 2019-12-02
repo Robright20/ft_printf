@@ -6,11 +6,11 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 00:57:56 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/02 15:37:45 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/02 22:27:52 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bigInt.h"
+#include "bigint.h"
 #include <float.h>
 /*
 int	main(void)
@@ -208,14 +208,14 @@ int main(void)
 	long double nb4 = 0.0000000000987654321;
 	long double nb5 = 112233;
 	long double nb6 = LDBL_MIN;
-/*
+
 	char	*buff1 = malloc(sizeof(char) * 16390);
 	char	*buff2 = malloc(sizeof(char) * 16390);
 	char	*buff3 = malloc(sizeof(char) * 16390);
 	char	*buff4 = malloc(sizeof(char) * 16390);
 	char	*buff5 = malloc(sizeof(char) * 16390);
-*/	char	*buff6 = malloc(sizeof(char) * 16390);
-/*
+	char	*buff6 = malloc(sizeof(char) * 16390);
+
 	printf("/==========================/\n");
     print_long_double(nb1, buff1, 1000);
 	printf("nb1    == |%.100Lf|\n",	nb1);	printf("buff1  == |%s|\n",  	buff1);
@@ -240,10 +240,10 @@ int main(void)
     print_long_double(nb5, buff5, 1000);
 	printf("nb5    == |%.100Lf|\n",	nb5);	printf("buff5  == |%s|\n",  	buff5);
 	free(buff5);
-*/
+
 	printf("/==========================/\n");
     print_long_double(nb6, buff6, 16383);
-	printf("nb6    == |%.16382Lf|\n",	nb6);
+	printf("nb6    == |%.100Lf|\n",	nb6);
 	printf("buff6  == |%s|\n",  	buff6);
 	free(buff6);
 
