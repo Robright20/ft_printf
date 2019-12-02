@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:28 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/29 15:50:18 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/02 15:36:16 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,22 +175,27 @@ int mini_dragon4(t_bigint_compound *compound, t_int32 exponent, char *buff, t_ui
 	t_bigint	temp;
 
 //	printf("str = [%s]\n", buff);
+//	printf("{%d}\n", compound->v_num.length);
+//	printf("{%d}\n", compound->v_dom.length);
 	t_uint32	out_number;
 	while (1)
 	{
 		digit = digit - 1;
 		out_number = ft_bigint_divid(&compound->v_num, &compound->v_dom);
-//		printf("out_number == %d;\n", out_number);
+		//printf("{%d}\n", compound->v_num.tab[compound->v_num.length - 1]);
+		//printf("{%d}\n", compound->v_dom.tab[compound->v_dom.length - 1]);
 		if (out_number >= 10)
 			printf("out_number error == %d;\n", out_number);
 		if (compound->v_num.length == 0 || digit == cuttoff_expo)
 			break;
+	//	printf("%d", out_number);
 		*buff_cur = (char)(out_number + '0');
 		buff_cur++;
 //	printf("str = {%s}\n", buff);
 		ft_bigint_copy(&temp, &compound->v_num);
 		ft_bigint_mult_int(&compound->v_num, temp, 10);
 	}
+//	printf("str = {%s}\n", buff);
 	*print_expo += ft_round_thatshit(compound, buff, &buff_cur, out_number);
 	buff_cur++;
 	*buff_cur = '\0';
@@ -250,16 +255,19 @@ void	ft_format_float(t_bigint_compound *compound, t_int32 exponent, char *buff, 
 	
 //	printf("str = {%s}\n", buff);
 	numdigits = mini_dragon4(compound, exponent, buff + pos, buff_size - pos, &print_expo, precision);
-//	printf("str = {%s}\n", buff);
+	printf("str = {%s}\n", buff);
 
 	// add leading and trailing zeros;
 	if (print_expo > 0)
 	{
 		ft_add_trailing_zeros(buff + pos, print_expo, &numdigits, precision);
+		printf("hello\n");
+//	exit(0);
 		buff[numdigits] = '\0';
 	}
 	else
 	{
+//		exit(0);
 		ft_add_leading_zeros(buff + pos, &print_expo, &numdigits, precision);
 		ft_add_trailing_zeros(buff + pos, print_expo, &numdigits, precision);
 		buff[numdigits - 1] = '\0';
@@ -398,6 +406,6 @@ void		print_long_double(long double nbr, char *buff, t_uint32 buff_size)
 		*buff = '\0';
 
 	// manage the inf and nan here, check if mantissa is equale to zero ! 
-	compound->precision = 100;	
+	compound->precision = 16382;
 	ft_format_float(compound, exponent, buff, buff_size);
 }

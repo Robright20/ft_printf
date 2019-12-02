@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 23:30:29 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/29 15:28:04 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/11/29 16:09:59 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 //#include "header.h"
 #include "libft/libft.h"
 
-# define BLOCS_NBR 514
+# define BLOCS_NBR 1000
 # define TRUE 1
 # define FALSE 0
 

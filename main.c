@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 00:57:56 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/11/29 15:52:18 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/02 15:37:45 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,35 +207,49 @@ int main(void)
 	long double nb3 = 0.123456;
 	long double nb4 = 0.0000000000987654321;
 	long double nb5 = 112233;
-	long double nb6 = DBL_MAX;
-
-	char	buff1[1000];
-	char	buff2[1000];
-	char	buff3[1000];
-	char	buff4[1000];
-	char	buff5[1000];
-	char	buff6[1000];
-
-
+	long double nb6 = LDBL_MIN;
+/*
+	char	*buff1 = malloc(sizeof(char) * 16390);
+	char	*buff2 = malloc(sizeof(char) * 16390);
+	char	*buff3 = malloc(sizeof(char) * 16390);
+	char	*buff4 = malloc(sizeof(char) * 16390);
+	char	*buff5 = malloc(sizeof(char) * 16390);
+*/	char	*buff6 = malloc(sizeof(char) * 16390);
+/*
 	printf("/==========================/\n");
     print_long_double(nb1, buff1, 1000);
 	printf("nb1    == |%.100Lf|\n",	nb1);	printf("buff1  == |%s|\n",  	buff1);
+	free(buff1);
+
 	printf("/==========================/\n");
     print_long_double(nb2, buff2, 1000);
 	printf("nb2    == |%.100Lf|\n",	nb2);	printf("buff2  == |%s|\n",  	buff2);
+	free(buff2);
+
 	printf("/==========================/\n");
     print_long_double(nb3, buff3, 1000);
 	printf("nb3    == |%.100Lf|\n",	nb3);	printf("buff3  == |%s|\n",  	buff3);
+	free(buff3);
+
 	printf("/==========================/\n");
     print_long_double(nb4, buff4, 1000);
 	printf("nb4    == |%.100Lf|\n",	nb4);	printf("buff4  == |%s|\n",  	buff4);
+	free(buff4);
+
 	printf("/==========================/\n");
     print_long_double(nb5, buff5, 1000);
 	printf("nb5    == |%.100Lf|\n",	nb5);	printf("buff5  == |%s|\n",  	buff5);
+	free(buff5);
+*/
 	printf("/==========================/\n");
-    print_long_double(nb6, buff6, 1000);
-	printf("nb6    == |%.100Lf|\n",	nb6);	printf("buff6  == |%s|\n",  	buff6);
+    print_long_double(nb6, buff6, 16383);
+	printf("nb6    == |%.16382Lf|\n",	nb6);
+	printf("buff6  == |%s|\n",  	buff6);
+	free(buff6);
+
 	printf("/==========================/\n");
+
+
     return (0);
 
 }
