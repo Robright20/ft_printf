@@ -64,7 +64,7 @@ long long	fetch_by_sizem_h(va_list ap, int bsigned);
 long long	fetch_by_sizem_ll(va_list ap, int bsigned);
 long long	fetch_by_sizem_l(va_list ap, int bsigned);
 long long	fetch_by_sizem_hh(va_list ap, int bsigned);
-char		*place_before(char *result, char *prefix);
+char		*place_before(char *result, char *prefix, int xbool);
 char		*place_at_lastsp(char *new_result, int sign, int flags);
 int			flag_lookup(int flags, int pos, int bound);
 ssize_t		ft_putxstr(char *s);

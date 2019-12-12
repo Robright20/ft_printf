@@ -20,12 +20,14 @@ int		ft_putonbr(va_list ap, int flags, int precision, int width)
 	unsigned long long	tmp;
 
 	i = flag_lookup(flags, LLONG, 4);
-	n = (i != -1) ? (g_fetch_by_sizem[i](ap, 0)) : va_arg(ap, int);
+	n = (i != -1) ? (g_fetch_by_sizem[i](ap, 0)) : va_arg(ap, unsigned int);
 	tmp = n;
 	i = 0;
 	while (tmp && ++i)
 		tmp /= 8;
-	if (!(ret = ft_strnew(i)))
+	if (n == 0)
+		ret = ft_strdup("0");
+	if (n && !(ret = ft_strnew(i)))
 		return (0);
 	while (n)
 	{

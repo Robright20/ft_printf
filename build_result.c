@@ -25,6 +25,7 @@ char		*build_result(int flags, char *result, int precision, int width)
 	int			conv;
 	int			i;
 	int			len;
+	int			special;
 
 	if (width < 0)
 	{
@@ -36,14 +37,18 @@ char		*build_result(int flags, char *result, int precision, int width)
 		return (result);
 	i = 0;
 	len = ft_strlen(result);
+	special = (result[0] == '0');
 	result = build[i++](&flags, result, conv, precision);
 	if (!(result = build[i++](&flags, result, conv, width)))
 		return ("Error");
 	if (!(result = build[i++](&flags, result, conv, width)))
 		return ("Error");
 	while (i < 5)
+	{
+		(i == 3 && special) ? i++ : 1;
 		if (!(result = build[i++](&flags, result, conv, width - max(precision, len))))
 			return ("Error");
+	}
 	return (result);
 }
 

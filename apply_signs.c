@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char	*place_before(char *result, char *prefix)
+char	*place_before(char *result, char *prefix, int xbool)
 {
 	char	*new_result;
 	int		len;
@@ -20,6 +20,12 @@ char	*place_before(char *result, char *prefix)
 
 	len = ft_strlen(result);
 	p_len = ft_strlen(prefix);
+	if (xbool)
+	{
+		ft_memmove(result + p_len, result, len - p_len);
+		ft_memcpy(result, prefix, p_len);
+		return (result);
+	}
 	if (!(new_result = ft_strnew(len + p_len)))
 		return (NULL);
 	ft_memcpy(new_result, prefix, p_len);
@@ -45,61 +51,37 @@ char	*place_at_lastsp(char *new_result, int sign, int flags)
 
 char	*apply_space(char *result, int diff, int flags)
 {
+	int		xbool;
+
+	xbool = (diff > 0 && IS_ON(flags, MINUS));
 	if (result[0] == '0')
 	{
 		if (diff > 0 && !IS_ON(flags, MINUS))
 			result[0] = ' ';
-		else if (diff > 0 && IS_ON(flags, MINUS))
-		{
-			// place before
-			ft_memmove(result + 1, result, ft_strlen(result) - 1);
-			result[0] = ' ';
-		}
 		else
-			return (place_before(result, " "));
+			return (place_before(result, " ", xbool));
 	}
 	else if (result[0] != '-' && result[0] != ' ')
-	{
-		if (diff > 0 && IS_ON(flags, MINUS))
-		{
-			// place before
-			ft_memmove(result + 1, result, ft_strlen(result) - 1);
-			result[0] = ' ';
-		}
-		else
-			return (place_before(result, " "));
-	}
+		return (place_before(result, " ", xbool));
 	return (result);
 }
 
 char	*apply_plus(char *result, int diff, int flags)
 {
+	int		xbool;
+
+	xbool = (diff > 0 && IS_ON(flags, MINUS));
 	if (result[0] == '0')
 	{
 		if (diff > 0 && !IS_ON(flags, MINUS))
 			result[0] = '+';
-		else if (diff > 0 && IS_ON(flags, MINUS))
-		{
-			//place_before
-			ft_memmove(result + 1, result, ft_strlen(result) - 1);
-			result[0] = '+';
-		}
 		else
-			return (place_before(result, "+"));
+			return (place_before(result, "+", xbool));
 	}
 	else if (result[0] == ' ')
 		return (place_at_lastsp(result, '+', flags));
 	else if (result[0] != '-')
-	{
-		if (diff > 0 && IS_ON(flags, MINUS))
-		{
-			// place before
-			ft_memmove(result + 1, result, ft_strlen(result) - 1);
-			result[0] = '+';
-		}
-		else
-			return (place_before(result, "+"));
-	}
+		return (place_before(result, "+", xbool));
 	return (result);
 }
 

@@ -28,11 +28,9 @@ int		ft_putdnbr(va_list ap, int flags, int precision, int width)
 	while (tmp && ++i)
 		tmp /= 10;
 	if (i == 0)
-		i++;
-	if (!(ret = ft_strnew(i)))
+		ret = ft_strdup("0");
+	if (n && !(ret = ft_strnew(i)))
 		return (0);
-	if (n == 0)
-		ret[0] = '0';
 	n = sign ? -n : n;
 	while (n)
 	{

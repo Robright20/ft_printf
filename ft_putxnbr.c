@@ -21,13 +21,15 @@ int		ft_putxnbr(va_list ap, int flags, int precision, int width)
 	unsigned long long		tmp;
 
 	i = flag_lookup(flags, LLONG, 4);
-	n = (i != -1) ? (g_fetch_by_sizem[i](ap, 0)) : va_arg(ap, int);
+	n = (i != -1) ? (g_fetch_by_sizem[i](ap, 0)) : va_arg(ap, unsigned int);
 	s = "0123456789abcdef";
 	tmp = n;
 	i = 0;
 	while (tmp && ++i)
 		tmp /= 16;
-	if (!(ret = ft_strnew(i)))
+	if (n == 0)
+		ret = ft_strdup("0");
+	if (n && !(ret = ft_strnew(i)))
 		return (0);
 	while (n)
 	{
@@ -48,13 +50,15 @@ int		ft_putbxnbr(va_list ap, int flags, int precision, int width)
 	unsigned long long		tmp;
 
 	i = flag_lookup(flags, LLONG, 4);
-	n = (i != -1) ? (g_fetch_by_sizem[i](ap, 0)) : va_arg(ap, int);
+	n = (i != -1) ? (g_fetch_by_sizem[i](ap, 0)) : va_arg(ap, unsigned int);
 	s = "0123456789ABCDEF";
 	tmp = n;
 	i = 0;
 	while (tmp && ++i)
 		tmp /= 16;
-	if (!(ret = ft_strnew(i)))
+	if (n == 0)
+		ret = ft_strdup("0");
+	if (n && !(ret = ft_strnew(i)))
 		return (0);
 	while (n)
 	{
