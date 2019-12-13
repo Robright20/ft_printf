@@ -6,12 +6,12 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 05:38:31 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/14 18:23:00 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/13 06:01:19 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <limits.h>
+#include <float.h>
 #include <locale.h>
 
 /*
@@ -89,12 +89,37 @@ int		main(void)
 	printbits(&ret2, 4);
 	setlocale(LC_NUMERIC, "");
 	ret1 = ft_printf("{red}bonjour{eoc} [%1$*2$'0d]\n", 12345678, 10);
+*/
+
+
+
+//	printf("printf    [%010c];\n", 'm');
+//	printf("printf    [%.10c];\n", 'm');
+//	printf("printf    [%7.3c];\n", 'm');
+//	printf("printf    [%-.7c];\n", 'm');
+//	printf("printf    [% c];\n", 'm');
+//	printf("printf    [%+c];\n", 'm');
+
+//	printf("printf    [%10c];\n", 'm');
+// ft_printf("printf    [%10c];\n", 'm');
+//    printf("printf    [%-7c];\n", 'm');
+// ft_printf("printf    [%-7c];\n", 'm');
+//    printf("printf    [%c];\n", 'm');
+// ft_printf("printf    [%c];\n", 'm');
+
+/*
+int	main()
+{
 	printf("/-----------------/\n");
-	printf("bonjour [%1$0'*2$d]\n", 12345678, 10);
+
+ 	printf("printf    [hello %Lf];\n", 1.7l);
+ ft_printf("ft_printf [hello %Lf];\n", 1.7l);
+ 
 	printf("/-----------------/\n");
 	return (0);
 }
 */
+/*
 int		ft_putc(va_list ap, int flags, int precision, int width)
 {
 	ft_putstr("-------------------------\n");
@@ -106,6 +131,7 @@ int		ft_putc(va_list ap, int flags, int precision, int width)
 	(void)ap;
 	return (0);
 }
+*/
 int		ft_putptr(va_list ap, int flags, int precision, int width)
 {
 	ft_putstr("-------------------------\n");
@@ -118,7 +144,7 @@ int		ft_putptr(va_list ap, int flags, int precision, int width)
 	return (0);
 }
 
-
+/*
 int		ft_puts(va_list ap, int flags, int precision, int width)
 {
 	ft_putstr("-------------------------\n");
@@ -130,7 +156,8 @@ int		ft_puts(va_list ap, int flags, int precision, int width)
 	(void)ap;
 	return (0);
 }
-
+*/
+/*
 int		ft_putfnbr(va_list ap, int flags, int precision, int width)
 {
 	ft_putstr("-------------------------\n");
@@ -142,7 +169,7 @@ int		ft_putfnbr(va_list ap, int flags, int precision, int width)
 	(void)ap;
 	return (0);
 }
-
+*/
 int		ft_putenbr(va_list ap, int flags, int precision, int width)
 {
 	ft_putstr("-------------------------\n");

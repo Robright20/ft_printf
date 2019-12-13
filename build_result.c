@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 03:30:18 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/14 17:14:27 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/12 05:39:08 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ char		*build_result(int flags, char *result, int precision, int width)
 		return ("Error");
 	if (!(result = build[i++](&flags, result, conv, width)))
 		return ("Error");
+	//printf("{%s}{%d}", result, ft_strlen(result));
 	while (i < 5)
 	{
 		(i == 3 && special) ? i++ : 1;
 		if (!(result = build[i++](&flags, result, conv, width - max(precision, len))))
 			return ("Error");
+//	printf("[%s]{%d}", result, ft_strlen(result));
 	}
 	return (result);
 }

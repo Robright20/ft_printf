@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/14 17:38:33 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/13 06:01:48 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 # include <stdarg.h>
 # include <strings.h>
 # include "libft/libft.h"
+# include "float_bigint.h"
 # include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 # include <locale.h>
 # define FLAGS_BUF "cspdiouxXfeg#0-+ llhhlhLbrk'*$."
 # define FLAGS_SIZE 32
@@ -44,6 +47,7 @@ int			ft_putunbr(va_list ap, int flags, int precision, int width);
 int			ft_putxnbr(va_list ap, int flags, int precision, int width);
 int			ft_putbxnbr(va_list ap, int flags, int precision, int width);
 int			ft_putfnbr(va_list ap, int flags, int precision, int width);
+int			ft_putlfnbr(va_list ap, int flags, int precision, int width);
 int			ft_putenbr(va_list ap, int flags, int precision, int width);
 int			ft_putgnbr(va_list ap, int flags, int precision, int width);
 int			save_flag(int *flags, char *format);
@@ -74,4 +78,13 @@ char		*apply_width(int *flags, char *result, int conv, int width);
 char		*apply_hash(int *flags, char *result, int conv, int diff);
 char		*apply_signs(int *flags, char *result, int conv, int diff);
 char		*apply_quote(int *flags, char *result, int conv, int width);
+
+
+int     ft_strnstr(char *s1, char *s2, int n);
+int     first_char_nbr(char *s);
+void    save_all_flags(int *flags, char *args);
+int     is_conv_spec(char c, char *args);
+void    ft_format_float(t_bigint_compound *compound, t_int32 exponent, \
+                                                        t_buffer *node);
+
 #endif
