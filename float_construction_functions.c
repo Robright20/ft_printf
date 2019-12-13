@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:28 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/13 06:01:39 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/13 07:16:57 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,4 +181,28 @@ void			ft_format_float(t_bigint_compound *compound, t_int32 exponent, \
 	if (pos == 1)
 		node->buff--;
 	ft_applywidth(node);
+}
+
+void		ft_scientific_format(t_bigint_compound *compound, t_int32 exponent, \
+									t_buffer *node)
+{
+	t_uint32	numdigits;
+	t_uint32	pos;
+
+	pos = ft_add_sign(compound, *node);
+	if (pos == 1)
+		node->buff++;
+	if (is_special_case(compound, exponent, node, &numdigits) == FALSE)
+		numdigits = mini_dragon4(compound, exponent, node);
+	// increment buff to leave the whole number;
+	ft_add_trailing_zeros(node, &numdigits);
+	ft_add_decimal_point(node->buff, 0, node->max_len, numdigits);
+	if (pos == 1)
+		node->buff--;
+	// insert the decimal point prior the fractional number; this must check if # is activated
+	// add trailing zeros or remove them, because we can have them after rounding up;
+	// add the 'e' ( check the sign or live it to itoa)
+	// itoa of the exponent;
+	// join the buff with the exponent buff;
+	// done
 }

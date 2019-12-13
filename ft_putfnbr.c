@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 05:03:04 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/13 06:01:37 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/13 07:16:59 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,26 @@ int	ft_putlfnbr(va_list ap, int flags, int precision, int width)
 	write(1, node.buff, len);
 	free(node.buff);
 	return (len);
+}
+
+int		ft_putenbr(va_list ap, int flags, int precision, int width)
+{
+	len = LDBL_DIGITS;
+	if (precision > len)
+		len += precision;
+	if (width > len)
+		len += width;
+	nbr = va_arg(ap, long double);
+	node.buff = (char*)malloc(len * sizeof(char));
+	node.max_len = len - 1;
+	node.precision = (precision == -1) ? 0 : (precision == 0) ? 6 : precision;
+	node.width = width;
+	node.flags = flags;
+	print_long_double(nbr, &node);
+	len = ft_strlen(node.buff);
+	write(1, node.buff, len);
+	free(node.buff);
+	return (len);
+
+
 }
