@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 23:30:29 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/12 05:30:23 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/13 23:56:31 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct	s_buffer
 	t_int32	precision;
 	t_int32	width;
 	t_int32	flags;
+	t_int32	bol;
 }				t_buffer;
 
 typedef struct	s_bigints_compound
@@ -125,8 +126,8 @@ void			ft_bigint_shiftleft(t_bigint *result, t_uint32 shiftbits);
 void			ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs);
 t_uint32		ft_bigint_divid(t_bigint *lhs, t_bigint *rhs);
 void			ft_bigint_copy(t_bigint *dst, t_bigint *src);
-void			print_double(double nbr, t_buffer *buff_tools);
-void			print_long_double(long double nbr, t_buffer *node);
+void			print_double(double nbr, t_buffer *buff_tools, int bol);
+void			print_long_double(long double nbr, t_buffer *node, int bol);
 void			ft_bigint_power10(t_bigint *result, t_int32 power);
 t_uint32		logbase2_32(t_uint32 val);
 t_uint32		logbase2_64(t_uint64 val);

@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 05:38:31 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/13 07:17:03 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/14 03:44:38 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,18 +107,55 @@ int		main(void)
 //    printf("printf    [%c];\n", 'm');
 // ft_printf("printf    [%c];\n", 'm');
 
-/*
+
 int	main()
 {
-	printf("/-----------------/\n");
+ 	printf("printf    [hello %f];\n", -123456789.);
+ ft_printf("printf    [hello %f];\n", -123456789.);
+ 	printf("printf    [hello %.f];\n", -123456789.);
+ ft_printf("printf    [hello %.f];\n", -123456789.);
+ 	printf("printf    [hello %20f];\n", -123456789.);
+ ft_printf("printf    [hello %20f];\n", -123456789.);
+ 	printf("printf    [hello %.13f];\n", -123456789.);
+ ft_printf("printf    [hello %.13f];\n", -123456789.);
 
- 	printf("printf    [hello %Lf];\n", 1.7l);
- ft_printf("ft_printf [hello %Lf];\n", 1.7l);
- 
+printf("-----------------\n");
+
+printf("/-----------------/\n");
+
+ 	printf("printf    [hello [%e];\n", -123456789.);
+ ft_printf("printf    [hello [%e];\n", -123456789.);
+printf("-----------------\n");
+ 	printf("printf    [hello [%.e];\n", -123456789.);
+ ft_printf("printf    [hello [%.e];\n", -123456789.);
+printf("-----------------\n");
+ 	printf("printf    [hello [%20e];\n", -123456789.);
+ ft_printf("printf    [hello [%20e];\n", -123456789.);
+printf("-----------------\n");
+ 	printf("printf    [hello [%.13e];\n", -123456789.);
+ ft_printf("printf    [hello [%.13e];\n", -123456789.);
+printf("-----------------\n");
+ 	printf("printf    [hello [%.e];\n", -1234.56789);
+ ft_printf("printf    [hello [%.e];\n", -1234.56789);
+printf("-----------------\n");
+ 	printf("printf    [hello [%e];\n", 0.);
+ ft_printf("printf    [hello [%e];\n", 0.);
+printf("-----------------\n");
+ 	printf("printf    [hello [%030e];\n", 0.);
+ ft_printf("printf    [hello [%030e];\n", 0.);
+printf("-----------------\n");
+ 	printf("printf    [hello [%20e];\n", 0.);
+ ft_printf("printf    [hello [%20e];\n", 0.);
+printf("-----------------\n");
+ 	printf("printf    [hello [%-030e];\n", 111999.666);
+ ft_printf("printf    [hello [%-030e];\n", 111999.666);
+
+//printf("-----------------\n");
+
 	printf("/-----------------/\n");
 	return (0);
 }
-*/
+
 /*
 int		ft_putc(va_list ap, int flags, int precision, int width)
 {
@@ -170,6 +207,7 @@ int		ft_putfnbr(va_list ap, int flags, int precision, int width)
 	return (0);
 }
 */
+/*
 int		ft_putenbr(va_list ap, int flags, int precision, int width)
 {
 	ft_putstr("-------------------------\n");
@@ -181,7 +219,7 @@ int		ft_putenbr(va_list ap, int flags, int precision, int width)
 	(void)ap;
 	return (0);
 }
-
+*/
 int		ft_putgnbr(va_list ap, int flags, int precision, int width)
 {
 	ft_putstr("-------------------------\n");

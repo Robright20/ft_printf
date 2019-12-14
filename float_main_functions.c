@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 22:30:02 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/13 07:16:58 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/14 03:55:28 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	ft_get_ldbl_values(long double nbr, t_bigint_compound *head,\
 ** here is the start;
 */
 
-void		print_double(double nbr, t_buffer *node)
+void		print_double(double nbr, t_buffer *node, int bol)
 {
 	t_bigint_compound	*compound;
 	t_int32				exponent;
@@ -84,14 +84,17 @@ void		print_double(double nbr, t_buffer *node)
 	compound = malloc(sizeof(t_bigint_compound));
 	ft_bzero(compound, sizeof(t_bigint_compound));
 	ft_get_dbl_values(nbr, compound, &exponent);
-	ft_format_float(compound, exponent, node);
+	if (bol == 0)
+		ft_format_float(compound, exponent, node);
+	else if (bol == 1)
+		ft_scientific_format(compound, exponent, node);
 }
 
 /*
 ** ***************************************************************************
 */
 
-void		print_long_double(long double nbr, t_buffer *node)
+void		print_long_double(long double nbr, t_buffer *node, t_int32 bol)
 {
 	t_bigint_compound	*compound;
 	t_int32				exponent;
@@ -99,5 +102,8 @@ void		print_long_double(long double nbr, t_buffer *node)
 	compound = malloc(sizeof(t_bigint_compound));
 	ft_bzero(compound, sizeof(t_bigint_compound));
 	ft_get_ldbl_values(nbr, compound, &exponent);
-	ft_format_float(compound, exponent, node);
+	if (bol == 0)
+		ft_format_float(compound, exponent, node);
+	else if (bol == 1)
+		ft_scientific_format(compound, exponent, node);
 }

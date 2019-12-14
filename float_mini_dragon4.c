@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 04:42:14 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/12 10:22:41 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/14 00:17:38 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,14 +142,19 @@ void		ft_check_highbloc(t_bigint_compound *compound)
 ** ***************************************************************************
 */
 
-t_int32		ft_initialize(t_int32 *cuttoff_expo, t_int32 precision, \
+t_int32		ft_initialize(t_int32 *cuttoff_expo, t_buffer *node, \
 							t_uint32 max_len, t_int32 digit_expo)
 {
+	t_int32 precision;
+
+	precision = node->precision;
 	*cuttoff_expo = digit_expo - max_len;
 	if (*cuttoff_expo < -(int)max_len)
 		*cuttoff_expo = -max_len;
-	if ((precision >= 0) && (-precision > *cuttoff_expo))
+	if ((node->bol == 0) && (precision >= 0) && (-precision > *cuttoff_expo))
 		*cuttoff_expo = -precision;
+	else if ((node->bol == 1) && (precision >= 0) && (-precision > *cuttoff_expo))
+		(*cuttoff_expo) = digit_expo - precision - 1;
 	return (digit_expo - 1);
 }
 
@@ -199,7 +204,7 @@ int			mini_dragon4(t_bigint_compound *compound, t_int32 exponent, \
 		return (1);
 	}
 	ft_predivision(compound, exponent, &digit_expo, node->precision);
-	node->print_expo = ft_initialize(&cuttoff_expo, node->precision, \
+	node->print_expo = ft_initialize(&cuttoff_expo, node, \
 										node->max_len, digit_expo);
 	ft_check_highbloc(compound);
 	return (ft_fill_buffer(compound, &digit_expo, cuttoff_expo, node));
