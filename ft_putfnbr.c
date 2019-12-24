@@ -6,13 +6,13 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 05:03:04 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/24 14:05:24 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/24 14:09:48 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 //#include "flaot_ft_printf.h"
-# define DBL_DIGITS 16390
+# define DBL_DIGITS 1639
 # define LDBL_DIGITS 16390
 
 int	ft_putfnbr(va_list ap, int flags, int precision, int width)
