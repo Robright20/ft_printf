@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 04:42:14 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/14 00:17:38 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/24 14:05:22 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ int			mini_dragon4(t_bigint_compound *compound, t_int32 exponent, \
 	if (ft_is_zero(compound->v_num) == TRUE)
 	{
 		node->buff[0] = '0';
+		node->print_expo = 0;
 		return (1);
 	}
 	ft_predivision(compound, exponent, &digit_expo, node->precision);

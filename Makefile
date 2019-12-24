@@ -32,7 +32,7 @@ LIB= libft.a
 
 CC=	gcc
 #CFLAGES= -Wall -Wextra -Werror
-CFLAGES= 
+CFLAGES= -g
 
 LD_FLAGS= -L$(LIB_PATH)
 LD_LIBS= -l$(patsubst lib%.a,%, $(LIB))

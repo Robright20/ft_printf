@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 05:03:04 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/14 03:55:29 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/24 14:05:24 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,4 @@ int		ft_putenbr(va_list ap, int flags, int precision, int width)
 	write(1, node.buff, len);
 	free(node.buff);
 	return (len);
-
-
 }

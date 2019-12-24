@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 05:38:31 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/14 03:44:38 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/24 14:05:32 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,10 @@ int		main(void)
 //    printf("printf    [%c];\n", 'm');
 // ft_printf("printf    [%c];\n", 'm');
 
-
+/*
 int	main()
 {
+
  	printf("printf    [hello %f];\n", -123456789.);
  ft_printf("printf    [hello %f];\n", -123456789.);
  	printf("printf    [hello %.f];\n", -123456789.);
@@ -143,19 +144,20 @@ printf("-----------------\n");
 printf("-----------------\n");
  	printf("printf    [hello [%030e];\n", 0.);
  ft_printf("printf    [hello [%030e];\n", 0.);
+ 
 printf("-----------------\n");
- 	printf("printf    [hello [%20e];\n", 0.);
- ft_printf("printf    [hello [%20e];\n", 0.);
+ 	printf("printf       [hello [%20e];\n", 0.);
+ ft_printf("ft_printf    [hello [%20e];\n", 0.);
 printf("-----------------\n");
- 	printf("printf    [hello [%-030e];\n", 111999.666);
- ft_printf("printf    [hello [%-030e];\n", 111999.666);
+ 	printf("printf       [hello [%-030e];\n", 111999.666);
+ ft_printf("ft_printf    [hello [%-030e];\n", 111999.666);
 
 //printf("-----------------\n");
 
 	printf("/-----------------/\n");
 	return (0);
 }
-
+*/
 /*
 int		ft_putc(va_list ap, int flags, int precision, int width)
 {

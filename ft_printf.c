@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/13 17:07:26 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/24 14:05:25 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,16 @@ int		ft_printf(const char *restrict format, ...)
 	char	*fmt;
 	char	*fmt_cpy;
 
+//	printf(" ****************************************************************\n");
 	nbr = 0;
 	va_start(ap, format);
+//	printf("{format ==%s}\n", format);
 	fmt = ft_strdup(format);
+//	printf("===================== ALLOCATED ADDRESS : %p\n", fmt);
+//	printf("{fmt ==%s}\n", fmt);
 	fmt_cpy = fmt;
+//	printf("\n{fmt_cpy 1 ==%s}\n", fmt_cpy);
+	// % should be treated as c conversion ("%    %)
 	while (*fmt)
 	{
 		fmt += set_color(fmt);
@@ -76,7 +82,17 @@ int		ft_printf(const char *restrict format, ...)
 		if (*fmt)
 			nbr += write(1, fmt++, 1);
 	}
-	ft_strdel(&fmt_cpy);
+//	printf("\n{fmt_cpy 2 ==%s}\n", fmt_cpy);
+//	printf("\n{fmt 2 ==%s}\n", fmt);
+//	ft_strdel(&fmt_cpy);
+//	printf("===================== FREED ADDRESS : %p\n", fmt_cpy);
+//	printf("-------------before free------------\n");
+//	printf("fmt_cpy =={%s}\n", fmt_cpy);
+	//free(fmt_cpy);
+//	fmt_cpy = NULL;
+//	printf("-------------after free------------\n");
+//	write(1, "HELLO\n", 6);
+	//printf("\n{fmt_cpy 3 ==%p}\n", fmt_cpy);
 	va_end(ap);
 	return (nbr);
 }
