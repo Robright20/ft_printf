@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 22:30:02 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/24 14:05:23 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/25 16:15:30 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,5 @@ void		print_long_double(long double nbr, t_buffer *node, t_int32 bol)
 		ft_format_float(compound, exponent, node);
 	else if (bol == 1)
 		ft_scientific_format(compound, exponent, node);
+	free(compound);
 }

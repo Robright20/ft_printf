@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 02:08:32 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/13 05:23:41 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/25 18:11:46 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,38 +44,9 @@ int		ft_puts(va_list ap, int flags, int precision, int width)
 
 	s = va_arg(ap, char*);
 	if (!s)
-	{
-		write(1, "null", 4);
-		return (4);
-	}
+		s = ft_strdup("(null)");
 	s = ft_strdup(s);
-	//len = (ft_strlen(s) < precision) ? ft_strlen(s) : precision; 
-	//printf("[precision = %d]\n", precision);
-	//printf("[strlen = %zu]\n", ft_strlen(s));
-	//printf("[len = %d]\n", len);
-
-	apply_width(&flags, s, (int)'s', width);
-	write(1, s, ft_strlen(s));
-
-/*
-	if (width > len && IS_ON(flags, MINUS))
-	{
-		write(1, s, len);
-		width -= len;
-		while (width--)
-			write(1, " ", 1);
-		return (width);
-	}
-	else if (width > len && !IS_ON(flags, MINUS))
-	{
-		width -= len;
-		while (width--)
-			write(1, " ", 1);
-		write(1, s, len);
-		return (width);
-	}
-	else
-		write(1, s, len);
-*/
-	return (1);
+	SET_FLAG_ON(flags, STRING);
+	s = build_result(flags, s, precision, width);
+	return (ft_putxstr(s));
 }

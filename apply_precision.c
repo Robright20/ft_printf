@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 21:52:58 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/12 01:28:07 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/25 18:11:43 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ char	*apply_precision(int *flags, char *result, int conv, int precision)
 	int		index;
 
 	new_result = result;
-	if (IS_ON(*flags, POINT))
+	if (IS_ON(*flags, POINT) && (conv != EXPO) && (conv != XFLOAT) && (conv != STRING))
 		SET_FLAG_OFF(*flags, ZERO);
 	if ((DEC <= conv && conv <= BHEX) && (result[0] == '0') && \
 		IS_ON(*flags, POINT) && (precision == 0))
 		result[0] = '\0';
-	if (!result || (len = ft_strlen(result)) >= precision)
+	if (!result || \
+		(((len = ft_strlen(result)) >= precision) && conv != STRING  && conv != XFLOAT && conv != EXPO))
 		return (result);
 	if (DEC <= conv && conv <= BHEX)
 	{
@@ -38,6 +39,31 @@ char	*apply_precision(int *flags, char *result, int conv, int precision)
 		ft_strcpy(&new_result[sign] + index, &result[sign]);
 		free(result);
 	}
+	if ((conv == EXPO) && (precision > 0))
+	{
+		result[precision + 1] = '\0';
+		index = precision;
+		len = ft_strlen(result);
+		while ((index > 0) && index >= len)
+			result[index--] = '0';
+		new_result = result;
+	}
+	if ((conv == XFLOAT) && (precision > 0))
+	{
+		int	digitsBefore = 0;
+		while (result[digitsBefore] != '.' && result[digitsBefore])
+			digitsBefore++;
+		if (result[digitsBefore] == '.')
+			digitsBefore++;
+		len = ft_strlen(result);
+		index = precision - (len - digitsBefore);
+		result[len + index--] = '\0';
+		while (index >= 0)
+			result[len + index--] = '0';
+		new_result = result;
+	}
+	if (conv == STRING)
+		IS_ON(*flags, POINT) ? new_result[precision] = '\0' : 1;
 	return (new_result);
 }
 

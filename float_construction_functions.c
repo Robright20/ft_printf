@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:28 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/24 14:05:22 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/25 16:15:27 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,22 @@
  ** **********************************# 2 #*************************************
  */
 
-static void		ft_add_trailing_zeros(t_buffer *node, t_uint32 *numdigits)
+static void		ft_add_trailing_zeros(t_buffer *node, t_uint32 *numdigits, \
+														t_int32 bigbit)
 {
 	t_int32	pos;
 	t_int32	stop;
 
-	pos = *numdigits;
-	stop = node->precision + node->print_expo;
-	//	stop = node->precision;
-	//	printf("[stop = %d]\n", stop);
-	//	printf("[prec = %d]\n", node->precision);
-	//	printf("[exp = %d]\n", node->print_expo);
-	if (stop > node->max_len)
-		stop = node->max_len;
-	while (pos <= stop)
-		node->buff[pos++] = '0';
-	*numdigits += (pos - *numdigits);
-	node->buff[pos] = '\0';
+	if (node->print_expo > 0 && bigbit != -1337 && \
+			node->print_expo >= *numdigits)
+	{
+		stop = *numdigits;
+		pos = node->print_expo;
+		node->buff[pos + 1] = '\0';
+		while (pos >= stop)
+			node->buff[pos--] = '0';
+		*numdigits = node->print_expo + 1;
+	}
 }
 
 /*
@@ -40,19 +39,22 @@ static void		ft_add_trailing_zeros(t_buffer *node, t_uint32 *numdigits)
  */
 
 static void		ft_add_leading_zeros(char *buff, t_int32 *print_expo, \
-		t_uint32 *numdigits)
+		t_uint32 *numdigits, t_int32 bigbit)
 {
 	t_int32	pos;
 
-	pos = -(*print_expo);
-	if (pos >= 0)
+	if (bigbit != -1337)
 	{
-		ft_memmove(buff + pos, buff, *numdigits);
-		*numdigits += pos;
-		pos--;
-		while (pos >= 0)
-			buff[pos--] = '0';
-		*print_expo = 0;
+		pos = -(*print_expo);
+		if (pos >= 0)
+		{
+			ft_memmove(buff + pos, buff, *numdigits);
+			*numdigits += pos;
+			pos--;
+			while (pos >= 0)
+				buff[pos--] = '0';
+			*print_expo = 0;
+		}
 	}
 }
 
@@ -65,11 +67,23 @@ static void		ft_add_decimal_point(char *buff, t_int32 print_expo, \
 {
 	t_uint32	len;
 
-	len = numdigits - print_expo - 1;
+	len = numdigits - print_expo - 1;// number of digits after decimal point
 	if (numdigits + 2 > buff_size)
 		len = buff_size - print_expo - 1;
-	ft_memmove(buff + print_expo + 2, buff + print_expo + 1, len);
-	buff[print_expo + 1] = '.';
+	if (len != 0)
+	{
+//		printf("++++++ len == %d;\n", len);
+//		printf("++++++ print_expo == %d;\n", print_expo);
+//		printf("++++++ buff == %s;\n", buff);
+		ft_memmove(buff + print_expo + 2, buff + print_expo + 1, len + 1);
+//	printf("===================== HERE 3;\n");
+		buff[print_expo + 1] = '.';
+	}
+	else
+	{
+		buff[print_expo + 1] = '.';
+		buff[print_expo + 2] = '\0';
+	}
 }
 
 /*
@@ -167,44 +181,11 @@ void			ft_applywidth(t_buffer *node)
 	}
 }
 
-
 /*
 ** ****************************************************************************
 */
 
-void			ft_format_float(t_bigint_compound *compound, t_int32 exponent, \
-		t_buffer *node)
-{
-	t_uint32	numdigits;
-	t_uint32	pos;
-
-	pos = ft_add_sign(compound, *node);
-	if (pos == 1)
-		node->buff++;
-	if (is_special_case(compound, exponent, node, &numdigits) == FALSE)
-		numdigits = mini_dragon4(compound, exponent, node);
-	if (node->print_expo > 0 && compound->bigbit != -1337)
-	{
-		ft_add_trailing_zeros(node, &numdigits);
-	}
-	else if (compound->bigbit != -1337)
-	{
-		ft_add_leading_zeros(node->buff, &(node->print_expo), &numdigits);
-		ft_add_trailing_zeros(node, &numdigits);
-	}
-	if (compound->bigbit != -1337 && (node->precision != 0 || IS_ON(node->flags, HASH)))
-		ft_add_decimal_point(node->buff, node->print_expo, \
-				node->max_len + 1, numdigits);
-	if (pos == 1)
-		node->buff--;
-	ft_applywidth(node);
-}
-
-/*
-** ****************************************************************************
-*/
-
-char	*get_exponent_digits(t_buffer *node)
+static char	*get_exponent_digits(t_buffer *node)
 {
 	char	*str;
 	char	*tmp;
@@ -234,6 +215,46 @@ char	*get_exponent_digits(t_buffer *node)
 ** ****************************************************************************
 */
 
+void			ft_format_float(t_bigint_compound *compound, t_int32 exponent, \
+		t_buffer *node)
+{
+	t_uint32	numdigits;
+	t_uint32	pos;
+
+	pos = ft_add_sign(compound, *node);
+	if (pos == 1)
+		node->buff++;
+	if ((node->precision == 0 && !IS_ON(node->flags, POINT)) || (node->precision < 0))
+		node->precision = 6;
+	ft_memset(node->buff, '\0', node->max_len + 1);
+	if (is_special_case(compound, exponent, node, &numdigits) == FALSE)
+		numdigits = mini_dragon4(compound, exponent, node);
+	ft_add_leading_zeros(node->buff, &(node->print_expo), &numdigits, compound->bigbit);
+	ft_add_trailing_zeros(node, &numdigits, compound->bigbit);
+
+//	printf("buff == <<%s>>\n", node->buff);
+	if (compound->bigbit != -1337 && (node->precision != 0 || IS_ON(node->flags, HASH)))
+		ft_add_decimal_point(node->buff, node->print_expo, \
+				node->max_len + 1, numdigits);
+
+//	printf("buff == <%s>\n", node->buff);
+//	printf("\n==================== debug start===============\n");
+//	printf("before [%s]\n", node->buff);
+	node->buff = apply_precision(&node->flags, node->buff, XFLOAT, node->precision);
+//	printf("after [%s]\n", node->buff);
+//	printf("==================== debug fin===============\n");
+
+	numdigits = ft_strlen(node->buff);// this is the number that we'll return
+	if (pos == 1)
+		node->buff--;
+	//printf("buff == [%s]\n", node->buff);
+	node->buff = apply_width(&node->flags, node->buff, XFLOAT, node->width);
+}
+
+/*
+** ****************************************************************************
+*/
+
 void		ft_scientific_format(t_bigint_compound *compound, t_int32 exponent, \
 		t_buffer *node)
 {
@@ -247,31 +268,30 @@ void		ft_scientific_format(t_bigint_compound *compound, t_int32 exponent, \
 	pos = ft_add_sign(compound, *node);
 	if (pos == 1)
 		node->buff++;
+	if ((node->precision == 0 && !IS_ON(node->flags, POINT)) || (node->precision < 0))
+		node->precision = 6;
+	ft_memset(node->buff, '\0', node->max_len + 1);// we can do this befor and gain this line 
 	if (is_special_case(compound, exponent, node, &numdigits) == FALSE)
-		numdigits = mini_dragon4(compound, exponent, node);
-
-	if (node->precision > 0)
-		node->buff[node->precision + 1] = '\0';
-	i = node->precision;
-	while ((i > 0) && i >= numdigits)
-		node->buff[i--] = '0';
-
-	if (node->precision != 0)
 	{
-		// add decimal point
-		ft_memmove(node->buff + 2, node->buff + 1, node->precision + 1);
-		node->buff[1] = '.';
-	}
-	if (pos == 1)
-		node->buff--;
-	// now i have a normal digit, with sign and decimal point
+		numdigits = mini_dragon4(compound, exponent, node);
+		node->buff = apply_precision(&node->flags, node->buff, EXPO, node->precision);
+		numdigits = (node->precision > 0) ? node->precision + 1 : numdigits;
 
-
-	str = get_exponent_digits(node);
-	temp = ft_strjoin(node->buff, str);
-	free(str);
-	free(node->buff);
-	node->buff = temp;
+		if (node->precision != 0 || IS_ON(node->flags, HASH))
+		{
+			ft_memmove(node->buff + 2, node->buff + 1, numdigits);
+			node->buff[1] = '.';
+		}
+		if (pos == 1)
+			node->buff--;
+		
+		str = get_exponent_digits(node);
+		temp = ft_strjoin(node->buff, str);
+		
+		free(str);
+		free(node->buff);
+		node->buff = temp;
+	}	
 	ft_applywidth(node);
 }
 

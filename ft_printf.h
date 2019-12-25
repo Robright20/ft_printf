@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/24 14:05:32 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/25 18:11:50 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			va_argnth(va_list ap, char *fmt);
 int			first_char_count(char *s);
 int			find_flag(char *flag_lst, char *format, int flagw);
 int			save_width(char *fmt, int *width, va_list ap);
-int			save_precision(char *fmt, int *precision, va_list ap);
+int			save_precision(char *fmt, int *precision, va_list ap, int flags);
 int			find_color(char *color);
 void		set(int color_id);
 int			set_color(char *fmt);

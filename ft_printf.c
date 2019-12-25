@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/24 14:05:25 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/25 18:11:44 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ char	*flag_scope(int *nbr, char *fmt, va_list ap)
 	flags = 0;
 	fmt += va_argnth(ap, fmt);
 	ft_bzero(pw, sizeof(pw));
+//	pw[0] = 6;// this should be initialaized with 6;
 	while (*fmt && is_conv_spec(*fmt, FLAGS_BUF) == -1)
 	{
 		pos = 0;
 		pos += save_width(fmt, &pw[1], ap);
 		(void)(fmt[pos] == '.' && (SET_FLAG_ON(flags, POINT)));
-		pos += save_precision(fmt + pos, &pw[0], ap);
+		pos += save_precision(fmt + pos, &pw[0], ap, flags);
 		pos += save_flag(&flags, fmt + pos);
 		if (!pos)
 			break ;
@@ -64,16 +65,10 @@ int		ft_printf(const char *restrict format, ...)
 	char	*fmt;
 	char	*fmt_cpy;
 
-//	printf(" ****************************************************************\n");
 	nbr = 0;
 	va_start(ap, format);
-//	printf("{format ==%s}\n", format);
-	fmt = ft_strdup(format);
-//	printf("===================== ALLOCATED ADDRESS : %p\n", fmt);
-//	printf("{fmt ==%s}\n", fmt);
+	fmt = strdup(format);
 	fmt_cpy = fmt;
-//	printf("\n{fmt_cpy 1 ==%s}\n", fmt_cpy);
-	// % should be treated as c conversion ("%    %)
 	while (*fmt)
 	{
 		fmt += set_color(fmt);
@@ -82,17 +77,7 @@ int		ft_printf(const char *restrict format, ...)
 		if (*fmt)
 			nbr += write(1, fmt++, 1);
 	}
-//	printf("\n{fmt_cpy 2 ==%s}\n", fmt_cpy);
-//	printf("\n{fmt 2 ==%s}\n", fmt);
 //	ft_strdel(&fmt_cpy);
-//	printf("===================== FREED ADDRESS : %p\n", fmt_cpy);
-//	printf("-------------before free------------\n");
-//	printf("fmt_cpy =={%s}\n", fmt_cpy);
-	//free(fmt_cpy);
-//	fmt_cpy = NULL;
-//	printf("-------------after free------------\n");
-//	write(1, "HELLO\n", 6);
-	//printf("\n{fmt_cpy 3 ==%p}\n", fmt_cpy);
 	va_end(ap);
 	return (nbr);
 }

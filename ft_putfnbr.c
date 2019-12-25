@@ -6,13 +6,13 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 05:03:04 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/24 14:09:48 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/25 16:15:31 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 //#include "flaot_ft_printf.h"
-# define DBL_DIGITS 1639
+# define DBL_DIGITS 16390
 # define LDBL_DIGITS 16390
 
 int	ft_putfnbr(va_list ap, int flags, int precision, int width)
@@ -31,7 +31,8 @@ int	ft_putfnbr(va_list ap, int flags, int precision, int width)
 	nbr = va_arg(ap, double);
 	node.buff = (char*)malloc(len * sizeof(char));
 	node.max_len = len - 1;
-	node.precision = (precision == -1) ? 0 : (precision == 0) ? 6 : precision;
+	//node.precision = (precision == -1) ? 0 : (precision == 0) ? 6 : precision;
+	node.precision = precision;
 	node.width = width;
 	node.flags = flags;
 	node.bol = 0;
@@ -56,7 +57,8 @@ int	ft_putlfnbr(va_list ap, int flags, int precision, int width)
 	nbr = va_arg(ap, long double);
 	node.buff = (char*)malloc(len * sizeof(char));
 	node.max_len = len - 1;
-	node.precision = (precision == -1) ? 0 : (precision == 0) ? 6 : precision;
+//	node.precision = (precision == -1) ? 0 : (precision == 0) ? 6 : precision;
+	node.precision = precision;
 	node.width = width;
 	node.flags = flags;
 	node.bol = 0;
@@ -81,10 +83,14 @@ int		ft_putenbr(va_list ap, int flags, int precision, int width)
 	nbr = va_arg(ap, double);
 	node.buff = (char*)malloc(len * sizeof(char));
 	node.max_len = len - 1;
-	node.precision = (precision == -1) ? 0 : (precision == 0) ? 6 : precision;
+//	node.precision = (precision == -1) ? 0 : (precision == 0) ? 6 : precision;
+//	node.precision = (precision < 0) ? -precision : precision;
+	node.precision = precision;
 	node.width = width;
 	node.flags = flags;
 	node.bol = 1;
+//	printf("++++++++++++ HELLO 1 ++++++++++\n");
+//	printf("--- precision == %d --- \n", precision);
 	print_long_double(nbr, &node, 1);
 	len = ft_strlen(node.buff);
 	write(1, node.buff, len);

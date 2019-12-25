@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 03:30:18 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/12 05:39:08 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/25 18:11:42 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int			max(int a, int b)
 {
-	//printf("[[diff == %d]]", a > b ? a : b);
 	return (a > b ? a : b);
 }
 
@@ -43,13 +42,11 @@ char		*build_result(int flags, char *result, int precision, int width)
 		return ("Error");
 	if (!(result = build[i++](&flags, result, conv, width)))
 		return ("Error");
-	//printf("{%s}{%d}", result, ft_strlen(result));
 	while (i < 5)
 	{
 		(i == 3 && special) ? i++ : 1;
 		if (!(result = build[i++](&flags, result, conv, width - max(precision, len))))
 			return ("Error");
-//	printf("[%s]{%d}", result, ft_strlen(result));
 	}
 	return (result);
 }
@@ -58,9 +55,8 @@ ssize_t		ft_putxstr(char *s)
 {
 	ssize_t		len;
 
-	len = 0;
-	while (s && *s)
-		len += write(1, s++, 1);
+	len = ft_strlen(s);
+	write(1, s, len);
 	return (len);
 }
 
