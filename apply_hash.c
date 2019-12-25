@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 20:12:14 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/13 05:08:25 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/12/25 22:50:20 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,14 @@ char	*apply_hash(int *flags, char *result, int conv, int diff)
 
 	if (!IS_ON(*flags, HASH) || !result)
 		return (result);
+//		printf("test");
+//	if (conv == POINTER)
+//	{
+	//	if (!IS_ON(*flags, NULPOINTER))
+	//		place_before(result, "10", 0);
+//		conv = HEX;
+//		SET_FLAG_OFF(*flags, POINTER);
+//	}
 	if (conv == HEX || conv == BHEX)
 	{
 		(conv == HEX) ? ft_strcpy(prefix, "0x") : ft_strcpy(prefix, "0X");

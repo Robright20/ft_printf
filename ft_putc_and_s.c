@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 02:08:32 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/25 18:11:46 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/25 22:47:21 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,29 @@ int		ft_putc(va_list ap, int flags, int precision, int width)
 	return (1);
 }
 
+int		ft_put_char(char c, int flags, int width)
+{
+	char pad;
+
+	if (width > 0 && IS_ON(flags, MINUS))
+	{
+		write(1, &c, 1);
+		while (--width)
+			write(1, " ", 1);
+		return (width);
+	}
+	else if (width > 0 && !IS_ON(flags, MINUS))
+	{
+		pad = IS_ON(flags, ZERO) ? '0' : ' ';
+		while (--width)
+			write(1, &pad, 1);
+		write(1, &c, 1);
+		return (width);
+	}
+	else
+		write(1, &c, 1);
+	return (1);
+}
 int		ft_puts(va_list ap, int flags, int precision, int width)
 {
 	char	*s;

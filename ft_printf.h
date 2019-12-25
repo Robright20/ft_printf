@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/25 18:11:50 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/25 22:50:16 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ typedef enum	e_flag
 {
 	XCHAR, STRING, POINTER, DEC, IDEC, OCTAL, XUINT, HEX, BHEX, XFLOAT, EXPO,
 	GEXPO, HASH, ZERO, MINUS, PLUS, SPACE, LLONG, HHALF, XLONG, HALF, BLONG,
-	BIN, RSTRING, KDATE, QUOTE, STAR, DOLLAR, POINT
+	BIN, RSTRING, KDATE, QUOTE, STAR, DOLLAR, POINT                                    
 }				t_flag;
 typedef struct lconv	t_lconv;
 long long	(*g_fetch_by_sizem[4])(va_list ap, int bsigned);
 int			(*g_router[12])(va_list, int, int, int);
+int			ft_put_char(char c, int flags, int width);
 int			ft_putc(va_list ap, int flags, int precision, int width);
 int			ft_puts(va_list ap, int flags, int precision, int width);
 int			ft_putptr(va_list ap, int flags, int precision, int width);
