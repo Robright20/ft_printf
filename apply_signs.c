@@ -89,11 +89,10 @@ char	*apply_plus(char *result, int diff, int flags)
 	return (result);
 }
 
-char	*apply_signs(int *flags, char *result, int conv, int diff, int precision)
+char	*apply_signs(int *flags, char *result, int conv, int diff)
 {
 	char	*new_result;
 
-	(void)precision;
 	new_result = result;
 	if (!(conv == DEC || conv == IDEC) && !(conv >= XFLOAT && conv <= GEXPO))
 		return (result);

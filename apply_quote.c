@@ -66,14 +66,13 @@ char	*build_quoted(char *result, char *special, int start, int end)
 	return (final);
 }
 
-char	*apply_quote(int *flags, char *result, int conv, int width, int precision)
+char	*apply_quote(int *flags, char *result, int conv, int width)
 {
 	char	*special;
 	int		start;
 	int		end;
 	int		i;
 
-	(void)precision;
 	i = 0;
 	start = -1;
 	(void)((end = ft_strlen(result) - 1) && !width);

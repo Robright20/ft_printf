@@ -19,7 +19,7 @@ int			max(int a, int b)
 
 char		*build_result(int flags, char *result, int precision, int width)
 {
-	static char	*(*build[5])(int*, char*, int, int, int) = {apply_precision, \
+	static char	*(*build[5])(int*, char*, int, int) = {apply_precision, \
 		apply_quote, apply_width, apply_hash, apply_signs};
 	int			conv;
 	int			i;
@@ -44,15 +44,15 @@ char		*build_result(int flags, char *result, int precision, int width)
 	}
 	else
 		special = ((result[0] == '0') && !IS_ON(flags, OCTAL));
-	result = build[i++](&flags, result, conv, precision, 1);
-	if (!(result = build[i++](&flags, result, conv, width, precision)))
+	result = build[i++](&flags, result, conv, precision);
+	if (!(result = build[i++](&flags, result, conv, width)))
 		return ("Error");
-	if (!(result = build[i++](&flags, result, conv, width, precision)))
+	if (!(result = build[i++](&flags, result, conv, width)))
 		return ("Error");
 	while (i < 5)
 	{
 		(i == 3 && special) ? i++ : 1;
-		if (!(result = build[i++](&flags, result, conv, width - max(precision, len), precision)))
+		if (!(result = build[i++](&flags, result, conv, width - max(precision, len))))
 			return ("Error");
 	}
 	return (result);

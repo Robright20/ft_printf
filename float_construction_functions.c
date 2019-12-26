@@ -248,7 +248,7 @@ void			ft_format_float(t_bigint_compound *compound, t_int32 exponent, \
 //	printf("buff == <%s>\n", node->buff);
 //	printf("\n==================== debug start===============\n");
 //	printf("before [%s]\n", node->buff);
-	node->buff = apply_precision(&node->flags, node->buff, XFLOAT, node->precision, 1);
+	node->buff = apply_precision(&node->flags, node->buff, XFLOAT, node->precision);
 //	printf("after [%s]\n", node->buff);
 //	printf("==================== debug fin===============\n");
 
@@ -256,7 +256,7 @@ void			ft_format_float(t_bigint_compound *compound, t_int32 exponent, \
 	if (pos == 1)
 		node->buff--;
 	//printf("buff == [%s]\n", node->buff);
-	node->buff = apply_width(&node->flags, node->buff, XFLOAT, node->width, node->precision);
+	node->buff = apply_width(&node->flags, node->buff, XFLOAT, node->width);
 }
 
 /*
@@ -282,7 +282,7 @@ void		ft_scientific_format(t_bigint_compound *compound, t_int32 exponent, \
 	if (is_special_case(compound, exponent, node, &numdigits) == FALSE)
 	{
 		numdigits = mini_dragon4(compound, exponent, node);
-		node->buff = apply_precision(&node->flags, node->buff, EXPO, node->precision, 1);
+		node->buff = apply_precision(&node->flags, node->buff, EXPO, node->precision);
 		numdigits = (node->precision > 0) ? node->precision + 1 : numdigits;
 
 		if (node->precision != 0 || IS_ON(node->flags, HASH))

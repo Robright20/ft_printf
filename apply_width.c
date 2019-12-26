@@ -35,14 +35,13 @@ char	*apply_zero(char *new_result, char *result, int size, int sign)
 	return (new_result);
 }
 
-char	*apply_width(int *flags, char *result, int conv, int width, int precision)
+char	*apply_width(int *flags, char *result, int conv, int width)
 {
 	char	*new_result;
 	int		len;
 	int		pholder;
 	int		sign;
 
-	(void)precision;
 	new_result = result;
 	if (width < 0)
 	{

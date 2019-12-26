@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char	*apply_precision(int *flags, char *result, int conv, int precision, int garbage)
+char	*apply_precision(int *flags, char *result, int conv, int precision)
 {
 	char	*new_result;
 	int		len;
