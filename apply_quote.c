@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 23:26:37 by fokrober          #+#    #+#             */
-/*   Updated: 2019/10/14 16:54:17 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/26 00:55:41 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,14 @@ char	*build_quoted(char *result, char *special, int start, int end)
 	return (final);
 }
 
-char	*apply_quote(int *flags, char *result, int conv, int width)
+char	*apply_quote(int *flags, char *result, int conv, int width, int precision)
 {
 	char	*special;
 	int		start;
 	int		end;
 	int		i;
 
+	(void)precision;
 	i = 0;
 	start = -1;
 	(void)((end = ft_strlen(result) - 1) && !width);

@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 23:15:23 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/25 18:11:42 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/26 14:33:22 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ char	*apply_zero(char *new_result, char *result, int size, int sign)
 	return (new_result);
 }
 
-char	*apply_width(int *flags, char *result, int conv, int width)
+char	*apply_width(int *flags, char *result, int conv, int width, int precision)
 {
 	char	*new_result;
 	int		len;
 	int		pholder;
 	int		sign;
 
+	(void)precision;
 	new_result = result;
 	if (width < 0)
 	{

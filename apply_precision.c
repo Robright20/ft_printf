@@ -6,13 +6,13 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 21:52:58 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/25 18:11:43 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/26 13:45:13 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*apply_precision(int *flags, char *result, int conv, int precision)
+char	*apply_precision(int *flags, char *result, int conv, int precision, int garbage)
 {
 	char	*new_result;
 	int		len;
@@ -30,13 +30,17 @@ char	*apply_precision(int *flags, char *result, int conv, int precision)
 		return (result);
 	if (DEC <= conv && conv <= BHEX)
 	{
+//		printf("+++++++++++++++ precision = %d\n", precision);
 		sign = (result[0] == '-');
 		if (!(new_result = ft_strnew(precision + sign)))
 			return (NULL);
 		new_result[0] = '-';
 		ft_memset(&new_result[sign], '0', precision);
+	//	printf("+++++++++++++++ new buff = %s\n", new_result);
+	//	printf("+++++++++++++++     buff = %s\n", result);
 		index = precision - (len - sign);
 		ft_strcpy(&new_result[sign] + index, &result[sign]);
+	//	printf("+++++++++++++++ new buff = %s\n", new_result);
 		free(result);
 	}
 	if ((conv == EXPO) && (precision > 0))

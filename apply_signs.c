@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:36:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/25 16:10:27 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/26 13:58:48 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ char	*place_at_lastsp(char *new_result, int sign, int flags)
 	if (!new_result[i] && IS_ON(flags, MINUS))
 		new_result[0] = sign;
 	else if (i > 0 && new_result[i] != '-')
+	{
+		if (IS_ON(flags, OCTAL) && new_result[i] == '0')
+			return (new_result);
 		new_result[i - 1] = sign;
+	}
 	return (new_result);
 }
 
@@ -85,10 +89,11 @@ char	*apply_plus(char *result, int diff, int flags)
 	return (result);
 }
 
-char	*apply_signs(int *flags, char *result, int conv, int diff)
+char	*apply_signs(int *flags, char *result, int conv, int diff, int precision)
 {
 	char	*new_result;
 
+	(void)precision;
 	new_result = result;
 	if (!(conv == DEC || conv == IDEC) && !(conv >= XFLOAT && conv <= GEXPO))
 		return (result);

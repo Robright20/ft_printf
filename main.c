@@ -6,13 +6,51 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 05:38:31 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/25 22:50:18 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/26 14:33:16 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <float.h>
 #include <locale.h>
+
+/*
+int		main(void)
+{
+
+	printf("===1==========================\n");
+	printf("printf      [%#8.5x]\n", 34);
+ ft_printf("ft_printf   [%#8.5x]\n", 34);
+
+	printf("===2==========================\n");
+	printf("printf      [%#8.5o]\n", 34);
+ ft_printf("ft_printf   [%#8.5o]\n", 34);
+
+	printf("===3==========================\n");
+	printf("printf      [%#.5o]\n", 34);
+ ft_printf("ft_printf   [%#.5o]\n", 34);
+
+	printf("===4==========================\n");
+	printf("printf      [%#7o]\n", 34);
+ ft_printf("ft_printf   [%#7o]\n", 34);
+
+	printf("===5==========================\n");
+	printf("printf      [%#8.3o]\n", 8375);
+ ft_printf("ft_printf   [%#8.3o]\n", 8375);
+
+	printf("===6==========================\n");
+	printf("printf      [%#-8.5o]\n", 34);
+ ft_printf("ft_printf   [%#-8.5o]\n", 34);
+
+	printf("===7==========================\n");
+	printf("printf      [%#08.3o]\n", 8375);
+ ft_printf("ft_printf   [%#08.3o]\n", 8375);
+
+	printf("===8==========================\n");
+	printf("printf      [%#37llo]\n", 522337203685470ull);
+ ft_printf("ft_printf   [%#37llo]\n", 522337203685470ull);
+}
+*/
 
 /*
 int		main(void)
@@ -290,16 +328,16 @@ printf("----------20-------\n");
 printf("printf       [hello [%0.8e];\n", 10./0);
 ft_printf("ft_printf    [hello [%0.8e];\n", 10./0);
 
-printf("----------20-------\n");
-printf("printf       [hello [%09e];\n", 10./0);
+printf("----------20-1------\n");
+   printf("printf       [hello [%09e];\n", 10./0);
 ft_printf("ft_printf    [hello [%09e];\n", 10./0);
 
-printf("----------20-------\n");
+printf("----------20-2------\n");
 printf("printf       [hello [%10.8e];\n", 10./0);
 ft_printf("ft_printf    [hello [%10.8e];\n", 10./0);
 
 printf("----------21-------\n");
-printf("printf       [hello [%0.8e];\n", 0./0);
+   printf("printf       [hello [%0.8e];\n", 0./0);
 ft_printf("ft_printf    [hello [%0.8e];\n", 0./0);
 
 printf("----------22-------\n");
@@ -309,6 +347,34 @@ ft_printf("ft_printf    [hello [%09e];\n", 0./0);
 printf("----------23-------\n");
 printf("printf       [hello [%10.8e];\n", 0./0);
 ft_printf("ft_printf    [hello [%10.8e];\n", 0./0);
+
+printf("----------24-------\n");
+   printf("printf       [hello [%10.8Le];\n", 458.456);
+ft_printf("ft_printf    [hello [%10.8Le];\n", 458.456);
+
+printf("----------25-------\n");
+   printf("printf       [hello [%10.0Le];\n", 0.00001);
+ft_printf("ft_printf    [hello [%10.0Le];\n", 0.00001);
+
+printf("----------26-------\n");
+   printf("printf       [hello [%.8Le];\n", LDBL_MAX);
+ft_printf("ft_printf    [hello [%.8Le];\n", LDBL_MAX);
+
+printf("----------27-------\n");
+   printf("printf       [hello [%#-10Le];\n", 456.13);
+ft_printf("ft_printf    [hello [%#-10Le];\n", 456.13);
+
+printf("----------28-------\n");
+   printf("printf       [hello [%-019.4Le];\n", 456.13);
+ft_printf("ft_printf    [hello [%-019.4Le];\n", 456.13);
+
+printf("----------29-------\n");
+   printf("printf       [hello [%'- 8Le];\n", 456.13);
+ft_printf("ft_printf    [hello [%'- 8Le];\n", 456.13);
+
+printf("----------30-------\n");
+   printf("printf       [hello [%.Le];\n", 456.13);
+ft_printf("ft_printf    [hello [%.Le];\n", 456.13);
 
 
 printf("/-----------------/\n");

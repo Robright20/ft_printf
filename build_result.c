@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 03:30:18 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/25 18:11:42 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/26 13:55:39 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			max(int a, int b)
 
 char		*build_result(int flags, char *result, int precision, int width)
 {
-	static char	*(*build[5])(int*, char*, int, int) = {apply_precision, \
+	static char	*(*build[5])(int*, char*, int, int, int) = {apply_precision, \
 		apply_quote, apply_width, apply_hash, apply_signs};
 	int			conv;
 	int			i;
@@ -36,16 +36,23 @@ char		*build_result(int flags, char *result, int precision, int width)
 		return (result);
 	i = 0;
 	len = ft_strlen(result);
-	special = (result[0] == '0');
-	result = build[i++](&flags, result, conv, precision);
-	if (!(result = build[i++](&flags, result, conv, width)))
+	if (IS_ON(flags, POINTER))
+	{
+		special = 0;
+		SET_FLAG_OFF(flags, POINTER);
+		conv = HEX;
+	}
+	else
+		special = ((result[0] == '0') && !IS_ON(flags, OCTAL));
+	result = build[i++](&flags, result, conv, precision, 1);
+	if (!(result = build[i++](&flags, result, conv, width, precision)))
 		return ("Error");
-	if (!(result = build[i++](&flags, result, conv, width)))
+	if (!(result = build[i++](&flags, result, conv, width, precision)))
 		return ("Error");
 	while (i < 5)
 	{
 		(i == 3 && special) ? i++ : 1;
-		if (!(result = build[i++](&flags, result, conv, width - max(precision, len))))
+		if (!(result = build[i++](&flags, result, conv, width - max(precision, len), precision)))
 			return ("Error");
 	}
 	return (result);

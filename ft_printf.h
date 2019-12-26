@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/25 22:50:16 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/26 14:33:17 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ char		*place_at_lastsp(char *new_result, int sign, int flags);
 int			flag_lookup(int flags, int pos, int bound);
 ssize_t		ft_putxstr(char *s);
 char		*build_result(int flags, char *ret, int precision, int width);
-char		*apply_precision(int *flags, char *ret, int conv, int precision);
-char		*apply_width(int *flags, char *result, int conv, int width);
-char		*apply_hash(int *flags, char *result, int conv, int diff);
-char		*apply_signs(int *flags, char *result, int conv, int diff);
-char		*apply_quote(int *flags, char *result, int conv, int width);
+char		*apply_precision(int *flags, char *ret, int conv, int precision, int gabage);
+char		*apply_width(int *flags, char *result, int conv, int width, int precision);
+char		*apply_hash(int *flags, char *result, int conv, int diff, int precision);
+char		*apply_signs(int *flags, char *result, int conv, int diff, int precision);
+char		*apply_quote(int *flags, char *result, int conv, int width, int precision);
 
 
 int     ft_strnstr(char *s1, char *s2, int n);

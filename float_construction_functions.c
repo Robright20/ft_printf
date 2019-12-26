@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:28 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/25 16:15:27 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/26 14:33:22 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,15 @@ void			ft_format_float(t_bigint_compound *compound, t_int32 exponent, \
 	if ((node->precision == 0 && !IS_ON(node->flags, POINT)) || (node->precision < 0))
 		node->precision = 6;
 	ft_memset(node->buff, '\0', node->max_len + 1);
-	if (is_special_case(compound, exponent, node, &numdigits) == FALSE)
+	if (is_special_case(compound, exponent, node, &numdigits) == TRUE)
+	{
+		SET_FLAG_ON(node->flags, STRING);
+		SET_FLAG_OFF(node->flags, XFLOAT);
+		SET_FLAG_OFF(node->flags, ZERO);
+		node->buff = build_result(node->flags, node->buff, node->precision, node->width);
+		return ;
+	}
+	else
 		numdigits = mini_dragon4(compound, exponent, node);
 	ft_add_leading_zeros(node->buff, &(node->print_expo), &numdigits, compound->bigbit);
 	ft_add_trailing_zeros(node, &numdigits, compound->bigbit);
@@ -240,7 +248,7 @@ void			ft_format_float(t_bigint_compound *compound, t_int32 exponent, \
 //	printf("buff == <%s>\n", node->buff);
 //	printf("\n==================== debug start===============\n");
 //	printf("before [%s]\n", node->buff);
-	node->buff = apply_precision(&node->flags, node->buff, XFLOAT, node->precision);
+	node->buff = apply_precision(&node->flags, node->buff, XFLOAT, node->precision, 1);
 //	printf("after [%s]\n", node->buff);
 //	printf("==================== debug fin===============\n");
 
@@ -248,7 +256,7 @@ void			ft_format_float(t_bigint_compound *compound, t_int32 exponent, \
 	if (pos == 1)
 		node->buff--;
 	//printf("buff == [%s]\n", node->buff);
-	node->buff = apply_width(&node->flags, node->buff, XFLOAT, node->width);
+	node->buff = apply_width(&node->flags, node->buff, XFLOAT, node->width, node->precision);
 }
 
 /*
@@ -274,7 +282,7 @@ void		ft_scientific_format(t_bigint_compound *compound, t_int32 exponent, \
 	if (is_special_case(compound, exponent, node, &numdigits) == FALSE)
 	{
 		numdigits = mini_dragon4(compound, exponent, node);
-		node->buff = apply_precision(&node->flags, node->buff, EXPO, node->precision);
+		node->buff = apply_precision(&node->flags, node->buff, EXPO, node->precision, 1);
 		numdigits = (node->precision > 0) ? node->precision + 1 : numdigits;
 
 		if (node->precision != 0 || IS_ON(node->flags, HASH))
@@ -291,7 +299,16 @@ void		ft_scientific_format(t_bigint_compound *compound, t_int32 exponent, \
 		free(str);
 		free(node->buff);
 		node->buff = temp;
-	}	
+	}
+	else
+	{
+		SET_FLAG_ON(node->flags, STRING);
+		SET_FLAG_OFF(node->flags, XFLOAT);
+		SET_FLAG_OFF(node->flags, ZERO);
+		node->buff = build_result(node->flags, node->buff, node->precision, node->width);
+		return ;
+	}
+
 	ft_applywidth(node);
 }
 
