@@ -37,9 +37,9 @@ int	ft_putfnbr(va_list ap, int flags, int precision, int width)
 	node.flags = flags;
 	node.bol = 0;
 	print_double(nbr, &node, 0);
-	write(1, node.buff, ft_strlen(node.buff));
+	len = write(1, node.buff, ft_strlen(node.buff));
 	free(node.buff);
-	return (ft_strlen(node.buff));
+	return (len);
 }
 
 
