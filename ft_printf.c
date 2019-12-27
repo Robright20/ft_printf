@@ -80,12 +80,13 @@ int		ft_printf(const char *restrict format, ...)
 	va_list	ap;
 	int		nbr;
 	char	*fmt;
-	char	*fmt_cpy;
+//	char	*fmt_cpy;
 
 	nbr = 0;
 	va_start(ap, format);
-	fmt = strdup(format);
-	fmt_cpy = fmt;
+//	fmt = strdup(format);
+//	fmt_cpy = fmt;
+	fmt = (char*)format;
 	while (*fmt)
 	{
 		fmt += set_color(fmt);

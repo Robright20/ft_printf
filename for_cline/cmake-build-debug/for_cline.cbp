@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="for_cline"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="for_cline">
+				<Option output="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/cmake-build-debug/for_cline" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/."/>
+					<Add directory="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 for_cline"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="for_cline/fast">
+				<Option output="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/cmake-build-debug/for_cline" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/."/>
+					<Add directory="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 for_cline/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/mzaboub/Desktop/all\ printf/ft_printf/for_cline/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/apply_hash.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/apply_precision.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/apply_quote.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/apply_signs.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/apply_width.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/build_result.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/fetch_by_sizem.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/float_all_bigint_functions.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/float_construction_functions.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/float_helper_functions_unnecessary.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/float_main_functions.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/float_mini_dragon4.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/ft_printf.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/ft_printf.h">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/ft_putc_and_s.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/ft_putdnbr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/ft_putfnbr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/ft_putonbr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/ft_putunbr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/ft_putxnbr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_atoi.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_bzero.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_charinword.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_isalnum.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_isalpha.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_isascii.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_isdigit.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_isprime.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_isprint.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_isupper.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_itoa.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_lstadd.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_lstdel.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_lstdelone.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_lstiter.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_lstmap.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_lstnew.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_lstsize.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_lstsplit.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_memalloc.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_memccpy.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_memchr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_memcmp.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_memcpy.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_memcpynull.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_memdel.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_memmove.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_memset.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_putchar.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_putchar_fd.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_putendl.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_putendl_fd.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_putnbr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_putnbr_fd.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_putstr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_putstr_fd.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_sqrt.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strcat.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strchr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strclr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strcmp.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strcpy.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strdel.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strdup.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strequ.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_striter.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_striteri.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strjoin.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strlcat.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strlen.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strmap.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strmapi.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strncat.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strncmp.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strncpy.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strnequ.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strnew.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strnstr_origin.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strrchr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strrev.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strsplit.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strstr.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strsub.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_strtrim.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_tolower.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/ft_toupper.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/libft/get_next_line.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/main.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/printb.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/save_flags.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/save_precision.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/save_width.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/set_color.c">
+			<Option target="for_cline"/>
+		</Unit>
+		<Unit filename="/Users/mzaboub/Desktop/all printf/ft_printf/for_cline/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 15:49:28 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/26 14:33:22 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/27 21:04:48 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ t_uint32		is_special_case(t_bigint_compound *compound, t_int32 exponent, \
 /*
 ** ****************************************************************************
 */
-
+/*
 void			ft_applywidth(t_buffer *node)
 {
 	const t_int32	len = ft_strlen(node->buff);
@@ -180,7 +180,7 @@ void			ft_applywidth(t_buffer *node)
 		}
 	}
 }
-
+*/
 /*
 ** ****************************************************************************
 */
@@ -197,17 +197,17 @@ static char	*get_exponent_digits(t_buffer *node)
 			tmp = ft_strjoin("+0", str);
 		else
 			tmp = ft_strjoin("-0", str + 1);
-		free(str);
+		ft_memdel((void**)&str);
 		str = tmp;
 	}
 	else if (node->print_expo >= 0)
 	{
 		tmp = ft_strjoin("+", str);
-		free(str);
+		ft_memdel((void**)&str);
 		str = tmp;
 	}
 	tmp = ft_strjoin("e", str);
-	free(str);
+	ft_memdel((void**)&str);
 	return (tmp);
 }
 
@@ -294,11 +294,10 @@ void		ft_scientific_format(t_bigint_compound *compound, t_int32 exponent, \
 			node->buff--;
 		
 		str = get_exponent_digits(node);
-		temp = ft_strjoin(node->buff, str);
-		
-		free(str);
-		free(node->buff);
-		node->buff = temp;
+		temp = node->buff;
+		node->buff = ft_strjoin(node->buff, str);
+		ft_memdel((void**)&temp);
+		ft_memdel((void**)&str);
 	}
 	else
 	{
@@ -308,8 +307,7 @@ void		ft_scientific_format(t_bigint_compound *compound, t_int32 exponent, \
 		node->buff = build_result(node->flags, node->buff, node->precision, node->width);
 		return ;
 	}
-
-	ft_applywidth(node);
+	node->buff = apply_width(&node->flags, node->buff, EXPO, node->width);
 }
 
 /*

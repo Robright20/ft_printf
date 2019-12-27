@@ -50,6 +50,7 @@ int			ft_putbxnbr(va_list ap, int flags, int precision, int width);
 int			ft_putfnbr(va_list ap, int flags, int precision, int width);
 int			ft_putlfnbr(va_list ap, int flags, int precision, int width);
 int			ft_putenbr(va_list ap, int flags, int precision, int width);
+int		ft_putlenbr(va_list ap, int flags, int precision, int width);
 int			ft_putgnbr(va_list ap, int flags, int precision, int width);
 int			save_flag(int *flags, char *format);
 int			first_char_count(char *s);

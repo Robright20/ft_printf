@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 23:30:29 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/25 18:11:52 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/27 02:01:59 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct	s_bigint
 typedef struct	s_buffer
 {
 	char	*buff;
-	int		max_len;
+	t_int32	max_len;
 	t_int32	print_expo;
 	t_int32	precision;
 	t_int32	width;
