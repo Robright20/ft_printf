@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/26 14:33:17 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 02:11:40 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define RESET_FLAGS(flags) flags = 0
 # define IS_ON(flags, pos) (((1 << pos) & flags) != 0)
 # define MAX_L " 9223372036854775808"
+# define DBL_DIGITS 16390
+# define LDBL_DIGITS 16390
 typedef enum	e_flag
 {
 	XCHAR, STRING, POINTER, DEC, IDEC, OCTAL, XUINT, HEX, BHEX, XFLOAT, EXPO,
