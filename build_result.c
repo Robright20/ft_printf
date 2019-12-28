@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 03:30:18 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/26 13:55:39 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 20:51:53 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,7 @@ char		*build_result(int flags, char *result, int precision, int width)
 		(i == 3 && special) ? i++ : 1;
 		if (!(result = build[i++](&flags, result, conv, width - max(precision, len))))
 			return ("Error");
-	//	printf("result[%d] == {%s}\n", i, result);
-
 	}
-//	printf("final result == {%s}\n", result);
-
 	return (result);
 }
 
@@ -66,8 +62,6 @@ ssize_t		ft_putxstr(char *s)
 {
 	ssize_t		len;
 	
-//	printf("\n\n\nputxstr result == {%s}\n", s);
-
 	len = ft_strlen(s);
 	write(1, s, len);
 	return (len);
@@ -86,11 +80,3 @@ int			flag_lookup(int flags, int pos, int bound)
 	}
 	return (-1);
 }
-
-/*
-**	result = apply_precision(&flags, ret, conv, precision);
-**	result = apply_width(&flags, result, conv, width);
-**	result = apply_hash(&flags, result, conv, width - precision);
-**	result = apply_signs(&flags, result, conv, width - precision);
-**	result = apply_quote(&flags, result, conv, width);
-*/

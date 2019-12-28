@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 23:26:37 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/26 00:55:41 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 20:49:34 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,21 +92,3 @@ char	*apply_quote(int *flags, char *result, int conv, int width)
 		return (NULL);
 	return (build_quoted(result, special, start, end));
 }
-
-/*
-** int		main()
-**{
-**	setlocale(LC_ALL, "");
-**	printf("%'.10d\n", 1000);
-**	apply_quote(0, "10 ", 2, 2);
-**	place_thousandsep("1000", 0, 3);
-**
-**	char	*result;
-**	int		flags;
-**
-**	flags = 0;
-**	result = ft_strdup("010");
-**	printf("[%s]\n", apply_quote(&flags, result, 0, 2));
-**	return (0);
-**}
-*/

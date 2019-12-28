@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 23:15:23 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/26 14:33:22 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 20:50:17 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ char	*apply_minus(char *new_result, char *result, int len, int width)
 char	*apply_zero(char *new_result, char *result, int size, int sign)
 {
 	(void)result;
-//	printf("result [%s];\n", result);
-//	printf("new result [%s];\n", new_result);
 	ft_memset(new_result, '0', size + sign);
-//	(void)(sign && (new_result[0] = '-'));
 	if (sign && result[0] == '+')
 		new_result[0] = '+';
 	else if (sign && result[0] == '-')
@@ -42,7 +39,6 @@ char	*apply_width(int *flags, char *result, int conv, int width)
 	int		pholder;
 	int		sign;
 
-//	printf("result1 == {%s}\n", result);
 	new_result = result;
 	if (width < 0)
 	{
@@ -62,6 +58,5 @@ char	*apply_width(int *flags, char *result, int conv, int width)
 	else if (IS_ON(*flags, ZERO))
 		apply_zero(new_result, result, width - len, sign);
 	free(result);
-	//printf("result2 == {%s}\n", new_result);
 	return (new_result);
 }
