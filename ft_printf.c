@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/26 14:21:56 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/26 14:33:19 by mzaboub          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/25 22:50:21 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 18:52:55 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +58,7 @@ char	*flag_scope(int *nbr, char *fmt, va_list ap)
 	}
 	if (((pos = find_flag(FLAGS_BUF, fmt, 1)) != -1) && fmt++)
 		*nbr += g_router[pos](ap, flags, pw[0], pw[1]);
-	if ((*fmt == '%' && (fmt + 1)[0] !=  '%') || *fmt == '{')
+	if ((*fmt == '%' && (fmt + 1)[0] != '%') || *fmt == '{')
 		return (flag_scope(nbr, fmt + 1, ap));
 	return (fmt);
 }
@@ -80,12 +68,9 @@ int		ft_printf(const char *restrict format, ...)
 	va_list	ap;
 	int		nbr;
 	char	*fmt;
-//	char	*fmt_cpy;
 
 	nbr = 0;
 	va_start(ap, format);
-//	fmt = strdup(format);
-//	fmt_cpy = fmt;
 	fmt = (char*)format;
 	while (*fmt)
 	{
@@ -99,7 +84,6 @@ int		ft_printf(const char *restrict format, ...)
 		else if (*fmt)
 			nbr += write(1, fmt++, 1);
 	}
-//	ft_strdel(&fmt_cpy);
 	va_end(ap);
 	return (nbr);
 }
