@@ -11,30 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-/*
-void	printbits(void *p, int bytes)
-{
-	char	bb;
-	int		j;
 
-	j = bytes;
-	while (j-- > 1)
-		p++;
-	while (bytes-- > 0)
-	{
-		j = 7;
-		bb = *(char *)p;
-		while (j >= 0)
-		{
-			printf("%u", ((bb >> j) & 1));
-			j--;
-		}
-		p--;
-		printf(" ");
-	}
-	printf("\n");
-}
-*/
 int			power(int n, int i)
 {
 	int j;
@@ -111,4 +88,3 @@ t_uint32	ft_add_sign(t_bigint_compound *compound, t_buffer node)
 	else
 		return (0);
 }
-s

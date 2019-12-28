@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <limits.h>
 # include "libft/libft.h"
+//# include "ft_printf.h"
 
 /*
 ** ---------------------------------------------------------------------------
@@ -123,8 +124,7 @@ typedef union	u_longdobleunion
 ** t_uint32			BigInt_DivideWithRemainder_MaxQuotient9(
 **								t_bigint *dividend, const t_bigint *divisor);
 */
-void			ft_uint32_to_bigint(t_uint32 src, t_bigint *dst);
-void			ft_uint64_to_bigint(t_uint64 src, t_bigint *dst);
+
 t_int32			ft_bigint_compare(t_bigint lhs, t_bigint rhs);
 void			ft_bigint_add(t_bigint *result, t_bigint lhs, t_bigint rhs);
 void			ft_bigint_mult(t_bigint *result, t_bigint lhs, t_bigint rhs);
@@ -151,10 +151,79 @@ void			ft_scientific_format(t_bigint_compound *compound, \
 										t_int32 exponent, \
 										t_buffer *node);
 
+/*
+** float_bigint_shift_functs.c
+*/
+
+void				ft_bigint_shiftleft(t_bigint *result, t_uint32 shiftbits);
+void				ft_bigint_mult(t_bigint *result, t_bigint lhs, t_bigint rhs);
+void				ft_bigint_mult_int(t_bigint *result, \
+										t_bigint lhs, \
+										t_uint32 rhs);
+
 
 t_int32			ft_is_zero(t_bigint nbr);
 void			printbits(void *p, int i);
-t_uint32		is_special_case(t_bigint_compound *compound, t_buffer *node);
-t_uint32		ft_add_sign(t_bigint_compound *compound, t_buffer node);
 
+
+/*
+** float_helper_functions_unnecessary
+*/
+
+t_uint32		ft_add_sign(t_bigint_compound *compound, t_buffer node);
+t_uint32		is_special_case(t_bigint_compound *compound, t_buffer *node);
+void			ft_special_case(t_buffer *node);
+int				power(int n, int i);
+
+/*
+** float_all_bigint_functions
+*/
+
+void		ft_bigint_copy(t_bigint *dst, t_bigint *src);
+void		ft_bigint_power10(t_bigint *result, t_int32 power);
+t_uint32	ft_bigint_divid(t_bigint *lhs, t_bigint *rhs);
+
+/*
+** float_bigint_add_sub_comp
+*/
+
+void				ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs);
+void				ft_bigint_add(t_bigint *result, t_bigint lhs, t_bigint rhs);
+t_int32				ft_bigint_compare(t_bigint lhs, t_bigint rhs);
+t_uint32			ft_assigne_left_and_right(t_bigint lhs, t_bigint rhs, \
+		t_bigint *small, t_bigint *larg);
+
+
+/*
+** float_bigint_initial_tools
+*/
+
+
+void			ft_uint32_to_bigint(t_uint32 src, t_bigint *dst);
+void			ft_uint64_to_bigint(t_uint64 src, t_bigint *dst);
+t_uint32		logbase2_32(t_uint32 val);
+t_uint32		logbase2_64(t_uint64 val);
+t_int32			ft_is_zero(t_bigint nbr);
+
+/*
+** float_scientific_construction
+*/
+
+void			ft_scientific_format(t_bigint_compound *compound, \
+										t_int32 exponent, \
+										t_buffer *node);
+
+/*
+** float_construction_functions
+*/
+
+void			ft_format_float(t_bigint_compound *compound, \
+									t_int32 exponent, t_buffer *node);
+
+/*
+** float_mini_dragon4_2
+*/
+
+t_int32		ft_round_thatshit(t_bigint_compound *compound, char *buff,\
+		char **cur, t_uint32 out_number);
 #endif
