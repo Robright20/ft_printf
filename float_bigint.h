@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 23:30:29 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/28 02:56:47 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 18:19:22 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,14 @@ typedef struct	s_bigints_compound
 	t_bigint	temp1;
 	t_int32		bigbit;
 }				t_bigint_compound;
+
+typedef struct	s_div_vars
+{
+	t_uint32	q;
+	t_uint32	index;
+	t_uint32	carry;
+	t_uint64	var[3];
+}				t_div_vars;
 
 /*
 ** ---------------------------------------------------------------------------
@@ -126,14 +134,27 @@ void			ft_bigint_shiftleft(t_bigint *result, t_uint32 shiftbits);
 void			ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs);
 t_uint32		ft_bigint_divid(t_bigint *lhs, t_bigint *rhs);
 void			ft_bigint_copy(t_bigint *dst, t_bigint *src);
-void			print_double(double nbr, t_buffer *buff_tools, int bol);
-void			print_long_double(long double nbr, t_buffer *node, int bol);
 void			ft_bigint_power10(t_bigint *result, t_int32 power);
 t_uint32		logbase2_32(t_uint32 val);
 t_uint32		logbase2_64(t_uint64 val);
+t_int32			ft_round_thatshit(t_bigint_compound *compound, char *buff,\
+									char **cur, t_uint32 out_number);
 int				mini_dragon4(t_bigint_compound *compound, t_int32 exponent, \
 														t_buffer *node);
+
+void			print_double(double nbr, t_buffer *buff_tools, int bol);
+void			print_long_double(long double nbr, t_buffer *node, int bol);
+
+void			ft_format_float(t_bigint_compound *compound, \
+									t_int32 exponent, t_buffer *node);
+void			ft_scientific_format(t_bigint_compound *compound, \
+										t_int32 exponent, \
+										t_buffer *node);
+
+
 t_int32			ft_is_zero(t_bigint nbr);
 void			printbits(void *p, int i);
+t_uint32		is_special_case(t_bigint_compound *compound, t_buffer *node);
+t_uint32		ft_add_sign(t_bigint_compound *compound, t_buffer node);
 
 #endif

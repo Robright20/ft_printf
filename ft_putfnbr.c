@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 05:03:04 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/28 02:40:32 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 03:38:12 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		ft_putenbr(va_list ap, int flags, int precision, int width)
 	len = ft_strlen(node->buff);
 	write(1, node->buff, len);
 	ft_memdel((void**)&node->buff);
-	ft_memdel(&node);
+	ft_memdel((void**)&node);
 	return (len);
 }
 

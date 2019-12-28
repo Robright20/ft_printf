@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 22:30:02 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/27 22:13:44 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 03:33:34 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 ** help functions of bellow code;
 */
 
-static void	ft_get_dbl_values(double nbr, t_bigint_compound *head, \
-								t_int32 *exponent)
+static void	ft_get_dbl_values(double nbr, \
+								t_bigint_compound *head, \
+											t_int32 *exponent)
 {
 	t_floatunion	cast;
 	t_uint64		mantissa;
@@ -43,11 +44,33 @@ static void	ft_get_dbl_values(double nbr, t_bigint_compound *head, \
 }
 
 /*
-** ****************************************************************************
+** ********************************
+** here is the start;
 */
 
-static void	ft_get_ldbl_values(long double nbr, t_bigint_compound *head,\
-														t_int32 *exponent)
+void		print_double(double nbr, t_buffer *node, int bol)
+{
+	t_bigint_compound	*compound;
+	t_int32				exponent;
+
+	compound = malloc(sizeof(t_bigint_compound));
+	ft_bzero(compound, sizeof(t_bigint_compound));
+	ft_get_dbl_values(nbr, compound, &exponent);
+	if (bol == 0)
+		ft_format_float(compound, exponent, node);
+	else if (bol == 1)
+		ft_scientific_format(compound, exponent, node);
+	free(compound);
+}
+
+/*
+** ****************************************************************************
+** here is the start;
+*/
+
+static void	ft_get_ldbl_values(long double nbr, \
+								t_bigint_compound *head,\
+											t_int32 *exponent)
 {
 	t_ldbl_union	cast;
 	t_uint64		mantissa;
@@ -72,29 +95,7 @@ static void	ft_get_ldbl_values(long double nbr, t_bigint_compound *head,\
 }
 
 /*
-** ****************************************************************************
-** here is the start;
-*/
-
-void		print_double(double nbr, t_buffer *node, int bol)
-{
-	t_bigint_compound	*compound;
-	t_int32				exponent;
-
-	compound = malloc(sizeof(t_bigint_compound));
-	ft_bzero(compound, sizeof(t_bigint_compound));
-	ft_get_dbl_values(nbr, compound, &exponent);
-	if (bol == 0)
-		ft_format_float(compound, exponent, node);
-	else if (bol == 1)
-		ft_scientific_format(compound, exponent, node);
-//	printf("====================== bofore compound free\n");
-	free(compound);
-//	printf("====================== after compound free\n");
-}
-
-/*
-** ***************************************************************************
+** ********************************
 */
 
 void		print_long_double(long double nbr, t_buffer *node, t_int32 bol)
@@ -111,3 +112,6 @@ void		print_long_double(long double nbr, t_buffer *node, t_int32 bol)
 		ft_scientific_format(compound, exponent, node);
 	ft_memdel((void**)&compound);
 }
+/*
+** ****************************************************************************
+*/
