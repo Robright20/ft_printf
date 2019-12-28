@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 23:30:29 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/28 18:19:22 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 21:03:46 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <limits.h>
 # include "libft/libft.h"
-//# include "ft_printf.h"
 
 /*
 ** ---------------------------------------------------------------------------
@@ -155,16 +154,16 @@ void			ft_scientific_format(t_bigint_compound *compound, \
 ** float_bigint_shift_functs.c
 */
 
-void				ft_bigint_shiftleft(t_bigint *result, t_uint32 shiftbits);
-void				ft_bigint_mult(t_bigint *result, t_bigint lhs, t_bigint rhs);
-void				ft_bigint_mult_int(t_bigint *result, \
-										t_bigint lhs, \
-										t_uint32 rhs);
-
+void			ft_bigint_shiftleft(t_bigint *result, t_uint32 shiftbits);
+void			ft_bigint_mult(t_bigint *result, \
+									t_bigint lhs, \
+									t_bigint rhs);
+void			ft_bigint_mult_int(t_bigint *result, \
+									t_bigint lhs, \
+									t_uint32 rhs);
 
 t_int32			ft_is_zero(t_bigint nbr);
 void			printbits(void *p, int i);
-
 
 /*
 ** float_helper_functions_unnecessary
@@ -179,25 +178,23 @@ int				power(int n, int i);
 ** float_all_bigint_functions
 */
 
-void		ft_bigint_copy(t_bigint *dst, t_bigint *src);
-void		ft_bigint_power10(t_bigint *result, t_int32 power);
-t_uint32	ft_bigint_divid(t_bigint *lhs, t_bigint *rhs);
+void			ft_bigint_copy(t_bigint *dst, t_bigint *src);
+void			ft_bigint_power10(t_bigint *result, t_int32 power);
+t_uint32		ft_bigint_divid(t_bigint *lhs, t_bigint *rhs);
 
 /*
 ** float_bigint_add_sub_comp
 */
 
-void				ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs);
-void				ft_bigint_add(t_bigint *result, t_bigint lhs, t_bigint rhs);
-t_int32				ft_bigint_compare(t_bigint lhs, t_bigint rhs);
-t_uint32			ft_assigne_left_and_right(t_bigint lhs, t_bigint rhs, \
-		t_bigint *small, t_bigint *larg);
-
+void			ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs);
+void			ft_bigint_add(t_bigint *result, t_bigint lhs, t_bigint rhs);
+t_int32			ft_bigint_compare(t_bigint lhs, t_bigint rhs);
+t_uint32		ft_assigne_left_and_right(t_bigint lhs, t_bigint rhs, \
+											t_bigint *small, t_bigint *larg);
 
 /*
 ** float_bigint_initial_tools
 */
-
 
 void			ft_uint32_to_bigint(t_uint32 src, t_bigint *dst);
 void			ft_uint64_to_bigint(t_uint64 src, t_bigint *dst);
@@ -224,6 +221,6 @@ void			ft_format_float(t_bigint_compound *compound, \
 ** float_mini_dragon4_2
 */
 
-t_int32		ft_round_thatshit(t_bigint_compound *compound, char *buff,\
-		char **cur, t_uint32 out_number);
+t_int32			ft_round_thatshit(t_bigint_compound *compound, char *buff,\
+									char **cur, t_uint32 out_number);
 #endif

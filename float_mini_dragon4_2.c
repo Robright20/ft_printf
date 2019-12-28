@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_mini_dragon4_2.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/28 21:04:33 by mzaboub           #+#    #+#             */
+/*   Updated: 2019/12/28 21:04:40 by mzaboub          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "float_bigint.h"
 
 static int		ft_loop(char *buff, char **buff_cur)
@@ -18,7 +30,7 @@ static int		ft_loop(char *buff, char **buff_cur)
 	return (0);
 }
 
-t_int32		ft_round_thatshit(t_bigint_compound *compound, char *buff,\
+t_int32			ft_round_thatshit(t_bigint_compound *compound, char *buff,\
 		char **cur, t_uint32 out_number)
 {
 	t_int32	value;

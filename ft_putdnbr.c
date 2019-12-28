@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 20:39:33 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/25 18:11:44 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 21:26:12 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int		ft_putdnbr(va_list ap, int flags, int precision, int width)
 	(void)(sign && (ret[0] = '-'));
 	SET_FLAG_ON(flags, DEC);
 	ret = build_result(flags, ret, precision, width);
-	//printf("after build result == {%s}\n", ret);
-
 	return (ft_putxstr(ret));
 }
 /*

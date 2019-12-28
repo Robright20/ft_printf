@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 22:30:02 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/28 03:33:34 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 21:05:00 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void		print_long_double(long double nbr, t_buffer *node, t_int32 bol)
 		ft_scientific_format(compound, exponent, node);
 	ft_memdel((void**)&compound);
 }
+
 /*
 ** ****************************************************************************
 */

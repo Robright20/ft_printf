@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 03:30:18 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/28 20:51:53 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/12/28 21:27:20 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ ssize_t		ft_putxstr(char *s)
 	
 	len = ft_strlen(s);
 	write(1, s, len);
+	ft_memdel((void**)&s);
 	return (len);
 }
 

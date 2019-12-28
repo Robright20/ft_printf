@@ -14,7 +14,7 @@ int main()
 		{
 			ft_printf("\n\n");
 			ft_printf("[%d]--[%d]\n", i, j);
-			x = ft_printf("|%*.*d|", i, j, -5);
+			x = ft_printf("|%*.*f|", i, j, -5);
 			ft_printf("\nreturn : %d\n", x);
 			j++;
 		}
@@ -29,7 +29,7 @@ int main()
 		{
 			ft_printf("\n\n");
 			ft_printf("[%d]--[%d]\n", i, j);
-			x = ft_printf("|%0*.*d|", i, j, -5);
+			x = ft_printf("|%0*.*f|", i, j, -5);
 			ft_printf("\nreturn : %d\n", x);
 			j++;
 		}
@@ -44,12 +44,13 @@ int main()
 		{
 			ft_printf("\n\n");
 			ft_printf("[%d]--[%d]\n", i, j);
-			x = ft_printf("|%-*.*d|", i, j, -5);
+			x = ft_printf("|%-*.*f|", i, j, -5);
 			ft_printf("\nreturn : %d\n", x);
 			j++;
 		}
 		i++;
 	}
+
 
 	i = -5;
 	while (i < 5)
@@ -59,7 +60,7 @@ int main()
 		{
 			ft_printf("\n\n");
 			ft_printf("[%d]--[%d]\n", i, j);
-			x = ft_printf("|%-0*.*d|", i, j, -5);
+			x = ft_printf("|%-0*.*f|", i, j, -5);
 			ft_printf("\nreturn : %d\n", x);
 			j++;
 		}
