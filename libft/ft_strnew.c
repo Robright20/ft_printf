@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 00:13:16 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/10/14 17:46:39 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 18:48:39 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ char	*ft_strnew(size_t size)
 	size_t	i;
 
 	i = 0;
-    if (!(s = (char *)malloc((size + 1))))
-        return (NULL);
-    while (i <= size)
-           s[i++] = '\0';
-    return (s);
+	if (!(s = (char *)malloc((size + 1))))
+		return (NULL);
+	while (i <= size)
+		s[i++] = '\0';
+	return (s);
 }
