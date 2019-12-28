@@ -6,11 +6,22 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 20:39:33 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/28 21:26:12 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 22:37:01 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	extract_nbr(char **ret, int *i, long long *n)
+{
+	if (!*ret)
+		exit(1);
+	while (*n)
+	{
+		(*ret)[(*i)-- - 1] = (*n) % 10 + '0';
+		(*n) /= 10;
+	}
+}
 
 int		ft_putdnbr(va_list ap, int flags, int precision, int width)
 {
@@ -19,7 +30,7 @@ int		ft_putdnbr(va_list ap, int flags, int precision, int width)
 	char		*ret;
 	int			i;
 	int			sign;
-	
+
 	i = flag_lookup(flags, LLONG, 4);
 	n = (i != -1) ? (g_fetch_by_sizem[i](ap, 1)) : va_arg(ap, int);
 	tmp = n;
@@ -27,39 +38,16 @@ int		ft_putdnbr(va_list ap, int flags, int precision, int width)
 	i = sign;
 	while (tmp && ++i)
 		tmp /= 10;
-	if (i == 0)
-		ret = ft_strdup("0");
+	if (i == 0 && !(ret = ft_strdup("0")))
+		exit(1);
 	if (n && !(ret = ft_strnew(i)))
-		return (0);
+		exit(1);
 	n = sign ? -1 * n : n;
-	if (n < 0)
-	{
+	if (n < 0 && !(n = 0))
 		ret = ft_strdup(MAX_L);
-		n = 0;
-	}
-	while (n)
-	{
-		ret[i-- - 1] = n % 10 + '0';
-		n /= 10;
-	}
+	extract_nbr(&ret, &i, &n);
 	(void)(sign && (ret[0] = '-'));
 	SET_FLAG_ON(flags, DEC);
 	ret = build_result(flags, ret, precision, width);
 	return (ft_putxstr(ret));
 }
-/*
-**void	test(int flags, int precision, int width, char *fmt, ...)
-**{
-**	va_list	ap;
-**
-**	va_start(ap, fmt);
-**	ft_putdnbr(ap, flags, precision, width);
-**	va_end(ap);
-**}
-**
-**int		main(void)
-**{
-**	test(0, 0, 0, "", 10000);
-**	return (0);
-**}
-*/
