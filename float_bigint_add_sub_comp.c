@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_bigint_add_sub_comp.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/28 20:48:43 by mzaboub           #+#    #+#             */
+/*   Updated: 2019/12/28 20:49:34 by mzaboub          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "float_bigint.h"
 
 /*
@@ -5,7 +17,7 @@
 ** lhs = lhs - rhs;
 */
 
-void				ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs)
+void			ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs)
 {
 	t_uint32 index;
 	t_uint64 borrow;
@@ -27,7 +39,7 @@ void				ft_bigint_subtraction(t_bigint *lhs, t_bigint *rhs)
 ** ---------------------------------------------------------------------------
 */
 
-static t_uint64		ft_add_ints(t_uint32 *res, t_uint64 par1, \
+static t_uint64	ft_add_ints(t_uint32 *res, t_uint64 par1, \
 		t_uint64 par2, t_uint64 par3)
 {
 	t_uint64	temp;
@@ -41,7 +53,7 @@ static t_uint64		ft_add_ints(t_uint32 *res, t_uint64 par1, \
 ** ---------------------------------------------------------------------------
 */
 
-t_uint32	ft_assigne_left_and_right(t_bigint lhs, t_bigint rhs, \
+t_uint32		ft_assigne_left_and_right(t_bigint lhs, t_bigint rhs, \
 		t_bigint *small, t_bigint *larg)
 {
 	if (lhs.length >= rhs.length)
@@ -62,7 +74,7 @@ t_uint32	ft_assigne_left_and_right(t_bigint lhs, t_bigint rhs, \
 ** ---------------------------------------------------------------------------
 */
 
-void				ft_bigint_add(t_bigint *result, t_bigint lhs, t_bigint rhs)
+void			ft_bigint_add(t_bigint *result, t_bigint lhs, t_bigint rhs)
 {
 	t_uint32	index;
 	t_uint32	len;
@@ -96,7 +108,7 @@ void				ft_bigint_add(t_bigint *result, t_bigint lhs, t_bigint rhs)
 ** if (lhs < rhs)  return (-1)
 */
 
-t_int32				ft_bigint_compare(t_bigint lhs, t_bigint rhs)
+t_int32			ft_bigint_compare(t_bigint lhs, t_bigint rhs)
 {
 	int leng;
 

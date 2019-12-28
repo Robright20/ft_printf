@@ -6,12 +6,11 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:14:26 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/28 18:18:22 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 20:48:11 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "float_bigint.h"
-
 
 /*
 ** ---------------------------------------------------------------------------
@@ -64,7 +63,7 @@ void		ft_bigint_power10(t_bigint *result, t_int32 power)
 ** var [2] <=> difference
 */
 
-static void				ft_divid_annex(t_bigint *lhs, \
+static void	ft_divid_annex(t_bigint *lhs, \
 										t_bigint *rhs, \
 										t_div_vars *all)
 {
@@ -84,7 +83,7 @@ static void				ft_divid_annex(t_bigint *lhs, \
 ** ----------------------------------
 */
 
-t_uint32			ft_bigint_divid(t_bigint *lhs, t_bigint *rhs)
+t_uint32	ft_bigint_divid(t_bigint *lhs, t_bigint *rhs)
 {
 	t_div_vars	all;
 
@@ -109,4 +108,3 @@ t_uint32			ft_bigint_divid(t_bigint *lhs, t_bigint *rhs)
 /*
 ** ---------------------------------------------------------------------------
 */
-

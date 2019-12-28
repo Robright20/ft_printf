@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   float_bigint_initial_tools.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/28 20:50:13 by mzaboub           #+#    #+#             */
+/*   Updated: 2019/12/28 20:50:58 by mzaboub          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "float_bigint.h"
 
 /*
 ** ---------------------------------------------------------------------------
 */
 
-void				ft_uint32_to_bigint(t_uint32 src, t_bigint *dst)
+void		ft_uint32_to_bigint(t_uint32 src, t_bigint *dst)
 {
 	ft_memset(dst->tab, 0, (BLOCS_NBR) * sizeof(dst->tab[0]));
 	if (src != 0)
@@ -20,7 +32,7 @@ void				ft_uint32_to_bigint(t_uint32 src, t_bigint *dst)
 ** ---------------------------------------------------------------------------
 */
 
-void				ft_uint64_to_bigint(t_uint64 src, t_bigint *dst)
+void		ft_uint64_to_bigint(t_uint64 src, t_bigint *dst)
 {
 	ft_memset((void*)dst->tab, 0, (BLOCS_NBR) * sizeof(dst->tab[0]));
 	if (src > 0XFFFFFFFF)
@@ -62,7 +74,7 @@ void				ft_uint64_to_bigint(t_uint64 src, t_bigint *dst)
 **	};
 */
 
-t_uint32			logbase2_32(t_uint32 val)
+t_uint32	logbase2_32(t_uint32 val)
 {
 	t_uint32					temp;
 	static const t_uint32		log_table[256] = {
@@ -109,7 +121,7 @@ t_uint32	logbase2_64(t_uint64 val)
 ** ---------------------------------------------------------------------------
 */
 
-t_int32	ft_is_zero(t_bigint nbr)
+t_int32		ft_is_zero(t_bigint nbr)
 {
 	if (nbr.length != 0)
 		return (FALSE);
