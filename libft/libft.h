@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 23:32:55 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/10/14 17:48:38 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 18:42:36 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char			*ft_strtrim(char const *s);
 char			**ft_strsplit(char const *s, char c);
 char			*ft_strncat(char *s1, const char *s2, size_t n);
 char			*ft_strstr(const char *haystack, const char *needle);
-char			*ft_strnstr_origin(const char *stack, const char *needle, size_t len);
+char			*ft_strnstr_origin(const char *stack, \
+				const char *needle, size_t len);
 int				ft_atoi(const char *str);
 int				ft_isupper(int c);
 int				ft_isalpha(int c);
@@ -92,14 +93,10 @@ void			*ft_memcpynull(void *dst, const void *src, size_t len);
 int				get_next_line(const int fd, char **line);
 
 /*
-** get next line defines 
+** get next line defines
 ** buff_size shoulf always be positive
 ** you can change the fd_max to the number the suttes to you needs
 */
-
-
 # define FD_MAX 4864
 # define BUFF_SIZE 20
-
-
 #endif
