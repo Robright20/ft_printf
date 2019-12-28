@@ -48,7 +48,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "libft: library compilled"
+	@echo "\033[1;32m ->> libft: library compilled.\n\033[0m"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
@@ -58,11 +58,11 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 clean:
 	@rm -fr $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
-	@echo "libft: object files deleted"
+	@echo "\033[0;35m ->> libft: object files deleted.\n\033[0m"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "libft: library deleted"
+	@echo "\033[0;31m ->> libft: library deleted.\n\033[0m"
 
 re: fclean all
 	

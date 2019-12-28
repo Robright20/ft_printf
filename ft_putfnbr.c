@@ -26,7 +26,8 @@ int		ft_putfnbr(va_list ap, int flags, int precision, int width)
 	if (width > len)
 		len += width;
 	nbr = va_arg(ap, double);
-	node.buff = (char*)malloc(len * sizeof(char));
+	if (!(node.buff = (char*)malloc(len * sizeof(char))))
+		exit(1);
 	node.max_len = len - 1;
 	node.precision = precision;
 	node.width = width;
@@ -50,7 +51,8 @@ int		ft_putlfnbr(va_list ap, int flags, int precision, int width)
 	if (width > len)
 		len += width;
 	nbr = va_arg(ap, long double);
-	node.buff = (char*)malloc(len * sizeof(char));
+	if (!(node.buff = (char*)malloc(len * sizeof(char))))
+		exit(1);
 	node.max_len = len - 1;
 	node.precision = precision;
 	node.width = width;
@@ -71,14 +73,14 @@ int		ft_putenbr(va_list ap, int flags, int precision, int width)
 
 	if (IS_ON(flags, BLONG))
 		return (ft_putlenbr(ap, flags, precision, width));
-	node = malloc(sizeof(t_buffer));
+	(!(node = (t_buffer*)malloc(sizeof(t_buffer)))) ? (exit(1)) : 1;
 	len = LDBL_DIGITS;
 	if (precision > len)
 		len += precision;
 	if (width > len)
 		len += width;
 	nbr = va_arg(ap, double);
-	node->buff = (char*)malloc(len * sizeof(char));
+	(!(node->buff = (char*)malloc(len * sizeof(char)))) ? (exit(1)) : 1;
 	node->max_len = len - 1;
 	node->precision = precision;
 	node->width = width;
@@ -104,7 +106,8 @@ int		ft_putlenbr(va_list ap, int flags, int precision, int width)
 	if (width > len)
 		len += width;
 	nbr = va_arg(ap, long double);
-	node.buff = (char*)malloc(len * sizeof(char));
+	if (!(node.buff = (char*)malloc(len * sizeof(char))))
+		exit(1);
 	node.max_len = len - 1;
 	node.precision = precision;
 	node.width = width;

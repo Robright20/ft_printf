@@ -53,7 +53,8 @@ void		print_double(double nbr, t_buffer *node, int bol)
 	t_bigint_compound	*compound;
 	t_int32				exponent;
 
-	compound = malloc(sizeof(t_bigint_compound));
+	if (!(compound = (t_bigint_compound*)malloc(sizeof(t_bigint_compound))))
+		exit(1);
 	ft_bzero(compound, sizeof(t_bigint_compound));
 	ft_get_dbl_values(nbr, compound, &exponent);
 	if (bol == 0)
@@ -103,7 +104,8 @@ void		print_long_double(long double nbr, t_buffer *node, t_int32 bol)
 	t_bigint_compound	*compound;
 	t_int32				exponent;
 
-	compound = malloc(sizeof(t_bigint_compound));
+	if (!(compound = (t_bigint_compound*)malloc(sizeof(t_bigint_compound))))
+		exit(1);
 	ft_bzero(compound, sizeof(t_bigint_compound));
 	ft_get_ldbl_values(nbr, compound, &exponent);
 	if (bol == 0)

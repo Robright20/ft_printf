@@ -14,7 +14,6 @@ SRC_NAME=	apply_signs.c		fetch_by_sizem.c	ft_putonbr.c\
 			float_main_functions.c 					float_bigint_shift_functs.c\
 			float_mini_dragon4.c					float_scientific_construction.c \
 			float_mini_dragon4_2.c
-
 SRC= $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 OBJ_PATH= obj
@@ -25,6 +24,7 @@ LIB_OBJ_PATH= libft/obj/*.o
 
 LIB_PATH= libft
 LIB= libft.a
+HEADERS= float_bigint.h ft_printf.h
 
 # ***************************************** #
 # Dont tuch thi code under this				#
@@ -37,15 +37,15 @@ CFLAGES= -Wall -Wextra -Werror
 
 LD_FLAGS= -L$(LIB_PATH)
 LD_LIBS= -l$(patsubst lib%.a,%, $(LIB))
-HDR_FLAGS= -I.
 
+HDR_FLAGS= -I.
 
 all:$(NAME)
 
-$(NAME): $(LIB_PATH)/$(LIB) $(OBJ)
+$(NAME): $(LIB_PATH)/$(LIB) $(OBJ) $(HEADERS)
 	@ar rc $(NAME) $(OBJ) $(LIB_OBJ_PATH)
 	@ranlib $(NAME)
-	@echo "ft_printf: library file is ready ;)" 	########## modify this
+	@ echo "\033[1;32m>> ft_printf: library file is ready ;)\n\033[0m" 	########## modify this
 
 $(LIB_PATH)/$(LIB):
 	@make -C libft
@@ -58,11 +58,11 @@ clean:
 	@rm -fr $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 	@make -C libft clean
-	@echo "ft_printf: object files deleted" 			########## modify this
+	@echo "\033[1;33m>> ft_printf: object files deleted.\n\033[0m" 			########## modify this
 
 fclean: clean
 	@rm -fr $(NAME)
 	@make -C libft fclean
-	@echo "ft_printf: all resources deleted" 			########## modify this
+	@echo "\033[0;31m>> ft_printf: all resources deleted.\n\033[0m" 			########## modify this
 
 re: fclean all
