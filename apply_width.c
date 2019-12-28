@@ -42,6 +42,7 @@ char	*apply_width(int *flags, char *result, int conv, int width)
 	int		pholder;
 	int		sign;
 
+//	printf("result1 == {%s}\n", result);
 	new_result = result;
 	if (width < 0)
 	{
@@ -61,5 +62,6 @@ char	*apply_width(int *flags, char *result, int conv, int width)
 	else if (IS_ON(*flags, ZERO))
 		apply_zero(new_result, result, width - len, sign);
 	free(result);
+	//printf("result2 == {%s}\n", new_result);
 	return (new_result);
 }

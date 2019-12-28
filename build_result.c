@@ -54,13 +54,19 @@ char		*build_result(int flags, char *result, int precision, int width)
 		(i == 3 && special) ? i++ : 1;
 		if (!(result = build[i++](&flags, result, conv, width - max(precision, len))))
 			return ("Error");
+	//	printf("result[%d] == {%s}\n", i, result);
+
 	}
+//	printf("final result == {%s}\n", result);
+
 	return (result);
 }
 
 ssize_t		ft_putxstr(char *s)
 {
 	ssize_t		len;
+	
+//	printf("\n\n\nputxstr result == {%s}\n", s);
 
 	len = ft_strlen(s);
 	write(1, s, len);

@@ -6,7 +6,7 @@ SRC_NAME=	apply_signs.c		fetch_by_sizem.c	ft_putonbr.c\
 	   		ft_printf.c			ft_putunbr.c		save_width.c\
 			apply_precision.c	build_result.c		ft_putxnbr.c\
 			printb.c			set_color.c			apply_quote.c\
-			ft_putdnbr.c		save_flags.c		main_original.c \
+			ft_putdnbr.c		save_flags.c		main_original.c\
 			ft_putfnbr.c 		ft_putc_and_s.c \
 			float_all_bigint_functions.c \
 			float_construction_functions.c \
@@ -31,8 +31,8 @@ LIB= libft.a
 # ***************************************** #
 
 CC=	gcc
-#CFLAGES= -Wall -Wextra -Werror
-CFLAGES= -g
+CFLAGES= -Wall -Wextra -Werror
+#CFLAGES= -g
 
 LD_FLAGS= -L$(LIB_PATH)
 LD_LIBS= -l$(patsubst lib%.a,%, $(LIB))

@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 05:38:31 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/27 16:27:58 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/27 21:17:14 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,50 @@
 #include <locale.h>
 
 /*
+int    main()
+{
+ //  char c = 'a';
+  // char *str = "e";
+   // printf("/--------1---------/\n");
+   // printf("pr %s%d%p%%%i%o%u%x%X====%c\n","bonjour", 42, &c, 42, 42, 42, 42, 42, 'c');
+   // ft_printf("ft %s%d%p%%%i%o%u%x%X====%c\n","bonjour", 42, &c, 42, 42, 42, 42, 42, 'c');
+   
+   //  printf("%d\n", ft_printf("%09.*d\n", -1, 22));
+   //  printf("%d\n", printf("%09.*d\n", -1, 22));
+
+   //  printf("%d\n",ft_printf("hello fghjk's %%%s%%%s call his %02%%-2%%%%s\n" ,"friend","fghjk","dad"));
+   //  printf("%d\n",printf("hello fghjk's %%%s%%%s call his %02%%-2%%%%s\n" ,"friend","fghjk","dad"));
+
+   printf ("ret1 = %d;\n",     printf("pr {%05.*d}\n", -15, 42));                             
+   printf ("ret2 = %d;\n",  ft_printf("ft {%05.*d}\n", -15, 42));  
+//   printf("================================\n");                           
+ // printf ("ret1 = %d;\n",     printf("pr %%%i\n", 42));                             
+ //  printf ("ret2 = %d;\n",  ft_printf("ft %%%i\n", 42));  
+  //printf("%d\n", ft_printf("%p%s<%0*%>\n",&c,"wow", 2));
+    //printf("%d\n", printf("%*.*s %s,%-3.*s '%-2c-%.c'|%.%%p|%s<%0*%>\n", 6, 2, str, NULL, 1,"ld", 'r', 0, &c, "wow", 2));
+
+
+   // ft_printf("'%-2c-%.c'", 'r', 0);
+   // ft_printf("%*.*s'", 6, 2, str);
+   // ft_printf("'%-3.*s'", 1,"ld");
+   // ft_printf("'%-2c-%.c'", 'r', 0);
+   // ft_printf("'%-2c-%.c'", 'r', 0);
+   
+   //ft_printf("printf    [hello [%f];\n", DBL_INF);
+//   printf("printf    [hello [%f];\n", DBL_INF);
+//ft_printf("printf    [hello [%f];\n", DBL_INF);
+}
+*/
+/*
 int      main()
 {
-//int i = 0; 
-// while (i++ < 30)
-// {
 
    printf("/--------1---------/\n");
-   printf("printf    [hello [%e];\n", -123456789.);
-ft_printf("printf    [hello [%e];\n", -123456789.);
-
+   printf("printf    [hello [%f];\n", DBL_INF);
+ft_printf("printf    [hello [%f];\n", DBL_INF);
+}
+*/
+/*
      printf("---------2--------\n");
    printf("printf    [hello [%.e];\n", -123456789.);
 ft_printf("printf    [hello [%.e];\n", -123456789.);
@@ -591,6 +625,7 @@ int		ft_putenbr(va_list ap, int flags, int precision, int width)
 */
 int		ft_putgnbr(va_list ap, int flags, int precision, int width)
 {
+   (void)(precision + flags + width);
 	/*
 	ft_putstr("-------------------------\n");
 	ft_putstr("ft_putgnbr\n");

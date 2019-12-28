@@ -19,7 +19,7 @@ int		ft_putdnbr(va_list ap, int flags, int precision, int width)
 	char		*ret;
 	int			i;
 	int			sign;
-
+	
 	i = flag_lookup(flags, LLONG, 4);
 	n = (i != -1) ? (g_fetch_by_sizem[i](ap, 1)) : va_arg(ap, int);
 	tmp = n;
@@ -31,7 +31,12 @@ int		ft_putdnbr(va_list ap, int flags, int precision, int width)
 		ret = ft_strdup("0");
 	if (n && !(ret = ft_strnew(i)))
 		return (0);
-	n = sign ? -n : n;
+	n = sign ? -1 * n : n;
+	if (n < 0)
+	{
+		ret = ft_strdup(MAX_L);
+		n = 0;
+	}
 	while (n)
 	{
 		ret[i-- - 1] = n % 10 + '0';
@@ -40,9 +45,10 @@ int		ft_putdnbr(va_list ap, int flags, int precision, int width)
 	(void)(sign && (ret[0] = '-'));
 	SET_FLAG_ON(flags, DEC);
 	ret = build_result(flags, ret, precision, width);
+	//printf("after build result == {%s}\n", ret);
+
 	return (ft_putxstr(ret));
 }
-
 /*
 **void	test(int flags, int precision, int width, char *fmt, ...)
 **{

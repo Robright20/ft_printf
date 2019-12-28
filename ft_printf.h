@@ -28,7 +28,7 @@
 # define SET_FLAG_OFF(flags, pos) flags = (~(1 << pos)) & flags
 # define RESET_FLAGS(flags) flags = 0
 # define IS_ON(flags, pos) (((1 << pos) & flags) != 0)
-
+# define MAX_L " 9223372036854775808"
 typedef enum	e_flag
 {
 	XCHAR, STRING, POINTER, DEC, IDEC, OCTAL, XUINT, HEX, BHEX, XFLOAT, EXPO,

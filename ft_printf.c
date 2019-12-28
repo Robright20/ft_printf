@@ -70,7 +70,7 @@ char	*flag_scope(int *nbr, char *fmt, va_list ap)
 	}
 	if (((pos = find_flag(FLAGS_BUF, fmt, 1)) != -1) && fmt++)
 		*nbr += g_router[pos](ap, flags, pw[0], pw[1]);
-	if (*fmt == '%' || *fmt == '{')
+	if ((*fmt == '%' && (fmt + 1)[0] !=  '%') || *fmt == '{')
 		return (flag_scope(nbr, fmt + 1, ap));
 	return (fmt);
 }
@@ -91,8 +91,12 @@ int		ft_printf(const char *restrict format, ...)
 	{
 		fmt += set_color(fmt);
 		if ((*fmt == '%' && *(++fmt)) && *fmt != '%')
+		{
 			fmt = flag_scope(&nbr, fmt, ap);
-		if (*fmt)
+			if (*fmt && *fmt != '%')
+				nbr += write(1, fmt++, 1);
+		}
+		else if (*fmt)
 			nbr += write(1, fmt++, 1);
 	}
 //	ft_strdel(&fmt_cpy);
