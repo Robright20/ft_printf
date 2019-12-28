@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 20:12:14 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/26 13:55:46 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 20:48:29 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,3 @@ char	*apply_hash(int *flags, char *result, int conv, int diff)
 		result = apply_hash_oct(result, diff, *flags);
 	return (result);
 }
-
-/*
-**int		main(void)
-**{
-**	char	*s;
-**
-**	s = ft_strdup("bonjour");
-**	printf("[%s]\n", apply_hash(0, s, HEX, 2));
-**	s = ft_strdup(" bonjour");
-**	printf("[%s]\n", apply_hash(0, s, HEX, 2));
-**	s = ft_strdup("0bonjour");
-**	printf("[%s]\n", apply_hash(0, s, HEX, 1));
-**	s = ft_strdup("00bonjour");
-**	printf("[%s]\n", apply_hash(0, s, HEX, 2));
-**	return (0);
-**}
-*/

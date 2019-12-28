@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:36:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/26 13:58:48 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 20:49:56 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,40 +102,3 @@ char	*apply_signs(int *flags, char *result, int conv, int diff)
 		new_result = apply_plus(new_result, diff, *flags);
 	return (new_result);
 }
-
-/*
-**int		main(void)
-**{
-**	char	*s;
-**	char	*rep;
-**	int		flags;
-**
-**	flags = 0;
-**	//
-**	s = ft_strnew(7);
-**	ft_strcpy(s, "bonjour");
-**	rep = place_before(s, "+");
-**	printf("s [%s]\nrep [%s]\n", s, rep);
-**	ft_strdel(&rep);
-**	s = ft_strnew(8);
-**	ft_strcpy(s, " bonjour");
-**	rep = place_at_lastsp(s, '+');
-**	printf("s [%s]\nrep [%s]\n", s, rep);
-**
-**	s = ft_strnew(10);
-**	ft_strcpy(s, "  -bonjour");
-**	rep = place_at_lastsp(s, '+');
-**	printf("s [%s]\nrep [%s]\n", s, rep);
-**	/
-**	SET_FLAG_ON(flags, PLUS);
-**	SET_FLAG_ON(flags, SPACE);
-**	//s = ft_strdup("001");
-**	//s = ft_strdup("-001");
-**	//s = ft_strdup(" 1");
-**	//s = ft_strdup("   1");
-**	s = ft_strdup("001");
-**	rep = apply_signs(&flags, s, DEC, 1);
-**	printf("[%s]\n", rep);
-**	return (0);
-**}
-*/
