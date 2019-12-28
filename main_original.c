@@ -54,50 +54,44 @@ int      main()
 {
 
    printf("/--------1---------/\n");
-   printf("printf    [hello [%f];\n", DBL_INF);
-ft_printf("printf    [hello [%f];\n", DBL_INF);
-}
-*/
-/*
+   printf("printf       [hello [%f];\n", 123.123);
+ft_printf("ft_printf    [hello [%f];\n", 123.123);
+
      printf("---------2--------\n");
-   printf("printf    [hello [%.e];\n", -123456789.);
-ft_printf("printf    [hello [%.e];\n", -123456789.);
- //}
+   printf("printf       [hello [%.e];\n", -123456789.);
+ft_printf("ft_printf    [hello [%.e];\n", -123456789.);
+ 
         printf("---------3--------\n");
-   printf("printf    [hello [%20e];\n", -123456789.);
-ft_printf("printf    [hello [%20e];\n", -123456789.);
+   printf("printf       [hello [%20e];\n", -123456789.);
+ft_printf("ft_printf    [hello [%20e];\n", -123456789.);
 
    printf("---------4--------\n");
-   printf("printf    [hello [%.13e];\n", -123456789.);
-ft_printf("printf    [hello [%.13e];\n", -123456789.);
+   printf("printf       [hello [%.13e];\n", -123456789.);
+ft_printf("ft_printf    [hello [%.13e];\n", -123456789.);
 
    printf("---------5--------\n");
-   printf("printf    [hello [%.e];\n", -1234.56789);
-ft_printf("printf    [hello [%.e];\n", -1234.56789);
+   printf("printf       [hello [%.e];\n", -1234.56789);
+ft_printf("ft_printf    [hello [%.e];\n", -1234.56789);
 
    printf("---------6--------\n");
-   printf("printf    [hello [%e];\n", 0.);
-ft_printf("printf    [hello [%e];\n", 0.);
+   printf("printf       [hello [%e];\n", 0.);
+ft_printf("ft_printf    [hello [%e];\n", 0.);
 
    printf("---------7--------\n");
-   printf("printf    [hello [%030e];\n", 0.);
-ft_printf("printf    [hello [%030e];\n", 0.);
+   printf("printf       [hello [%030e];\n", 0.);
+ft_printf("ft_printf    [hello [%030e];\n", 0.);
 
    printf("---------8--------\n");
-   printf("printf       [hello [%20e];\n", 0.);
-ft_printf("ft_printf    [hello [%20e];\n", 0.);
-
-
-
-
+   printf("printf          [hello [%20e];\n", 0.);
+ft_printf("ft_ft_printf    [hello [%20e];\n", 0.);
 
    printf("---------9--------\n");
-   printf("printf       [hello [%030e];\n", 111999.666);
-ft_printf("ft_printf    [hello [%030e];\n", 111999.666);
+   printf("printf          [hello [%030e];\n", 111999.666);
+ft_printf("ft_ft_printf    [hello [%030e];\n", 111999.666);
    
    printf("---------10--------\n");
-   printf("printf       [hello [%- 30e];\n", 111999.666);
-ft_printf("ft_printf    [hello [%- 30e];\n", 111999.666);
+   printf("printf          [hello [%- 30e];\n", 111999.666);
+ft_printf("ft_ft_printf    [hello [%- 30e];\n", 111999.666);
 
    printf("----------11-------\n");
    printf("printf       [hello [%+30.e];\n", 111999.666);
@@ -132,72 +126,72 @@ ft_printf("ft_printf    [hello [%.8e];\n", 111999.666);
 
 
    printf("----------18-------\n");
-   printf("printf       [hello [%e];\n", 0./0);
+ //  printf("printf       [hello [%e];\n", 0./0);
 ft_printf("ft_printf    [hello [%e];\n", 0./0);
 
    printf("----------19-------\n");
-   printf("printf       [hello [%e];\n", 10./0);
+ //  printf("printf       [hello [%e];\n", 10./0);
 ft_printf("ft_printf    [hello [%e];\n", 10./0);
 
 printf("----------20-------\n");
-printf("printf       [hello [%0.8e];\n", 10./0);
+//printf("printf       [hello [%0.8e];\n", 10./0);
 ft_printf("ft_printf    [hello [%0.8e];\n", 10./0);
 
 printf("----------20-1------\n");
-   printf("printf       [hello [%09e];\n", 10./0);
+ //  printf("printf       [hello [%09e];\n", 10./0);
 ft_printf("ft_printf    [hello [%09e];\n", 10./0);
 
 printf("----------20-2------\n");
-printf("printf       [hello [%10.8e];\n", 10./0);
+//printf("printf       [hello [%10.8e];\n", 10./0);
 ft_printf("ft_printf    [hello [%10.8e];\n", 10./0);
 
 printf("----------21-------\n");
-   printf("printf       [hello [%0.8e];\n", 0./0);
+  // printf("printf       [hello [%0.8e];\n", 0./0);
 ft_printf("ft_printf    [hello [%0.8e];\n", 0./0);
 
 printf("----------22-------\n");
-printf("printf       [hello [%09e];\n", 0./0);
+//printf("printf       [hello [%09e];\n", 0./0);
 ft_printf("ft_printf    [hello [%09e];\n", 0./0);
 
 printf("----------23-------\n");
-printf("printf       [hello [%10.8e];\n", 0./0);
+//printf("printf       [hello [%10.8e];\n", 0./0);
 ft_printf("ft_printf    [hello [%10.8e];\n", 0./0);
 
 printf("----------24-------\n");
-   printf("printf       [hello [%10.8Le];\n", 458.456l);
+  // printf("printf       [hello [%10.8Le];\n", 458.456l);
 ft_printf("ft_printf    [hello [%10.8Le];\n", 458.456l);
 
 printf("----------25------------------------------------\n");
-   printf("printf       [hello [%10.0Le];\n", 0.00001l);
+  // printf("printf       [hello [%10.0Le];\n", 0.00001l);
 ft_printf("ft_printf    [hello [%10.0Le];\n", 0.00001l);
 
 printf("----------26-------\n");
-   printf("printf       [hello [%.8Le];\n", LDBL_MAX);
+ //  printf("printf       [hello [%.8Le];\n", LDBL_MAX);
 ft_printf("ft_printf    [hello [%.8Le];\n", LDBL_MAX);
 
 printf("----------27-------\n");
-   printf("printf       [hello [%#-10Le];\n", 456.13l);
+ //  printf("printf       [hello [%#-10Le];\n", 456.13l);
 ft_printf("ft_printf    [hello [%#-10Le];\n", 456.13l);
 
 printf("----------28-------\n");
-   printf("printf       [hello [%-19.4Le];\n", 456.13l);
+  // printf("printf       [hello [%-19.4Le];\n", 456.13l);
 ft_printf("ft_printf    [hello [%-19.4Le];\n", 456.13l);
 
 printf("----------29-------\n");
-   printf("printf       [hello [%- 8Le];\n", 456.13l);
+  // printf("printf       [hello [%- 8Le];\n", 456.13l);
 ft_printf("ft_printf    [hello [%- 8Le];\n", 456.13l);
 
 printf("----------30-------\n");
-   printf("printf       [hello [%.Le];\n", 456.13l);
+  // printf("printf       [hello [%.Le];\n", 456.13l);
 ft_printf("ft_printf    [hello [%.Le];\n", 456.13l);
 
 
 printf("----------31------------------------------------\n");
-   printf("printf       [hello [%10.1Le];\n", 0.00001l);
+ //  printf("printf       [hello [%10.1Le];\n", 0.00001l);
 ft_printf("ft_printf    [hello [%10.1Le];\n", 0.00001l);
 
 printf("----------32------------------------------------\n");
-   printf("printf       [hello [%10.4Le];\n", 0.00001l);
+  // printf("printf       [hello [%10.4Le];\n", 0.00001l);
 ft_printf("ft_printf    [hello [%10.4Le];\n", 0.00001l);
 printf("/----------------------------------------------/\n");
 

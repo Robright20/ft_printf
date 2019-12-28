@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bigint.h                                           :+:      :+:    :+:   */
+/*   float_bigint.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 23:30:29 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/27 02:01:59 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 02:56:47 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BIGINT_H
-# define BIGINT_H
+#ifndef FLOAT_BIGINT_H
+# define FLOAT_BIGINT_H
 
 # include <stdio.h>
 # include <stdint.h>
