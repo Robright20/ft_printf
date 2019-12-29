@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:14:26 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/28 20:48:11 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/28 22:50:08 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,6 @@ void		ft_bigint_power10(t_bigint *result, t_int32 power)
 **
 ** 				lhs = lhs / rhs and quotient is returnd;
 **
-** 	if (lhs->length > rhs->length)
-**		printf("length error\n");
-**	if (rhs->tab[rhs->length - 1] == 0xffffffff)
-**		printf("there is an error here;");
 ** var [0] <=> product result
 ** var [1] <=> borrow
 ** var [2] <=> difference

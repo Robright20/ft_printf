@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 14:51:50 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/28 18:52:55 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/12/29 01:04:07 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ char	*flag_scope(int *nbr, char *fmt, va_list ap)
 	flags = 0;
 	fmt += va_argnth(ap, fmt);
 	ft_bzero(pw, sizeof(pw));
-	while (*fmt && is_conv_spec(*fmt, FLAGS_BUF) == -1)
+	while (*fmt && is_conv_spec(*fmt, FLAGS_BUF) == -1 && !(pos = 0))
 	{
-		pos = 0;
 		pos += save_width(fmt, &pw[1], ap);
 		(void)(fmt[pos] == '.' && (SET_FLAG_ON(flags, POINT)));
 		pos += save_precision(fmt + pos, &pw[0], ap, flags);
@@ -51,11 +50,8 @@ char	*flag_scope(int *nbr, char *fmt, va_list ap)
 			break ;
 		fmt += pos;
 	}
-	if (!pos && *fmt == '%')
-	{
-		*nbr += ft_put_char('%', flags, pw[1]);
+	if ((!pos && *fmt == '%') && (1 + (*nbr += ft_put_char('%', flags, pw[1]))))
 		return (++fmt);
-	}
 	if (((pos = find_flag(FLAGS_BUF, fmt, 1)) != -1) && fmt++)
 		*nbr += g_router[pos](ap, flags, pw[0], pw[1]);
 	if ((*fmt == '%' && (fmt + 1)[0] != '%') || *fmt == '{')

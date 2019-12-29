@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:36:13 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/28 20:49:56 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/12/28 23:16:49 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ char	*place_before(char *result, char *prefix, int xbool)
 char	*place_at_lastsp(char *new_result, int sign, int flags)
 {
 	char	*tmp;
+	int		i;
 
-	int	i = 0;
-
+	i = 0;
 	while (new_result[i] == ' ')
 		i++;
 	if (!new_result[i] && IS_ON(flags, MINUS))

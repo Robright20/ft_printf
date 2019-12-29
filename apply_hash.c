@@ -6,11 +6,41 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 20:12:14 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/28 20:48:29 by fokrober         ###   ########.fr       */
+/*   Updated: 2019/12/28 23:13:47 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+char	*apply_hash_hex_1(char *result, char *prefix)
+{
+	int		i;
+
+	i = 2;
+	while (result[0] == ' ' && i)
+		place_at_lastsp(result, prefix[--i], 0);
+	prefix[2 - i] = '\0';
+	(void)(i && (result = place_before(result, &prefix[i - 1], 0)));
+	return (result);
+}
+
+char	*apply_hash_hex_2(char *result, int diff, char *prefix, int flags)
+{
+	if (IS_ON(flags, MINUS) && diff > 0)
+	{
+		if (diff >= 2)
+			place_before(result, prefix, 1);
+		else if (diff == 1)
+		{
+			ft_memmove(result + 1, result, ft_strlen(result) - 1);
+			ft_memcpy(result, prefix + 1, 1);
+			result = place_before(result, "0", 0);
+		}
+	}
+	else
+		result = place_before(result, prefix, 0);
+	return (result);
+}
 
 char	*apply_hash_hex(char *result, int diff, char *prefix, int flags)
 {
@@ -31,30 +61,9 @@ char	*apply_hash_hex(char *result, int diff, char *prefix, int flags)
 			ft_memcpy(result, prefix, 2);
 	}
 	else if (result[0] == ' ')
-	{
-		i = 2;
-		while (result[0] == ' ' && i)
-			place_at_lastsp(result, prefix[--i], 0);
-		prefix[2 - i] = '\0';
-		(void)(i && (result = place_before(result, &prefix[i - 1], 0)));
-		return (result);
-	}
+		return (apply_hash_hex_1(result, prefix));
 	else if (result[0] != '0' && result[0] != ' ')
-	{
-		if (IS_ON(flags, MINUS) && diff > 0)
-		{
-			if (diff >= 2)
-				place_before(result, prefix, 1);
-			else if (diff == 1)
-			{
-				ft_memmove(result + 1, result, ft_strlen(result) - 1);
-				ft_memcpy(result, prefix + 1, 1);
-				result = place_before(result, "0", 0);
-			}
-		}
-		else
-			result = place_before(result, prefix, 0);
-	}
+		result = apply_hash_hex_2(result, diff, prefix, flags);
 	return (result);
 }
 

@@ -13,7 +13,7 @@ SRC_NAME=	apply_signs.c		fetch_by_sizem.c	ft_putonbr.c\
 			float_helper_functions_unnecessary.c 	float_bigint_initial_tools.c\
 			float_main_functions.c 					float_bigint_shift_functs.c\
 			float_mini_dragon4.c					float_scientific_construction.c \
-			float_mini_dragon4_2.c
+			float_mini_dragon4_2.c					ft_putxstr.c
 SRC= $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 OBJ_PATH= obj
