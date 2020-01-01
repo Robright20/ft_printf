@@ -1,6 +1,5 @@
 NAME= libftprintf.a
 
-<<<<<<< HEAD
 SRC_PATH= src
 SRC_NAME=	apply_signs.c					fetch_by_sizem.c \
 			ft_putonbr.c					save_precision.c \
@@ -21,23 +20,6 @@ SRC_NAME=	apply_signs.c					fetch_by_sizem.c \
 
 HDR_PATH= headers
 HDR_NAME= float_bigint.h	ft_printf.h
-=======
-SRC_PATH= .
-SRC_NAME=	apply_signs.c		fetch_by_sizem.c	ft_putonbr.c\
-			save_precision.c	apply_hash.c		apply_width.c\
-	   		ft_printf.c			ft_putunbr.c		save_width.c\
-			apply_precision.c	build_result.c		ft_putxnbr.c\
-			printb.c			set_color.c			apply_quote.c\
-			ft_putdnbr.c		save_flags.c		main_original.c\
-			ft_putfnbr.c 		ft_putc_and_s.c 	float_bigint_add_sub_comp.c\
-			float_all_bigint_functions.c 			float_bigint_initial_tools.c\
-			float_construction_functions.c 			float_bigint_add_sub_comp.c\
-			float_helper_functions_unnecessary.c 	float_bigint_initial_tools.c\
-			float_main_functions.c 					float_bigint_shift_functs.c\
-			float_mini_dragon4.c					float_scientific_construction.c \
-			float_mini_dragon4_2.c					ft_putxstr.c
-SRC= $(addprefix $(SRC_PATH)/,$(SRC_NAME))
->>>>>>> aabda49c41862c2a4daf046cb9134fe4aa324efe
 
 OBJ_PATH= obj
 OBJ_NAME= $(SRC_NAME:.c=.o)
