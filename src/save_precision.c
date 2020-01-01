@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 20:29:53 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/31 22:18:16 by mzaboub          ###   ########.fr       */
+/*   Updated: 2020/01/01 02:56:17 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		save_precision(char *fmt, int *precision, va_list ap, int flags)
 		{
 			i = va_argnth(ap2, fmt + 1);
 			(void)((i && ft_atoi(fmt + 1)) && (*precision = va_arg(ap2, int)));
-			// why using atoi
 			(void)((!i) && (*precision = va_arg(ap, int)));
 			i++;
 		}

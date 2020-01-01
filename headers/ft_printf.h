@@ -6,7 +6,11 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 19:57:29 by fokrober          #+#    #+#             */
+<<<<<<< HEAD:headers/ft_printf.h
 /*   Updated: 2020/01/01 02:32:15 by mzaboub          ###   ########.fr       */
+=======
+/*   Updated: 2019/12/29 00:55:42 by fokrober         ###   ########.fr       */
+>>>>>>> aabda49c41862c2a4daf046cb9134fe4aa324efe:ft_printf.h
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +31,8 @@
 # define SET_FLAG_ON(flags, pos) flags = (1 << pos) | flags
 # define SET_FLAG_OFF(flags, pos) flags = (~(1 << pos)) & flags
 # define RESET_FLAGS(flags) flags = 0
+# define IS_SIGN(c) (c == '-' || c == '+' || c == ' ')
+# define IS_CONV(c) c != EXPO && c != STRING && c != XFLOAT
 # define IS_ON(flags, pos) (((1 << pos) & flags) != 0)
 # define MAX_L " 9223372036854775808"
 # define DBL_DIGITS 16390

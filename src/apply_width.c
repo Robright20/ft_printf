@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 23:15:23 by fokrober          #+#    #+#             */
-/*   Updated: 2019/12/31 22:14:59 by mzaboub          ###   ########.fr       */
+/*   Updated: 2020/01/01 02:56:41 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*apply_width(int *flags, char *result, int conv, int width)
 	if (!(new_result = ft_strnew(width)))
 		return (NULL);
 	pholder = (IS_ON(*flags, MINUS) || !IS_ON(*flags, ZERO)) ? ' ' : '0';
-	sign = (conv > STRING && (result[0] == '-' || result[0] == '+' || result[0] == ' '));
+	sign = (conv > STRING && IS_SIGN(result[0]));
 	ft_memset(new_result, pholder, width);
 	ft_memcpy(&new_result[width - len], result, len);
 	if (IS_ON(*flags, MINUS))
