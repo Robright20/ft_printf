@@ -6,7 +6,7 @@
 #    By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/01 06:06:14 by mzaboub           #+#    #+#              #
-#    Updated: 2019/10/14 17:50:24 by mzaboub          ###   ########.fr        #
+#    Updated: 2019/12/31 22:23:50 by mzaboub          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,22 +26,23 @@ SRC_NAME= ft_atoi.c  	ft_bzero.c		ft_charinword.c	ft_isalnum.c	\
 		  ft_strdel.c	ft_strdup.c		ft_strequ.c		ft_striter.c	\
 		  ft_striteri.c	ft_strjoin.c	ft_strlcat.c	ft_strlen.c		\
 		  ft_strmap.c	ft_strmapi.c	ft_strncat.c	ft_strncmp.c 	\
-		  ft_strncpy.c	ft_strnequ.c	ft_strnew.c		ft_strnstr_origin.c 	\
+		  ft_strncpy.c	ft_strnequ.c	ft_strnew.c		ft_strnstr_origin.c \
 		  ft_strrchr.c	ft_strrev.c		ft_strsplit.c	ft_strstr.c 	\
 		  ft_strsub.c	ft_strtrim.c	ft_tolower.c	ft_toupper.c 	\
 		  get_next_line.c	ft_lstdelone.c 				ft_isupper.c
-SRC= $(addprefix $(SRC_PATH)/, $(SRC_NAME))
-
+HDR= libft.h
 
 OBJ_PATH= obj
 OBJ_NAME= $(SRC_NAME:.c=.o)
-OBJ= $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
 
+OBJ= $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
+SRC= $(addprefix $(SRC_PATH)/, $(SRC_NAME))
+
+# **************************************************************************** #
 
 CFLAGS=  -Wall -Wextra -Werror
 CC= gcc
 HDR_FLAGS= -I.
-
 
 all: $(NAME)
 
@@ -50,10 +51,9 @@ $(NAME): $(OBJ)
 	@ranlib $(NAME)
 	@echo "\033[1;32m ->> libft: library compilled.\n\033[0m"
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HDR)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(CFLAGS) $(HDR_FLAGS) -o $@ -c $<
-
 
 clean:
 	@rm -fr $(OBJ)
@@ -65,4 +65,3 @@ fclean: clean
 	@echo "\033[0;31m ->> libft: library deleted.\n\033[0m"
 
 re: fclean all
-	
